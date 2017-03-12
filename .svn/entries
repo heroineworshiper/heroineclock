@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1"
+   name=""
+   committed-date="2005-04-25T03:04:14.270354Z"
+   url="svn://amazon/usr/svn/heroineclock"
+   kind="dir"
+   uuid="ea29bc0d-8af5-0310-9230-b95441948027"
+   revision="1"/>
+<entry
+   committed-rev="1"
+   name="executor.c"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="e58489e39c483096eff4242f410ea222"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="test.lst"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="d557a1f2654316169ef6086d233dd790"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="test.s"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="13b81f29e8a50fe3f889d40c670c0294"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="clock2vars.inc"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="0522e574e6d44242d118587633fe9814"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="clock2util.inc"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="1b78e4ebbcd306178844a88135188a31"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="16f87.xcf.bz2"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="dd6c990fa4384ce4d1fdf2756d54ce58"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="clock.s"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="bbfe14909f7d52c677ddbed94304adb1"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="electonics.xcf.bz2"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="d3fa7743531a7a7c290b83f591c5c784"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="printf.s"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="048a20bc81209d5102bd8d6737dc8314"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="init.s"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="18693bd3b398cb74f680d57cedd0f4f2"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="lib68hc11e1.c"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="186d44d2fc796b6006c10a47cd7189b1"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="parapin.c"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="a75af2a50c2d29545fdeed7f6e97ade8"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="putc.s"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="d5d6592878e4a71e079c9c6dde89e6f4"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="Makefile"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="20bd2bba624121c8205d4fffd658a400"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="lib68hc11e1.h"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="d28fa1144ba1d314eb231d2e258df851"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="music.mp3"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="a2ee178c8a1eff76e9bdb984960371e4"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="parapin.h"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="aa5e4f00fedbbdcec63ecd706572372d"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="cost.sdc"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="7350aa631ae2633553559ed7f4ebbffc"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="clock2.cod"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="52f5dab42c91efd570a01bb44d9fb5c8"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="test.cod"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="4a36a921cebbad46c7e8dd7158c783c5"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="programmer.xcf.bz2"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="9aca251b7b2181a3691e7cf9c19b93d2"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="thermotable.c"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="dc65def8bdcc93165a02b3a72a3347c5"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="programmer.c"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="73a78dd1bdce24bc5060fce25640902a"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="README"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="4c03fd4d108511a0982562155388c902"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="clock2songs.inc"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="704ea48e74302d0b4aff8af7fc65909b"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="clock2.hex"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="f97fa1053a4873f2e14541d531e2d4c3"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="parts.sdc"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="8968550828bb8ec850f5f1e8f812ff19"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="test.hex"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="78737b52709e6480f32300f27d67cbdf"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="TODO"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="a8c685593e1ca171520c317dd53b92dd"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="registers.s"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="49676a6e5d416311a858df0f05c997c6"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="clock2.s.bak"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="518a28e58e30f727fcddd66d13fe49a9"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="clock2vars.inc.bak"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="edfcfb776d3e9990c610bbb192024223"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="clock1.s"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="eba64d6091c5be9a5b3850816eed94a7"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="clock2.s"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="52986c6705bd3e738c0efd6f3e49fae7"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="memory.x"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="18a5f3b86267a42913d94f987da67e82"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+<entry
+   committed-rev="1"
+   name="clock2.lst"
+   text-time="2005-04-24T23:08:55.000000Z"
+   committed-date="2005-04-25T03:04:14.270354Z"
+   checksum="b00fe3e330280364764556c3fb7367ef"
+   kind="file"
+   prop-time="2005-04-24T23:08:55.000000Z"/>
+</wc-entries>

@@ -1,0 +1,20 @@
+Programming HeroineClock:
+
+All connections are made with the fat part of the connector facing towards the
+circuit board.
+Attach 5 pin programming cable from programmer to HeroineClock.
+Connect 12V power supply to programmer.
+Disconnect MCLR jumper on programmer.
+make and run programmer clock2.hex
+
+
+Calibrating HeroineClock thermometer:
+
+Use images/key.xcf.bz2 to find test points.
+Connect 1k resistor to thermometer connector.
+Adjust gain until temperature says 212.
+Connect 27.28k resistor to thermometer connector.
+Adjust Vlow until temperature says 32.
+
+
+
