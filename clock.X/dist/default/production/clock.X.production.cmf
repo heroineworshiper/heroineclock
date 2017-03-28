@@ -1,0 +1,1486 @@
+%CMF
+# %PSECTS Section
+# For each object file, details of its psects are enumerated here.
+# The begining of the section is indicated by %PSECTS.  The first
+# line indicates the name of the first object file, e.g.
+#    $foo.obj
+# Each line that follows describes a psect in that object file, until
+# the next object file.  The lines that describe a psect have the
+# format:
+#    <psect name> <class name> <space> <link address> <load addresses> <length> <delta>
+# All addresses and the length are given in unqualified hexadecimal
+# in delta units.  Any other numeric values are decimal.
+%PSECTS
+$dist/default/production/clock.X.production.obj
+cinit CODE 0 1776 1776 5A 1
+text0 CODE 0 8A8 8A8 29C 1
+text1 CODE 0 1B06 1B06 16 1
+text2 CODE 0 1482 1482 B6 1
+text3 CODE 0 16B0 16B0 66 1
+text4 CODE 0 DE DE 4D2 1
+text5 CODE 0 1A34 1A34 24 1
+text6 CODE 0 18FE 18FE 38 1
+text7 CODE 0 1AD6 1AD6 18 1
+text8 CODE 0 1284 1284 106 1
+text9 CODE 0 17D0 17D0 50 1
+nvCOMRAM COMRAM 1 4B 4B 1 1
+text10 CODE 0 1716 1716 60 1
+text11 CODE 0 1A58 1A58 24 1
+text12 CODE 0 B44 B44 1E6 1
+text13 CODE 0 1B1C 1B1C 12 1
+text14 CODE 0 1A7C 1A7C 20 1
+text15 CODE 0 19D6 19D6 30 1
+text16 CODE 0 1ABC 1ABC 1A 1
+text17 CODE 0 1A9C 1A9C 20 1
+text18 CODE 0 1A06 1A06 2E 1
+text19 CODE 0 1AEE 1AEE 18 1
+text20 CODE 0 15D0 15D0 70 1
+text21 CODE 0 1820 1820 4C 1
+text22 CODE 0 1936 1936 36 1
+text23 CODE 0 1640 1640 70 1
+text24 CODE 0 196C 196C 36 1
+text25 CODE 0 138A 138A F8 1
+text26 CODE 0 18B6 18B6 48 1
+text27 CODE 0 186C 186C 4A 1
+text28 CODE 0 D2A D2A 1DE 1
+text29 CODE 0 19A2 19A2 34 1
+text30 CODE 0 10C8 10C8 1BC 1
+text31 CODE 0 5B0 5B0 2F8 1
+text32 CODE 0 1538 1538 98 1
+text34 CODE 0 F08 F08 1C0 1
+nvBANK0 BANK0 1 94 94 9 1
+idataCOMRAM CODE 0 1B2E 1B2E 5 1
+cstackCOMRAM COMRAM 1 1 1 2D 1
+cstackBANK0 BANK0 1 81 81 13 1
+temp COMRAM 1 4C 4C 1 1
+bssBANK0 BANK0 1 60 60 21 1
+intcode CODE 0 8 8 D2 1
+dataCOMRAM COMRAM 1 46 46 5 1
+bssBIGRAM BIGRAM 1 9D 9D 400 1
+bssCOMRAM COMRAM 1 2E 2E 18 1
+mediumconst MEDIUMCONST 0 B95E B95E 6A2 1
+$/tmp/xcnrXnUQA.obj
+idloc IDLOC 0 200000 200000 8 1
+init CODE 0 DA DA 4 1
+text CODE 0 1B34 1B34 2 1
+reset_vec CODE 0 0 0 4 1
+config CONFIG 0 300000 300000 E 1
+# %UNUSED Section
+# This section enumerates the unused ranges of each CLASS. Each entry
+# is described on a single line as follows:
+#    <class name> <range> <delta>
+# Addresses given in the range are in hexadecimal and units of delta.
+%UNUSED
+RAM 49D-CFF 1
+SFR D00-FFF 1
+BANK4 49D-4FF 1
+BANK5 500-5FF 1
+BANK6 600-6FF 1
+BANK7 700-7FF 1
+BANK8 800-8FF 1
+BANK9 900-9FF 1
+CONST 4-7 1
+CONST 1B33-1B33 1
+CONST 1B36-B95D 1
+STACK 49D-CFF 1
+SMALLCONST 1B33-1B33 1
+SMALLCONST 1B36-B95D 1
+CODE 4-7 1
+CODE 1B33-1B33 1
+CODE 1B36-B95D 1
+BANK10 A00-AFF 1
+BANK11 B00-BFF 1
+BANK12 C00-CFF 1
+BIGRAM 4D-5F 1
+BIGRAM 49D-CFF 1
+COMRAM 4D-5F 1
+EEDATA F00000-F003FF 1
+MEDIUMCONST 1B33-1B33 1
+MEDIUMCONST 1B36-B95D 1
+# %LINETAB Section
+# This section enumerates the file/line to address mappings.
+# The beginning of the section is indicated by %LINETAB.
+# The first line indicates the name of the first object file, e.g.
+#   $foo.obj
+# Each line that follows describes a single mapping until the next
+# object file.  Mappings have the following format:
+#    <address> <psect name> <class name> ><line number>:<file name>
+# The address is absolute and given given in unqualified hex 
+# in delta units of the psect. All mappings within an object file
+# are in ascending order of addresses.
+# All other numeric values are in decimal.
+%LINETAB
+$dist/default/production/clock.X.production.obj
+8 intcode CODE >42:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+8 intcode CODE >1615:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+44 intcode CODE >1617:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+46 intcode CODE >1620:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4E intcode CODE >1639:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+52 intcode CODE >1641:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+54 intcode CODE >1642:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+58 intcode CODE >1643:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+5C intcode CODE >1649:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+62 intcode CODE >1651:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+64 intcode CODE >1652:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+68 intcode CODE >1653:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+70 intcode CODE >1654:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+82 intcode CODE >1655:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+86 intcode CODE >1656:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8A intcode CODE >1657:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+92 intcode CODE >1618:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+9C intcode CODE >1662:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F08 text34 CODE >1377:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F0A text34 CODE >1380:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F10 text34 CODE >1381:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F1E text34 CODE >1383:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F28 text34 CODE >1384:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F34 text34 CODE >1385:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F42 text34 CODE >1386:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F50 text34 CODE >1391:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F6A text34 CODE >1393:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F74 text34 CODE >1395:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F7A text34 CODE >1396:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F7C text34 CODE >1398:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F84 text34 CODE >1401:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F86 text34 CODE >1403:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F88 text34 CODE >1406:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F94 text34 CODE >1409:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F9E text34 CODE >1410:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+FA8 text34 CODE >1411:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+FB2 text34 CODE >1416:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+FB6 text34 CODE >1417:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+FCA text34 CODE >1419:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+FDC text34 CODE >1423:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+FFC text34 CODE >1425:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1002 text34 CODE >1426:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1004 text34 CODE >1429:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+100C text34 CODE >1430:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+100E text34 CODE >1432:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1022 text34 CODE >1434:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1034 text34 CODE >1438:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1054 text34 CODE >1440:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+105A text34 CODE >1441:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+105C text34 CODE >1444:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1064 text34 CODE >1445:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1066 text34 CODE >1447:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+107A text34 CODE >1449:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+108C text34 CODE >1453:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10AC text34 CODE >1455:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10B2 text34 CODE >1456:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10B4 text34 CODE >1459:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10BC text34 CODE >1504:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10C2 text34 CODE >1515:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1538 text32 CODE >8:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+153A text32 CODE >14:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+153E text32 CODE >15:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+1542 text32 CODE >16:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+154A text32 CODE >17:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+154E text32 CODE >19:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+1554 text32 CODE >20:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+155C text32 CODE >21:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+1560 text32 CODE >23:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+156A text32 CODE >24:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+1572 text32 CODE >25:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+1576 text32 CODE >26:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+1578 text32 CODE >27:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+1580 text32 CODE >28:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+1582 text32 CODE >26:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+1588 text32 CODE >31:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+1590 text32 CODE >32:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+159C text32 CODE >33:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+15A4 text32 CODE >34:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+15A6 text32 CODE >36:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+15AE text32 CODE >37:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+15B2 text32 CODE >39:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+15BA text32 CODE >40:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+15C2 text32 CODE >41:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+15CC text32 CODE >42:/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+5B0 text31 CODE >686:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+5B2 text31 CODE >688:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+5C4 text31 CODE >689:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+5E0 text31 CODE >690:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+5FE text31 CODE >691:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+61E text31 CODE >692:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+63C text31 CODE >693:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+656 text31 CODE >694:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+672 text31 CODE >695:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+692 text31 CODE >696:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+6A6 text31 CODE >697:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+6C4 text31 CODE >698:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+6DE text31 CODE >699:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+6FA text31 CODE >700:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+718 text31 CODE >701:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+738 text31 CODE >702:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+754 text31 CODE >703:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+772 text31 CODE >704:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+78A text31 CODE >705:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+7A8 text31 CODE >706:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+7C2 text31 CODE >707:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+7DE text31 CODE >708:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+7FC text31 CODE >709:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+81C text31 CODE >710:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+838 text31 CODE >711:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+856 text31 CODE >712:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+86E text31 CODE >713:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+888 text31 CODE >714:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8A4 text31 CODE >715:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10C8 text30 CODE >847:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10CA text30 CODE >850:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10CE text30 CODE >851:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10D2 text30 CODE >852:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10D6 text30 CODE >853:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10DA text30 CODE >856:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10DE text30 CODE >857:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10E4 text30 CODE >859:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10E8 text30 CODE >860:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10EC text30 CODE >863:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+10FE text30 CODE >864:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+110E text30 CODE >865:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+112A text30 CODE >866:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1146 text30 CODE >867:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1162 text30 CODE >869:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1178 text30 CODE >870:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1188 text30 CODE >871:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1198 text30 CODE >872:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+11B4 text30 CODE >873:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+11D0 text30 CODE >874:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+11EC text30 CODE >876:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+11F8 text30 CODE >877:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1208 text30 CODE >878:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1218 text30 CODE >879:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1234 text30 CODE >880:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1250 text30 CODE >881:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+126C text30 CODE >883:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+126E text30 CODE >884:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1270 text30 CODE >886:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1274 text30 CODE >888:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1276 text30 CODE >891:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+127A text30 CODE >893:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+127C text30 CODE >896:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1280 text30 CODE >897:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19A2 text29 CODE >1008:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19A4 text29 CODE >1010:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19A6 text29 CODE >1011:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19AC text29 CODE >1013:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19B0 text29 CODE >1015:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19BA text29 CODE >1017:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19CC text29 CODE >1019:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19D2 text29 CODE >1020:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D2A text28 CODE >790:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D2C text28 CODE >793:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D30 text28 CODE >794:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D34 text28 CODE >795:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D38 text28 CODE >796:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D3C text28 CODE >799:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D40 text28 CODE >800:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D46 text28 CODE >802:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D4A text28 CODE >803:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D4E text28 CODE >806:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D60 text28 CODE >807:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D70 text28 CODE >808:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D8C text28 CODE >809:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+DA8 text28 CODE >810:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+DC4 text28 CODE >812:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+DDA text28 CODE >813:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+DEA text28 CODE >814:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+DFA text28 CODE >815:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+E16 text28 CODE >816:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+E32 text28 CODE >817:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+E4E text28 CODE >819:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+E5A text28 CODE >820:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+E6A text28 CODE >821:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+E7A text28 CODE >822:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+E96 text28 CODE >823:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+EB2 text28 CODE >824:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+ECE text28 CODE >826:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+EDA text28 CODE >828:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+EDE text28 CODE >829:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+EE0 text28 CODE >832:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+EE6 text28 CODE >834:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+EE8 text28 CODE >837:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+EFC text28 CODE >839:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+EFE text28 CODE >842:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F04 text28 CODE >843:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+186C text27 CODE >990:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+186E text27 CODE >992:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1878 text27 CODE >993:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+187C text27 CODE >994:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1880 text27 CODE >995:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1884 text27 CODE >996:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1886 text27 CODE >997:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+188C text27 CODE >999:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1890 text27 CODE >1001:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+189A text27 CODE >1003:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+18AC text27 CODE >1005:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+18B2 text27 CODE >1006:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+18B6 text26 CODE >575:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+18BA text26 CODE >577:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+18C4 text26 CODE >579:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+18DE text26 CODE >580:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+18E4 text26 CODE >581:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+18EE text26 CODE >583:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+18F8 text26 CODE >586:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+138A text25 CODE >633:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+138E text25 CODE >635:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+13AC text25 CODE >636:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+13CA text25 CODE >637:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+13E8 text25 CODE >638:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1406 text25 CODE >639:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1424 text25 CODE >640:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1442 text25 CODE >641:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1460 text25 CODE >642:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+147E text25 CODE >643:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+196C text24 CODE >672:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+196E text24 CODE >674:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1974 text24 CODE >675:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+197A text24 CODE >676:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1980 text24 CODE >677:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1986 text24 CODE >678:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+198C text24 CODE >679:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1992 text24 CODE >680:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1998 text24 CODE >681:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+199E text24 CODE >683:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1640 text23 CODE >1060:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1642 text23 CODE >1062:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+164A text23 CODE >1064:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1650 text23 CODE >1066:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1654 text23 CODE >1067:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1658 text23 CODE >1068:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+165C text23 CODE >1069:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1660 text23 CODE >1070:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1662 text23 CODE >1071:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1664 text23 CODE >1073:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1668 text23 CODE >1074:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+166C text23 CODE >1075:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1670 text23 CODE >1076:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1674 text23 CODE >1077:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1678 text23 CODE >1078:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+167C text23 CODE >1079:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1680 text23 CODE >1080:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1684 text23 CODE >1081:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1688 text23 CODE >1083:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+168E text23 CODE >1084:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1690 text23 CODE >1086:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1698 text23 CODE >1088:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+169C text23 CODE >1089:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+169E text23 CODE >1091:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16A6 text23 CODE >1093:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16AA text23 CODE >1095:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1936 text22 CODE >975:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1938 text22 CODE >977:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+193A text22 CODE >978:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1942 text22 CODE >980:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1954 text22 CODE >982:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+195E text22 CODE >984:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1962 text22 CODE >987:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1968 text22 CODE >988:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1820 text21 CODE >957:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1822 text21 CODE >959:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+182C text21 CODE >960:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1830 text21 CODE >961:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1834 text21 CODE >962:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1838 text21 CODE >963:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+183A text21 CODE >964:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1842 text21 CODE >966:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1854 text21 CODE >968:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+185E text21 CODE >970:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1862 text21 CODE >972:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1868 text21 CODE >973:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+15D0 text20 CODE >1022:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+15D2 text20 CODE >1024:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+15DA text20 CODE >1026:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+15E0 text20 CODE >1028:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+15E4 text20 CODE >1029:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+15E8 text20 CODE >1030:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+15EC text20 CODE >1031:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+15F0 text20 CODE >1032:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+15F2 text20 CODE >1035:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+15F8 text20 CODE >1036:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+15FC text20 CODE >1037:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1600 text20 CODE >1038:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1604 text20 CODE >1039:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1608 text20 CODE >1040:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+160C text20 CODE >1041:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1610 text20 CODE >1042:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1614 text20 CODE >1043:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1618 text20 CODE >1045:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+161E text20 CODE >1046:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1620 text20 CODE >1048:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1628 text20 CODE >1050:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+162C text20 CODE >1051:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+162E text20 CODE >1053:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1636 text20 CODE >1055:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+163A text20 CODE >1057:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AEE text19 CODE >947:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AF0 text19 CODE >949:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AF2 text19 CODE >950:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AF8 text19 CODE >952:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AFC text19 CODE >954:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1B02 text19 CODE >955:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A06 text18 CODE >933:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A08 text18 CODE >935:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A12 text18 CODE >936:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A16 text18 CODE >937:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A1A text18 CODE >938:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A1E text18 CODE >939:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A20 text18 CODE >940:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A26 text18 CODE >942:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A2A text18 CODE >944:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A30 text18 CODE >945:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A9C text17 CODE >1111:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A9E text17 CODE >1113:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AA4 text17 CODE >1115:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AA8 text17 CODE >1116:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AAA text17 CODE >1118:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AB2 text17 CODE >1120:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AB6 text17 CODE >1122:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1ABC text16 CODE >923:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1ABE text16 CODE >925:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AC0 text16 CODE >926:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AC8 text16 CODE >928:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1ACC text16 CODE >930:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AD2 text16 CODE >931:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19D6 text15 CODE >909:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19D8 text15 CODE >911:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19E2 text15 CODE >912:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19E6 text15 CODE >913:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19EA text15 CODE >914:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19EE text15 CODE >915:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19F0 text15 CODE >916:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19F8 text15 CODE >918:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+19FC text15 CODE >920:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A02 text15 CODE >921:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A7C text14 CODE >1098:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A7E text14 CODE >1100:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A84 text14 CODE >1102:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A88 text14 CODE >1103:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A8A text14 CODE >1105:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A92 text14 CODE >1107:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A96 text14 CODE >1109:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1B1C text13 CODE >899:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1B1E text13 CODE >901:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1B20 text13 CODE >902:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1B22 text13 CODE >903:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1B24 text13 CODE >904:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1B26 text13 CODE >905:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1B2A text13 CODE >906:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+B44 text12 CODE >721:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+B46 text12 CODE >725:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+B62 text12 CODE >730:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+B9A text12 CODE >731:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+BB4 text12 CODE >732:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+BB6 text12 CODE >734:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+BEE text12 CODE >735:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+C08 text12 CODE >736:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+C0A text12 CODE >738:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+C42 text12 CODE >739:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+C5C text12 CODE >741:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+C5E text12 CODE >727:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+C8A text12 CODE >742:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+C98 text12 CODE >743:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+C9C text12 CODE >745:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+CBA text12 CODE >747:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+CC0 text12 CODE >750:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+CC6 text12 CODE >752:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+CD2 text12 CODE >753:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+CD6 text12 CODE >754:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+CDA text12 CODE >755:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+CDC text12 CODE >758:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+CF0 text12 CODE >763:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D00 text12 CODE >766:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D02 text12 CODE >767:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+D24 text12 CODE >768:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A58 text11 CODE >781:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A5A text11 CODE >783:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A6C text11 CODE >784:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A70 text11 CODE >785:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A74 text11 CODE >786:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A78 text11 CODE >787:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1716 text10 CODE >8:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+1718 text10 CODE >14:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+1720 text10 CODE >15:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+1728 text10 CODE >16:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+172C text10 CODE >17:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+172E text10 CODE >18:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+1736 text10 CODE >19:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+1738 text10 CODE >17:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+173E text10 CODE >22:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+1746 text10 CODE >23:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+1752 text10 CODE >24:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+175A text10 CODE >25:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+175C text10 CODE >27:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+1764 text10 CODE >28:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+1768 text10 CODE >29:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+176A text10 CODE >30:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+1772 text10 CODE >31:/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+17D0 text9 CODE >8:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+17D2 text9 CODE >13:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+17DA text9 CODE >14:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+17DE text9 CODE >15:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+17E0 text9 CODE >16:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+17E8 text9 CODE >17:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+17EA text9 CODE >15:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+17F0 text9 CODE >20:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+17FE text9 CODE >21:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+1806 text9 CODE >22:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+180E text9 CODE >23:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+1812 text9 CODE >24:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+1814 text9 CODE >25:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+181C text9 CODE >26:/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+1284 text8 CODE >598:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1286 text8 CODE >600:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+12AE text8 CODE >601:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+12EC text8 CODE >602:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+132A text8 CODE >603:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+136A text8 CODE >604:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1386 text8 CODE >605:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AD6 text7 CODE >613:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AD8 text7 CODE >615:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AE4 text7 CODE >616:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1AEA text7 CODE >618:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+18FE text6 CODE >588:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1900 text6 CODE >590:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1902 text6 CODE >592:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1916 text6 CODE >593:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+191A text6 CODE >590:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+192E text6 CODE >595:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1932 text6 CODE >590:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1934 text6 CODE >595:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A34 text5 CODE >772:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A36 text5 CODE >774:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A3C text5 CODE >775:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A42 text5 CODE >776:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A48 text5 CODE >777:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1A54 text5 CODE >778:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+DE text4 CODE >1160:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+E0 text4 CODE >1167:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+EA text4 CODE >1172:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+F0 text4 CODE >1173:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+102 text4 CODE >1177:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+11C text4 CODE >1179:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+132 text4 CODE >1180:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14A text4 CODE >1181:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16A text4 CODE >1182:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+170 text4 CODE >1183:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+17A text4 CODE >1186:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+266 text4 CODE >1187:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+27C text4 CODE >1189:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+284 text4 CODE >1193:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+29C text4 CODE >1207:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+2B2 text4 CODE >1208:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+2B4 text4 CODE >1212:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+2B8 text4 CODE >1215:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+2C2 text4 CODE >1218:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+2C6 text4 CODE >1219:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+2D8 text4 CODE >1221:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+2F0 text4 CODE >1219:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+2F6 text4 CODE >1224:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+2FC text4 CODE >1225:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+31C text4 CODE >1226:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+328 text4 CODE >1227:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+34E text4 CODE >1228:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+35A text4 CODE >1229:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+366 text4 CODE >1230:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+36C text4 CODE >1233:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+36E text4 CODE >1236:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+382 text4 CODE >1237:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+38E text4 CODE >1239:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+394 text4 CODE >1243:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+39A text4 CODE >1245:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+39E text4 CODE >1246:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3A2 text4 CODE >1247:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3A6 text4 CODE >1248:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3A8 text4 CODE >1251:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3B0 text4 CODE >1253:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3BC text4 CODE >1254:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3BE text4 CODE >1257:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3CC text4 CODE >1260:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3CE text4 CODE >1264:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3D8 text4 CODE >1266:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3DC text4 CODE >1267:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3E8 text4 CODE >1268:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3EC text4 CODE >1269:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3EE text4 CODE >1272:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+3F4 text4 CODE >1273:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+400 text4 CODE >1274:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+404 text4 CODE >1276:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+406 text4 CODE >1280:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+40E text4 CODE >1282:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+412 text4 CODE >1283:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+41E text4 CODE >1284:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+422 text4 CODE >1285:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+424 text4 CODE >1288:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+42A text4 CODE >1289:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+436 text4 CODE >1290:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+43A text4 CODE >1292:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+43C text4 CODE >1296:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+44A text4 CODE >1297:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+452 text4 CODE >1299:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+456 text4 CODE >1300:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+45A text4 CODE >1301:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+45C text4 CODE >1304:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+462 text4 CODE >1305:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+466 text4 CODE >1307:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+468 text4 CODE >1311:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+46E text4 CODE >1312:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+472 text4 CODE >1313:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+476 text4 CODE >1314:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+482 text4 CODE >1315:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+484 text4 CODE >1318:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+48A text4 CODE >1319:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+48E text4 CODE >1320:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+492 text4 CODE >1321:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+49E text4 CODE >1322:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4A0 text4 CODE >1326:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4AA text4 CODE >1328:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4B6 text4 CODE >1329:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4B8 text4 CODE >1332:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4BE text4 CODE >1333:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4C2 text4 CODE >1334:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4C6 text4 CODE >1335:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4D2 text4 CODE >1337:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4D4 text4 CODE >1340:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4DE text4 CODE >1342:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4EA text4 CODE >1343:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4EC text4 CODE >1346:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4F2 text4 CODE >1347:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4F6 text4 CODE >1348:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+4FA text4 CODE >1349:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+506 text4 CODE >1352:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+508 text4 CODE >1233:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+558 text4 CODE >1356:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+560 text4 CODE >1357:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+562 text4 CODE >1173:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+56A text4 CODE >1363:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+576 text4 CODE >1367:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+57A text4 CODE >1368:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+58C text4 CODE >1370:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+5A4 text4 CODE >1368:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+5AA text4 CODE >1373:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16B0 text3 CODE >1124:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16B2 text3 CODE >1126:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16B8 text3 CODE >1128:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16BC text3 CODE >1129:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16C0 text3 CODE >1130:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16C2 text3 CODE >1133:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16C6 text3 CODE >1134:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16CC text3 CODE >1136:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16D0 text3 CODE >1137:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16D2 text3 CODE >1140:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16D8 text3 CODE >1141:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16DA text3 CODE >1144:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16E0 text3 CODE >1145:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16E2 text3 CODE >1149:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16E8 text3 CODE >1150:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16EA text3 CODE >1153:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16F0 text3 CODE >1155:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+16F2 text3 CODE >1137:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1710 text3 CODE >1158:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1482 text2 CODE >1519:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1484 text2 CODE >1524:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1486 text2 CODE >1525:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+148E text2 CODE >1527:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1492 text2 CODE >1528:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1494 text2 CODE >1529:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+149C text2 CODE >1531:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14A0 text2 CODE >1532:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14A2 text2 CODE >1533:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14AA text2 CODE >1535:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14AE text2 CODE >1536:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14B0 text2 CODE >1537:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14B8 text2 CODE >1539:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14CA text2 CODE >1540:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14CC text2 CODE >1542:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14D4 text2 CODE >1544:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14D8 text2 CODE >1547:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14DA text2 CODE >1549:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14DE text2 CODE >1551:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14E0 text2 CODE >1554:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14E2 text2 CODE >1556:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14E4 text2 CODE >1557:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14EC text2 CODE >1559:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+14F0 text2 CODE >1560:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1502 text2 CODE >1561:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+150E text2 CODE >1563:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1514 text2 CODE >1589:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1520 text2 CODE >1591:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1522 text2 CODE >1592:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1528 text2 CODE >1594:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+152C text2 CODE >1595:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+152E text2 CODE >1596:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1532 text2 CODE >1599:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1B06 text1 CODE >1602:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1B08 text1 CODE >1604:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1B0C text1 CODE >1605:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1B18 text1 CODE >1608:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8A8 text0 CODE >1665:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8AA text0 CODE >1668:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8AC text0 CODE >1669:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8AE text0 CODE >1670:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8B0 text0 CODE >1673:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8B4 text0 CODE >1674:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8B8 text0 CODE >1675:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8BC text0 CODE >1676:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8C0 text0 CODE >1677:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8C4 text0 CODE >1678:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8C6 text0 CODE >1679:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8C8 text0 CODE >1682:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8CA text0 CODE >1683:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8CC text0 CODE >1684:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8CE text0 CODE >1685:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8D2 text0 CODE >1686:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8D6 text0 CODE >1690:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8DA text0 CODE >1691:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8DC text0 CODE >1696:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8E0 text0 CODE >1697:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8E4 text0 CODE >1698:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8E8 text0 CODE >1699:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+8EC text0 CODE >1705:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+904 text0 CODE >1706:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+91C text0 CODE >1707:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+934 text0 CODE >1708:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+93A text0 CODE >1709:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+940 text0 CODE >1710:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+946 text0 CODE >1711:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+94A text0 CODE >1712:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+94C text0 CODE >1713:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+950 text0 CODE >1714:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+954 text0 CODE >1715:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+956 text0 CODE >1716:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+958 text0 CODE >1721:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+95A text0 CODE >1722:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+95C text0 CODE >1723:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+95E text0 CODE >1724:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+960 text0 CODE >1725:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+962 text0 CODE >1726:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+964 text0 CODE >1727:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+966 text0 CODE >1728:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+968 text0 CODE >1729:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+96A text0 CODE >1730:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+96E text0 CODE >1731:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+970 text0 CODE >1732:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+972 text0 CODE >1733:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+974 text0 CODE >1734:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+976 text0 CODE >1735:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+978 text0 CODE >1736:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+97A text0 CODE >1737:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+97C text0 CODE >1738:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+97E text0 CODE >1739:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+980 text0 CODE >1740:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+982 text0 CODE >1742:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+986 text0 CODE >1743:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+98A text0 CODE >1748:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+98C text0 CODE >1749:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+98E text0 CODE >1753:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+9A4 text0 CODE >1755:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+9A6 text0 CODE >1753:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+9AE text0 CODE >1759:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+9BC text0 CODE >1775:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+9C8 text0 CODE >1777:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+9CA text0 CODE >1779:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+9CC text0 CODE >1787:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+9D4 text0 CODE >1788:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+9E6 text0 CODE >1791:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+9FC text0 CODE >1793:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A08 text0 CODE >1796:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A0A text0 CODE >1797:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A0C text0 CODE >1798:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A10 text0 CODE >1799:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A14 text0 CODE >1800:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A16 text0 CODE >1803:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A1A text0 CODE >1804:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A2C text0 CODE >1806:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A44 text0 CODE >1804:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A4A text0 CODE >1808:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A50 text0 CODE >1809:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A54 text0 CODE >1810:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A56 text0 CODE >1812:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A5C text0 CODE >1814:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A60 text0 CODE >1816:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A80 text0 CODE >1817:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A88 text0 CODE >1818:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A8E text0 CODE >1820:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A92 text0 CODE >1821:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A94 text0 CODE >1824:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+A9A text0 CODE >1833:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+AA0 text0 CODE >1835:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+AA2 text0 CODE >1838:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+AA8 text0 CODE >1840:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+ABA text0 CODE >1842:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+AC4 text0 CODE >1843:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+AC8 text0 CODE >1847:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+ACE text0 CODE >1848:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+AD2 text0 CODE >1850:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+AD6 text0 CODE >1858:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+AF6 text0 CODE >1860:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+AFA text0 CODE >1877:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+B0A text0 CODE >1879:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+B0C text0 CODE >1880:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+B26 text0 CODE >1881:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+B2E text0 CODE >1882:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+B38 text0 CODE >1884:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+B42 text0 CODE >1777:/Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+1776 cinit CODE >2441:/tmp/xchpVmfHD
+1776 cinit CODE >2443:/tmp/xchpVmfHD
+1776 cinit CODE >2446:/tmp/xchpVmfHD
+1776 cinit CODE >2609:/tmp/xchpVmfHD
+1778 cinit CODE >2610:/tmp/xchpVmfHD
+177A cinit CODE >2611:/tmp/xchpVmfHD
+177C cinit CODE >2612:/tmp/xchpVmfHD
+177E cinit CODE >2613:/tmp/xchpVmfHD
+1780 cinit CODE >2614:/tmp/xchpVmfHD
+1782 cinit CODE >2615:/tmp/xchpVmfHD
+1786 cinit CODE >2616:/tmp/xchpVmfHD
+178A cinit CODE >2617:/tmp/xchpVmfHD
+178A cinit CODE >2618:/tmp/xchpVmfHD
+178C cinit CODE >2619:/tmp/xchpVmfHD
+1790 cinit CODE >2620:/tmp/xchpVmfHD
+1792 cinit CODE >2621:/tmp/xchpVmfHD
+1794 cinit CODE >2622:/tmp/xchpVmfHD
+1796 cinit CODE >2626:/tmp/xchpVmfHD
+179A cinit CODE >2627:/tmp/xchpVmfHD
+179E cinit CODE >2628:/tmp/xchpVmfHD
+179E cinit CODE >2629:/tmp/xchpVmfHD
+17A0 cinit CODE >2630:/tmp/xchpVmfHD
+17A2 cinit CODE >2631:/tmp/xchpVmfHD
+17A4 cinit CODE >2632:/tmp/xchpVmfHD
+17A6 cinit CODE >2633:/tmp/xchpVmfHD
+17A8 cinit CODE >2634:/tmp/xchpVmfHD
+17AA cinit CODE >2637:/tmp/xchpVmfHD
+17AE cinit CODE >2638:/tmp/xchpVmfHD
+17B0 cinit CODE >2639:/tmp/xchpVmfHD
+17B0 cinit CODE >2640:/tmp/xchpVmfHD
+17B2 cinit CODE >2641:/tmp/xchpVmfHD
+17B4 cinit CODE >2642:/tmp/xchpVmfHD
+17B6 cinit CODE >2645:/tmp/xchpVmfHD
+17BA cinit CODE >2646:/tmp/xchpVmfHD
+17BC cinit CODE >2647:/tmp/xchpVmfHD
+17BC cinit CODE >2648:/tmp/xchpVmfHD
+17BE cinit CODE >2649:/tmp/xchpVmfHD
+17C0 cinit CODE >2650:/tmp/xchpVmfHD
+17C2 cinit CODE >2656:/tmp/xchpVmfHD
+17C2 cinit CODE >2658:/tmp/xchpVmfHD
+17C4 cinit CODE >2659:/tmp/xchpVmfHD
+17C6 cinit CODE >2661:/tmp/xchpVmfHD
+17C8 cinit CODE >2662:/tmp/xchpVmfHD
+17CA cinit CODE >2663:/tmp/xchpVmfHD
+17CC cinit CODE >2664:/tmp/xchpVmfHD
+# %SYMTAB Section
+# An enumeration of all symbols in the program.
+# The beginning of the section is indicated by %SYMTAB.
+# Each line describes a single symbol as follows:
+#    <label> <value> [-]<load-adj> <class> <space> <psect> <file-name>
+# The value and load-adj are both in unqualified hexadecimal.
+# All other numeric values are in decimal.  The load-adj is the
+# quantity one needs to add to the symbol value in order to obtain the load
+# address of the symbol.  This value may be signed. If the symbol
+# was defined in a psect then <psect> will be "-". File-name
+# is the name of the object file in which the symbol was defined.
+%SYMTAB
+__end_of_decrement_time_minutes 1A34 0 CODE 0 text18 dist/default/production/clock.X.production.obj
+_do_minute_up 1A7C 0 CODE 0 text14 dist/default/production/clock.X.production.obj
+___awdiv@counter 18 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+___lwmod@counter 1F 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__Lmediumconst B95E 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+play_song@ptr 14 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__Hspace_0 30000E 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Hspace_1 49D 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Hspace_2 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_dump_leds 196C 0 CODE 0 text24 dist/default/production/clock.X.production.obj
+_osc2_volume 9B 0 BANK0 1 nvBANK0 dist/default/production/clock.X.production.obj
+__end_of_up_tone BFB9 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_write_leds 8A8 0 CODE 0 text31 dist/default/production/clock.X.production.obj
+_time_hz 41 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+__Hibigdata 0 0 CODE 0 ibigdata dist/default/production/clock.X.production.obj
+_led_mask0 4B 0 COMRAM 1 nvCOMRAM dist/default/production/clock.X.production.obj
+_led_mask1 36 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+_led_mask2 35 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+_led_mask3 34 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+__mediumconst B95E 0 MEDIUMCONST 0 mediumconst /tmp/xcnrXnUQA.obj
+__end_of_alarm_song BE71 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_osc1_period 98 0 BANK0 1 nvBANK0 dist/default/production/clock.X.production.obj
+__Heeprom_data 0 0 EEDATA 0 eeprom_data dist/default/production/clock.X.production.obj
+__size_of_start_alarm 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_uart_position1 7A 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+_uart_position2 78 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+_decay_count 76 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+__end_of_alarm_on_tone BF0D 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_print_number 1AD6 0 CODE 0 text7 dist/default/production/clock.X.production.obj
+main@i 91 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+__size_of_increment_alarm_hours 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_draw_alarm 10C8 0 CODE 0 text30 dist/default/production/clock.X.production.obj
+__Lsmallconst 0 0 SMALLCONST 0 smallconst dist/default/production/clock.X.production.obj
+___sp 0 0 STACK 2 stack /tmp/xcnrXnUQA.obj
+_ampm 3E 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+_main 8A8 0 CODE 0 text0 dist/default/production/clock.X.production.obj
+_mode 3C 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+btemp 4C 0 COMRAM 1 temp dist/default/production/clock.X.production.obj
+__HbssBIGRAM 0 0 ABS 0 bssBIGRAM dist/default/production/clock.X.production.obj
+start DA 0 CODE 0 init /tmp/xcnrXnUQA.obj
+__size_of___awdiv 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_print_bin_nospace$802 15 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+_print_bin_nospace$803 17 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+_print_bin_nospace$804 19 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+_print_bin_nospace$805 1B 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+_print_bin_nospace$806 1D 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+_print_bin_nospace$807 1F 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+_print_bin_nospace$808 21 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+_print_bin_nospace$809 23 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+draw_time@hours10 1E 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__size_of_main 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__size_of___lwdiv 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__size_of___lwmod 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__HbssCOMRAM 0 0 ABS 0 bssCOMRAM dist/default/production/clock.X.production.obj
+_alarm_off_tone BF0D 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_power_data BE29 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_led_masks2 BEE9 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_led_masks3 BEC1 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_led_masks4 BE99 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_volume_dn_data BD0D 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_increment_time_minutes 1A06 0 CODE 0 text15 dist/default/production/clock.X.production.obj
+_osc1_volume 9C 0 BANK0 1 nvBANK0 dist/default/production/clock.X.production.obj
+_volume_up_data BD0D 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__size_of_do_minute_up 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Hpowerup DA 0 CODE 0 powerup dist/default/production/clock.X.production.obj
+__size_of_print_bin_nospace 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_print_byte 18B6 0 CODE 0 text26 dist/default/production/clock.X.production.obj
+_print_text 18FE 0 CODE 0 text6 dist/default/production/clock.X.production.obj
+_song_delay 43 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+__LnvCOMRAM 0 0 ABS 0 nvCOMRAM dist/default/production/clock.X.production.obj
+__HdataCOMRAM 0 0 ABS 0 dataCOMRAM dist/default/production/clock.X.production.obj
+__LbssBIGRAM 0 0 ABS 0 bssBIGRAM dist/default/production/clock.X.production.obj
+_alarm_minutes 39 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+__size_of_increment_time_hours 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__accesstop 60 0 ABS 0 - /tmp/xcnrXnUQA.obj
+intlevel0 1B34 0 CODE 0 text /tmp/xcnrXnUQA.obj
+intlevel1 1B34 0 CODE 0 text /tmp/xcnrXnUQA.obj
+intlevel2 1B34 0 CODE 0 text /tmp/xcnrXnUQA.obj
+intlevel3 1B34 0 CODE 0 text /tmp/xcnrXnUQA.obj
+__LbssCOMRAM 0 0 ABS 0 bssCOMRAM dist/default/production/clock.X.production.obj
+_next_duty 45 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+_number1_data BAD5 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__LnvFARRAM 0 0 FARRAM 0 nvFARRAM dist/default/production/clock.X.production.obj
+__size_of_print_number 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_number2_data BA47 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_got_ir_int 31 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+_number3_data B9B9 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__Hifardata 0 0 CODE 0 ifardata dist/default/production/clock.X.production.obj
+__end_of_do_minute_up 1A9C 0 CODE 0 text14 dist/default/production/clock.X.production.obj
+__end_of_hex_table B9B9 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+___awdiv@sign 19 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__Hclrtext 0 0 ABS 0 clrtext dist/default/production/clock.X.production.obj
+__end_of_increment_time_hours 186C 0 CODE 0 text21 dist/default/production/clock.X.production.obj
+__pidataCOMRAM 1B2E 0 CODE 0 idataCOMRAM dist/default/production/clock.X.production.obj
+_increment_alarm_minutes 1ABC 0 CODE 0 text16 dist/default/production/clock.X.production.obj
+__end_of_draw_alarm 1284 0 CODE 0 text30 dist/default/production/clock.X.production.obj
+_ADCON1 FC1 0 ABS 0 - dist/default/production/clock.X.production.obj
+__end_of_alarm_off_tone BF31 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_increment_alarm_minutes 1AD6 0 CODE 0 text16 dist/default/production/clock.X.production.obj
+___awdiv@dividend 14 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+___inthi_sp 0 0 STACK 2 stack /tmp/xcnrXnUQA.obj
+___intlo_sp 0 0 STACK 2 stack /tmp/xcnrXnUQA.obj
+__LdataCOMRAM 0 0 ABS 0 dataCOMRAM dist/default/production/clock.X.production.obj
+__end_of_print_number 1AEE 0 CODE 0 text7 dist/default/production/clock.X.production.obj
+_CCPR1L FBE 0 ABS 0 - dist/default/production/clock.X.production.obj
+_CCPR2H FBC 0 ABS 0 - dist/default/production/clock.X.production.obj
+_CCPR2L FBB 0 ABS 0 - dist/default/production/clock.X.production.obj
+_do_minute_down 1A9C 0 CODE 0 text17 dist/default/production/clock.X.production.obj
+__cntErrataNOP_/tmp/xcnrXnUQA.obj 1 0 ABS 0 - /tmp/xcnrXnUQA.obj
+__end_of_volume_up_data BD9B 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__Hintcode_body 0 0 ABS 0 intcode_body dist/default/production/clock.X.production.obj
+_hex_table B9A9 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__Lintsave_regs 0 0 BIGRAM 1 intsave_regs dist/default/production/clock.X.production.obj
+_decrement_alarm_minutes 1AEE 0 CODE 0 text19 dist/default/production/clock.X.production.obj
+__Hmediumconst C000 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__LnvBANK0 0 0 ABS 0 nvBANK0 dist/default/production/clock.X.production.obj
+__end_of_print_byte 18FE 0 CODE 0 text26 dist/default/production/clock.X.production.obj
+__Hintcodelo DA 0 CODE 0 intcodelo dist/default/production/clock.X.production.obj
+__end_of_print_text 1936 0 CODE 0 text6 dist/default/production/clock.X.production.obj
+_ir_codes BF31 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+___awdiv@divisor 16 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+___lwmod@divisor 1D 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__end_of_decrement_alarm_minutes 1B06 0 CODE 0 text19 dist/default/production/clock.X.production.obj
+_ir_time2 68 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+__end_of___awdiv 15D0 0 CODE 0 text32 dist/default/production/clock.X.production.obj
+_dn_tone BFA1 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of___lwdiv 1776 0 CODE 0 text10 dist/default/production/clock.X.production.obj
+__end_of___lwmod 1820 0 CODE 0 text9 dist/default/production/clock.X.production.obj
+_set_time_tone1 BF65 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_set_time_tone2 BF51 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_set_alarm_tone1 BFA1 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_set_alarm_tone2 BF8D 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_ir_codes BF51 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_need_audio 80 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+handle_ir@code 8C 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+handle_ir@data 86 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+_print_number_nospace 1284 0 CODE 0 text8 dist/default/production/clock.X.production.obj
+___lwdiv@quotient 19 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__LidataCOMRAM 0 0 ABS 0 idataCOMRAM dist/default/production/clock.X.production.obj
+__size_of_decrement_alarm_hours 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__end_of_number1_data BB63 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+print_number@number 22 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__HnvCOMRAM 0 0 ABS 0 nvCOMRAM dist/default/production/clock.X.production.obj
+_INTCON2bits FF1 0 ABS 0 - dist/default/production/clock.X.production.obj
+_INTCON3bits FF0 0 ABS 0 - dist/default/production/clock.X.production.obj
+___lwmod@dividend 1B 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__Lintcodelo DA 0 CODE 0 intcodelo dist/default/production/clock.X.production.obj
+__end_of_number2_data BAD5 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_test_tone BFC5 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+draw_alarm@hours10 1E 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+start_initialization 1776 0 CODE 0 cinit dist/default/production/clock.X.production.obj
+__size_of_decrement_time_minutes 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__end_of_number3_data BA47 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__HnvFARRAM 0 0 FARRAM 0 nvFARRAM dist/default/production/clock.X.production.obj
+__end_of_do_minute_down 1ABC 0 CODE 0 text17 dist/default/production/clock.X.production.obj
+_TRISAbits F92 0 ABS 0 - dist/default/production/clock.X.production.obj
+_TRISCbits F94 0 ABS 0 - dist/default/production/clock.X.production.obj
+_TRISDbits F95 0 ABS 0 - dist/default/production/clock.X.production.obj
+_TRISFbits F97 0 ABS 0 - dist/default/production/clock.X.production.obj
+_TRISGbits F98 0 ABS 0 - dist/default/production/clock.X.production.obj
+_do_hour_down 1640 0 CODE 0 text23 dist/default/production/clock.X.production.obj
+__size_of_write_leds 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__end_of_prev_track_data BBF1 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_print_bin_nospace 1482 0 CODE 0 text25 dist/default/production/clock.X.production.obj
+___rparam_used 1 0 ABS 0 - dist/default/production/clock.X.production.obj
+_have_ir 32 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+_SPBRGH F7F 0 ABS 0 - dist/default/production/clock.X.production.obj
+__pcstackBANK0 81 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+draw_alarm@minutes10 1F 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+_test_tone BFB9 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_start_alarm 1B06 0 CODE 0 text1 dist/default/production/clock.X.production.obj
+__end_of_set_time_tone1 BF79 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_set_time_tone2 BF65 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_set_alarm_tone1 BF8D 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_set_alarm_tone2 BF79 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_handle_song D2A 0 CODE 0 text12 dist/default/production/clock.X.production.obj
+__end_of_handle_time 1538 0 CODE 0 text2 dist/default/production/clock.X.production.obj
+_up_tone BFAD 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+handle_ir@i 8A 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+handle_ir@j 8E 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+_decrement_time_hours 186C 0 CODE 0 text27 dist/default/production/clock.X.production.obj
+main@test_time 8F 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+__Hbank0 0 0 ABS 0 bank0 dist/default/production/clock.X.production.obj
+__Hbank1 0 0 ABS 0 bank1 dist/default/production/clock.X.production.obj
+__Hbank2 0 0 ABS 0 bank2 dist/default/production/clock.X.production.obj
+__Hbank3 0 0 ABS 0 bank3 dist/default/production/clock.X.production.obj
+__Hbank4 0 0 ABS 0 bank4 dist/default/production/clock.X.production.obj
+__Hbank5 0 0 ABS 0 bank5 dist/default/production/clock.X.production.obj
+__Hbank6 0 0 ABS 0 bank6 dist/default/production/clock.X.production.obj
+__Hbank7 0 0 ABS 0 bank7 dist/default/production/clock.X.production.obj
+__Hbank8 0 0 ABS 0 bank8 dist/default/production/clock.X.production.obj
+__Hbank9 0 0 ABS 0 bank9 dist/default/production/clock.X.production.obj
+__Hcinit 0 0 ABS 0 cinit dist/default/production/clock.X.production.obj
+__Hconst 0 0 CONST 0 const dist/default/production/clock.X.production.obj
+__size_of_increment_time_minutes 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+print_byte@c 14 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__Hidata 0 0 CODE 0 idata dist/default/production/clock.X.production.obj
+__Hidloc 200008 0 IDLOC 0 idloc dist/default/production/clock.X.production.obj
+__Hnvbit 0 0 COMRAM 1 nvbit dist/default/production/clock.X.production.obj
+__Hparam 0 0 COMRAM 1 rparam dist/default/production/clock.X.production.obj
+__Hrdata 0 0 COMRAM 1 rdata dist/default/production/clock.X.production.obj
+__Hstack 0 0 STACK 2 stack dist/default/production/clock.X.production.obj
+__Htext0 0 0 ABS 0 text0 dist/default/production/clock.X.production.obj
+__Htext1 0 0 ABS 0 text1 dist/default/production/clock.X.production.obj
+__Htext2 0 0 ABS 0 text2 dist/default/production/clock.X.production.obj
+__Htext3 0 0 ABS 0 text3 dist/default/production/clock.X.production.obj
+__Htext4 0 0 ABS 0 text4 dist/default/production/clock.X.production.obj
+__Htext5 0 0 ABS 0 text5 dist/default/production/clock.X.production.obj
+__Htext6 0 0 ABS 0 text6 dist/default/production/clock.X.production.obj
+__Htext7 0 0 ABS 0 text7 dist/default/production/clock.X.production.obj
+__Htext8 0 0 ABS 0 text8 dist/default/production/clock.X.production.obj
+__Htext9 0 0 ABS 0 text9 dist/default/production/clock.X.production.obj
+_uart_buffer 9D 0 BIGRAM 1 bssBIGRAM dist/default/production/clock.X.production.obj
+___lwdiv@counter 18 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__Hbank10 0 0 ABS 0 bank10 dist/default/production/clock.X.production.obj
+__Hbank11 0 0 ABS 0 bank11 dist/default/production/clock.X.production.obj
+__Hbank12 0 0 ABS 0 bank12 dist/default/production/clock.X.production.obj
+_repeating 3B 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+__Hbigbss 0 0 BIGRAM 1 bigbss dist/default/production/clock.X.production.obj
+__Hbigram 0 0 ABS 0 bigram dist/default/production/clock.X.production.obj
+__smallconst 0 0 SMALLCONST 0 smallconst /tmp/xcnrXnUQA.obj
+__Hcomram 0 0 ABS 0 comram dist/default/production/clock.X.production.obj
+__Hconfig 30000E 0 CONFIG 0 config dist/default/production/clock.X.production.obj
+__size_of_do_hour_down 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Lbank0 0 0 ABS 0 bank0 dist/default/production/clock.X.production.obj
+__Lbank1 0 0 ABS 0 bank1 dist/default/production/clock.X.production.obj
+__Lbank2 0 0 ABS 0 bank2 dist/default/production/clock.X.production.obj
+__Lbank3 0 0 ABS 0 bank3 dist/default/production/clock.X.production.obj
+__Lbank4 0 0 ABS 0 bank4 dist/default/production/clock.X.production.obj
+__Lbank5 0 0 ABS 0 bank5 dist/default/production/clock.X.production.obj
+__Lbank6 0 0 ABS 0 bank6 dist/default/production/clock.X.production.obj
+__Lbank7 0 0 ABS 0 bank7 dist/default/production/clock.X.production.obj
+__Lbank8 0 0 ABS 0 bank8 dist/default/production/clock.X.production.obj
+__Lbank9 0 0 ABS 0 bank9 dist/default/production/clock.X.production.obj
+print_number_nospace@number 20 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__Lcinit 0 0 ABS 0 cinit dist/default/production/clock.X.production.obj
+__Lconst 0 0 CONST 0 const dist/default/production/clock.X.production.obj
+__Lidata 0 0 CODE 0 idata dist/default/production/clock.X.production.obj
+__Lidloc 200000 0 IDLOC 0 idloc dist/default/production/clock.X.production.obj
+__Lnvbit 0 0 COMRAM 1 nvbit dist/default/production/clock.X.production.obj
+__Lparam 0 0 COMRAM 1 rparam dist/default/production/clock.X.production.obj
+__Lrdata 0 0 COMRAM 1 rdata dist/default/production/clock.X.production.obj
+__Lstack 0 0 STACK 2 stack dist/default/production/clock.X.production.obj
+__Ltext0 0 0 ABS 0 text0 dist/default/production/clock.X.production.obj
+__Ltext1 0 0 ABS 0 text1 dist/default/production/clock.X.production.obj
+__Ltext2 0 0 ABS 0 text2 dist/default/production/clock.X.production.obj
+__Ltext3 0 0 ABS 0 text3 dist/default/production/clock.X.production.obj
+__Ltext4 0 0 ABS 0 text4 dist/default/production/clock.X.production.obj
+__Ltext5 0 0 ABS 0 text5 dist/default/production/clock.X.production.obj
+__Ltext6 0 0 ABS 0 text6 dist/default/production/clock.X.production.obj
+__Ltext7 0 0 ABS 0 text7 dist/default/production/clock.X.production.obj
+__Ltext8 0 0 ABS 0 text8 dist/default/production/clock.X.production.obj
+__Ltext9 0 0 ABS 0 text9 dist/default/production/clock.X.production.obj
+_prev_track_data BB63 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__Hfarbss 0 0 FARRAM 0 farbss dist/default/production/clock.X.production.obj
+__Lintcode_body 0 0 ABS 0 intcode_body dist/default/production/clock.X.production.obj
+__end_of_stop_song 1A58 0 CODE 0 text5 dist/default/production/clock.X.production.obj
+_INTCONbits FF2 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Habs1 0 0 ABS 0 abs1 dist/default/production/clock.X.production.obj
+__Hdata 0 0 ABS 0 data dist/default/production/clock.X.production.obj
+__Hinit DE 0 CODE 0 init dist/default/production/clock.X.production.obj
+__Hrbit 0 0 COMRAM 1 rbit dist/default/production/clock.X.production.obj
+__Hrbss 0 0 COMRAM 1 rbss dist/default/production/clock.X.production.obj
+__Htemp 4D 0 COMRAM 1 temp dist/default/production/clock.X.production.obj
+__Htext 0 0 ABS 0 text dist/default/production/clock.X.production.obj
+__Labs1 0 0 ABS 0 abs1 dist/default/production/clock.X.production.obj
+__Ldata 0 0 ABS 0 data dist/default/production/clock.X.production.obj
+__Linit DA 0 CODE 0 init dist/default/production/clock.X.production.obj
+__Lrbit 0 0 COMRAM 1 rbit dist/default/production/clock.X.production.obj
+__Lrbss 0 0 COMRAM 1 rbss dist/default/production/clock.X.production.obj
+__Ltemp 4C 0 COMRAM 1 temp dist/default/production/clock.X.production.obj
+__Ltext 0 0 ABS 0 text dist/default/production/clock.X.production.obj
+__size_of_stop_song 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__pnvBANK0 94 0 BANK0 1 nvBANK0 dist/default/production/clock.X.production.obj
+_handle_audio F08 0 CODE 0 text34 dist/default/production/clock.X.production.obj
+__LcstackBANK0 0 0 ABS 0 cstackBANK0 dist/default/production/clock.X.production.obj
+int$flags 4C 0 COMRAM 1 temp dist/default/production/clock.X.production.obj
+__HcstackCOMRAM 0 0 ABS 0 cstackCOMRAM dist/default/production/clock.X.production.obj
+handle_ir@error 88 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+__Hintret 0 0 ABS 0 intret dist/default/production/clock.X.production.obj
+handle_ir@i_916 8B 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+__Hirdata 0 0 CODE 0 irdata dist/default/production/clock.X.production.obj
+_do_hour_up 15D0 0 CODE 0 text20 dist/default/production/clock.X.production.obj
+_PR2 FCB 0 ABS 0 - dist/default/production/clock.X.production.obj
+__S0 30000E 0 ABS 0 - dist/default/production/clock.X.production.obj
+__S1 49D 0 ABS 0 - dist/default/production/clock.X.production.obj
+__S2 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_isr 8 0 CODE 0 intcode dist/default/production/clock.X.production.obj
+__end_of_do_hour_down 16B0 0 CODE 0 text23 dist/default/production/clock.X.production.obj
+__size_of_draw_alarm 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__pnvCOMRAM 4B 0 COMRAM 1 nvCOMRAM dist/default/production/clock.X.production.obj
+__end_of_handle_ir 5B0 0 CODE 0 text4 dist/default/production/clock.X.production.obj
+draw_time@ptr 20 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+_stop_song 1A34 0 CODE 0 text5 dist/default/production/clock.X.production.obj
+_print_bin_nospace 138A 0 CODE 0 text25 dist/default/production/clock.X.production.obj
+__size_of_handle_ir 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+print_bin_nospace@number 25 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__HidataCOMRAM 0 0 ABS 0 idataCOMRAM dist/default/production/clock.X.production.obj
+__Lbigdata 0 0 BIGRAM 1 bigdata dist/default/production/clock.X.production.obj
+__Hnvrram 0 0 COMRAM 1 nvrram dist/default/production/clock.X.production.obj
+__end_of_isr DA 0 CODE 0 intcode dist/default/production/clock.X.production.obj
+__HnvBANK0 0 0 ABS 0 nvBANK0 dist/default/production/clock.X.production.obj
+__Lintentry 0 0 ABS 0 intentry dist/default/production/clock.X.production.obj
+__size_of_print_byte 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__size_of_print_text 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__end_of_next_track_data BC7F 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__Hramtop D00 0 RAM 0 ramtop dist/default/production/clock.X.production.obj
+_ir_code_failed 60 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+print_text@s 15 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__Hrparam 0 0 COMRAM 1 rparam dist/default/production/clock.X.production.obj
+__size_of_handle_audio 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_handle_ir DE 0 CODE 0 text4 dist/default/production/clock.X.production.obj
+__activetblptr 2 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Hstruct 0 0 COMRAM 1 struct dist/default/production/clock.X.production.obj
+__LbssBANK0 0 0 ABS 0 bssBANK0 dist/default/production/clock.X.production.obj
+__Htext10 0 0 ABS 0 text10 dist/default/production/clock.X.production.obj
+__Htext11 0 0 ABS 0 text11 dist/default/production/clock.X.production.obj
+__Htext12 0 0 ABS 0 text12 dist/default/production/clock.X.production.obj
+__Htext13 0 0 ABS 0 text13 dist/default/production/clock.X.production.obj
+__Htext14 0 0 ABS 0 text14 dist/default/production/clock.X.production.obj
+__Htext15 0 0 ABS 0 text15 dist/default/production/clock.X.production.obj
+__Htext16 0 0 ABS 0 text16 dist/default/production/clock.X.production.obj
+__Htext17 0 0 ABS 0 text17 dist/default/production/clock.X.production.obj
+__Htext18 0 0 ABS 0 text18 dist/default/production/clock.X.production.obj
+__Htext19 0 0 ABS 0 text19 dist/default/production/clock.X.production.obj
+__Htext20 0 0 ABS 0 text20 dist/default/production/clock.X.production.obj
+__Htext21 0 0 ABS 0 text21 dist/default/production/clock.X.production.obj
+__Htext22 0 0 ABS 0 text22 dist/default/production/clock.X.production.obj
+__Htext23 0 0 ABS 0 text23 dist/default/production/clock.X.production.obj
+__Htext24 0 0 ABS 0 text24 dist/default/production/clock.X.production.obj
+__Htext25 0 0 ABS 0 text25 dist/default/production/clock.X.production.obj
+__Htext26 0 0 ABS 0 text26 dist/default/production/clock.X.production.obj
+__Htext27 0 0 ABS 0 text27 dist/default/production/clock.X.production.obj
+__Htext28 0 0 ABS 0 text28 dist/default/production/clock.X.production.obj
+__Htext29 0 0 ABS 0 text29 dist/default/production/clock.X.production.obj
+__Htext30 0 0 ABS 0 text30 dist/default/production/clock.X.production.obj
+__Htext31 0 0 ABS 0 text31 dist/default/production/clock.X.production.obj
+__Htext32 0 0 ABS 0 text32 dist/default/production/clock.X.production.obj
+__Htext34 0 0 ABS 0 text34 dist/default/production/clock.X.production.obj
+__end_of_play_song 1A7C 0 CODE 0 text11 dist/default/production/clock.X.production.obj
+__end_of_increment_alarm_hours 196C 0 CODE 0 text22 dist/default/production/clock.X.production.obj
+_osc1_time 72 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+__size_of_play_song 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_PIE1bits F9D 0 ABS 0 - dist/default/production/clock.X.production.obj
+_osc2_time 70 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+_increment_time_hours 1820 0 CODE 0 text21 dist/default/production/clock.X.production.obj
+handle_audio@amplitude 3 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+_osc3_time 6E 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+__ptext10 1716 0 CODE 0 text10 dist/default/production/clock.X.production.obj
+__ptext11 1A58 0 CODE 0 text11 dist/default/production/clock.X.production.obj
+__ptext12 B44 0 CODE 0 text12 dist/default/production/clock.X.production.obj
+__ptext13 1B1C 0 CODE 0 text13 dist/default/production/clock.X.production.obj
+__ptext14 1A7C 0 CODE 0 text14 dist/default/production/clock.X.production.obj
+__ptext15 19D6 0 CODE 0 text15 dist/default/production/clock.X.production.obj
+__ptext16 1ABC 0 CODE 0 text16 dist/default/production/clock.X.production.obj
+__ptext17 1A9C 0 CODE 0 text17 dist/default/production/clock.X.production.obj
+__ptext18 1A06 0 CODE 0 text18 dist/default/production/clock.X.production.obj
+__ptext19 1AEE 0 CODE 0 text19 dist/default/production/clock.X.production.obj
+__ptext20 15D0 0 CODE 0 text20 dist/default/production/clock.X.production.obj
+__ptext21 1820 0 CODE 0 text21 dist/default/production/clock.X.production.obj
+__ptext22 1936 0 CODE 0 text22 dist/default/production/clock.X.production.obj
+__ptext23 1640 0 CODE 0 text23 dist/default/production/clock.X.production.obj
+__ptext24 196C 0 CODE 0 text24 dist/default/production/clock.X.production.obj
+__ptext25 138A 0 CODE 0 text25 dist/default/production/clock.X.production.obj
+__ptext26 18B6 0 CODE 0 text26 dist/default/production/clock.X.production.obj
+__ptext27 186C 0 CODE 0 text27 dist/default/production/clock.X.production.obj
+__ptext28 D2A 0 CODE 0 text28 dist/default/production/clock.X.production.obj
+__ptext29 19A2 0 CODE 0 text29 dist/default/production/clock.X.production.obj
+__ptext30 10C8 0 CODE 0 text30 dist/default/production/clock.X.production.obj
+__ptext31 5B0 0 CODE 0 text31 dist/default/production/clock.X.production.obj
+__ptext32 1538 0 CODE 0 text32 dist/default/production/clock.X.production.obj
+__ptext34 F08 0 CODE 0 text34 dist/default/production/clock.X.production.obj
+_alarm_sounding 47 0 COMRAM 1 dataCOMRAM dist/default/production/clock.X.production.obj
+___awdiv 1538 0 CODE 0 text32 dist/default/production/clock.X.production.obj
+_BAUDCTL F7E 0 ABS 0 - dist/default/production/clock.X.production.obj
+___lwdiv 1716 0 CODE 0 text10 dist/default/production/clock.X.production.obj
+___lwmod 17D0 0 CODE 0 text9 dist/default/production/clock.X.production.obj
+__end_of_do_hour_up 1640 0 CODE 0 text20 dist/default/production/clock.X.production.obj
+__Lbank10 0 0 ABS 0 bank10 dist/default/production/clock.X.production.obj
+__Lbank11 0 0 ABS 0 bank11 dist/default/production/clock.X.production.obj
+__Lbank12 0 0 ABS 0 bank12 dist/default/production/clock.X.production.obj
+__Lbigbss 0 0 BIGRAM 1 bigbss dist/default/production/clock.X.production.obj
+__Lbigram 0 0 ABS 0 bigram dist/default/production/clock.X.production.obj
+draw_alarm@ptr 20 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__end_of_handle_audio 10C8 0 CODE 0 text34 dist/default/production/clock.X.production.obj
+__Lcomram 0 0 ABS 0 comram dist/default/production/clock.X.production.obj
+__Lconfig 300000 0 CONFIG 0 config dist/default/production/clock.X.production.obj
+_play_song 1A58 0 CODE 0 text11 dist/default/production/clock.X.production.obj
+_increment_alarm_hours 1936 0 CODE 0 text22 dist/default/production/clock.X.production.obj
+_LATAbits F89 0 ABS 0 - dist/default/production/clock.X.production.obj
+_LATCbits F8B 0 ABS 0 - dist/default/production/clock.X.production.obj
+_LATDbits F8C 0 ABS 0 - dist/default/production/clock.X.production.obj
+_LATEbits F8D 0 ABS 0 - dist/default/production/clock.X.production.obj
+__end_of_draw_test 1B2E 0 CODE 0 text13 dist/default/production/clock.X.production.obj
+__end_of_draw_time F08 0 CODE 0 text28 dist/default/production/clock.X.production.obj
+_LATFbits F8E 0 ABS 0 - dist/default/production/clock.X.production.obj
+_LATGbits F8F 0 ABS 0 - dist/default/production/clock.X.production.obj
+__size_of_draw_test 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__size_of_draw_time 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__size_of_handle_song 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__size_of_handle_time 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Lfarbss 0 0 FARRAM 0 farbss dist/default/production/clock.X.production.obj
+___lwdiv@divisor 16 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__Lfardata 0 0 FARRAM 0 fardata dist/default/production/clock.X.production.obj
+_crystal_time 6C 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+_first_edge 46 0 COMRAM 1 dataCOMRAM dist/default/production/clock.X.production.obj
+__size_of_increment_alarm_minutes 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_next_track_data BBF1 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+stackhi CFF 0 ABS 0 - /tmp/xcnrXnUQA.obj
+stacklo 49D 0 ABS 0 - /tmp/xcnrXnUQA.obj
+__Lintcode 8 0 CODE 0 intcode dist/default/production/clock.X.production.obj
+_seconds 40 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+__Lintret 0 0 ABS 0 intret dist/default/production/clock.X.production.obj
+__Lirdata 0 0 CODE 0 irdata dist/default/production/clock.X.production.obj
+__CFG_LVP$OFF 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__pbssBIGRAM 9D 0 BIGRAM 1 bssBIGRAM dist/default/production/clock.X.production.obj
+_decrement_time_minutes 1A06 0 CODE 0 text18 dist/default/production/clock.X.production.obj
+_handle_repeat 16B0 0 CODE 0 text3 dist/default/production/clock.X.production.obj
+_draw_test 1B1C 0 CODE 0 text13 dist/default/production/clock.X.production.obj
+_draw_time D2A 0 CODE 0 text28 dist/default/production/clock.X.production.obj
+__Lspace_0 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Lspace_1 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Lspace_2 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__pbssCOMRAM 2E 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+__HcstackBANK0 0 0 ABS 0 cstackBANK0 dist/default/production/clock.X.production.obj
+_song_ptr 2E 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+_PIR1bits F9E 0 ABS 0 - dist/default/production/clock.X.production.obj
+_PIR2bits FA1 0 ABS 0 - dist/default/production/clock.X.production.obj
+__LcstackCOMRAM 0 0 ABS 0 cstackCOMRAM dist/default/production/clock.X.production.obj
+_repeat_counter 3A 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+end_of_initialization 17C2 0 CODE 0 cinit dist/default/production/clock.X.production.obj
+__size_of_decrement_alarm_minutes 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Lnvrram 0 0 COMRAM 1 nvrram dist/default/production/clock.X.production.obj
+_display_flash 42 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+__Hintentry 0 0 ABS 0 intentry dist/default/production/clock.X.production.obj
+___awdiv@quotient 1A 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+?___awdiv 14 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+___lwdiv@dividend 14 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+?___lwdiv 14 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+?___lwmod 1B 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__Hreset_vec 4 0 CODE 0 reset_vec dist/default/production/clock.X.production.obj
+main@i_1023 93 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+__HbssBANK0 0 0 ABS 0 bssBANK0 dist/default/production/clock.X.production.obj
+__cntErrataNOP_dist/default/production/clock.X.production.obj 141 0 ABS 0 - dist/default/production/clock.X.production.obj
+draw_time@minutes10 1F 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+__size_of_do_minute_down 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_alarm_hours 48 0 COMRAM 1 dataCOMRAM dist/default/production/clock.X.production.obj
+__Lramtop D00 0 RAM 0 ramtop dist/default/production/clock.X.production.obj
+__end_of_start_alarm 1B1C 0 CODE 0 text1 dist/default/production/clock.X.production.obj
+__Lrparam 0 0 COMRAM 1 rparam dist/default/production/clock.X.production.obj
+_alarm_on_tone BEE9 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__pcinit 1776 0 CODE 0 cinit dist/default/production/clock.X.production.obj
+__ptext0 8A8 0 CODE 0 text0 dist/default/production/clock.X.production.obj
+__ptext1 1B06 0 CODE 0 text1 dist/default/production/clock.X.production.obj
+__ptext2 1482 0 CODE 0 text2 dist/default/production/clock.X.production.obj
+__ptext3 16B0 0 CODE 0 text3 dist/default/production/clock.X.production.obj
+__ptext4 DE 0 CODE 0 text4 dist/default/production/clock.X.production.obj
+__ptext5 1A34 0 CODE 0 text5 dist/default/production/clock.X.production.obj
+__ptext6 18FE 0 CODE 0 text6 dist/default/production/clock.X.production.obj
+__ptext7 1AD6 0 CODE 0 text7 dist/default/production/clock.X.production.obj
+__ptext8 1284 0 CODE 0 text8 dist/default/production/clock.X.production.obj
+__ptext9 17D0 0 CODE 0 text9 dist/default/production/clock.X.production.obj
+__Lstruct 0 0 COMRAM 1 struct dist/default/production/clock.X.production.obj
+__Ltext10 0 0 ABS 0 text10 dist/default/production/clock.X.production.obj
+__Ltext11 0 0 ABS 0 text11 dist/default/production/clock.X.production.obj
+__Ltext12 0 0 ABS 0 text12 dist/default/production/clock.X.production.obj
+__Ltext13 0 0 ABS 0 text13 dist/default/production/clock.X.production.obj
+__Ltext14 0 0 ABS 0 text14 dist/default/production/clock.X.production.obj
+__Ltext15 0 0 ABS 0 text15 dist/default/production/clock.X.production.obj
+__Ltext16 0 0 ABS 0 text16 dist/default/production/clock.X.production.obj
+__Ltext17 0 0 ABS 0 text17 dist/default/production/clock.X.production.obj
+__Ltext18 0 0 ABS 0 text18 dist/default/production/clock.X.production.obj
+__Ltext19 0 0 ABS 0 text19 dist/default/production/clock.X.production.obj
+__Ltext20 0 0 ABS 0 text20 dist/default/production/clock.X.production.obj
+__Ltext21 0 0 ABS 0 text21 dist/default/production/clock.X.production.obj
+__Ltext22 0 0 ABS 0 text22 dist/default/production/clock.X.production.obj
+__Ltext23 0 0 ABS 0 text23 dist/default/production/clock.X.production.obj
+__Ltext24 0 0 ABS 0 text24 dist/default/production/clock.X.production.obj
+__Ltext25 0 0 ABS 0 text25 dist/default/production/clock.X.production.obj
+__Ltext26 0 0 ABS 0 text26 dist/default/production/clock.X.production.obj
+__Ltext27 0 0 ABS 0 text27 dist/default/production/clock.X.production.obj
+__Ltext28 0 0 ABS 0 text28 dist/default/production/clock.X.production.obj
+__Ltext29 0 0 ABS 0 text29 dist/default/production/clock.X.production.obj
+__Ltext30 0 0 ABS 0 text30 dist/default/production/clock.X.production.obj
+__Ltext31 0 0 ABS 0 text31 dist/default/production/clock.X.production.obj
+__Ltext32 0 0 ABS 0 text32 dist/default/production/clock.X.production.obj
+__Ltext34 0 0 ABS 0 text34 dist/default/production/clock.X.production.obj
+_song_counter 44 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+_increment_time_minutes 19D6 0 CODE 0 text15 dist/default/production/clock.X.production.obj
+__ramtop D00 0 RAM 0 ramtop /tmp/xcnrXnUQA.obj
+_ir_code 7F 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+_ir_size 33 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+_ir_time 6A 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+__Lpowerup DA 0 CODE 0 powerup dist/default/production/clock.X.production.obj
+__Leeprom_data 0 0 EEDATA 0 eeprom_data dist/default/production/clock.X.production.obj
+_interrupt_done 7E 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+__size_of_print_number_nospace 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Lreset_vec 0 0 CODE 0 reset_vec dist/default/production/clock.X.production.obj
+handle_ir@code_size 82 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+__end_of_decrement_alarm_hours 19D6 0 CODE 0 text29 dist/default/production/clock.X.production.obj
+_uart_size 7C 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+___param_bank 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Hbigdata 0 0 BIGRAM 1 bigdata dist/default/production/clock.X.production.obj
+__end_of__initialization 17C2 0 CODE 0 cinit dist/default/production/clock.X.production.obj
+__Libigdata 0 0 CODE 0 ibigdata dist/default/production/clock.X.production.obj
+__Lclrtext 0 0 ABS 0 clrtext dist/default/production/clock.X.production.obj
+__end_of_print_number_nospace 138A 0 CODE 0 text8 dist/default/production/clock.X.production.obj
+__CFG_OSC$HSPLL 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_powerdown_count 74 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+_decrement_alarm_hours 19A2 0 CODE 0 text29 dist/default/production/clock.X.production.obj
+_osc3_period 94 0 BANK0 1 nvBANK0 dist/default/production/clock.X.production.obj
+__pcstackCOMRAM 1 0 COMRAM 1 cstackCOMRAM dist/default/production/clock.X.production.obj
+_write_leds 5B0 0 CODE 0 text31 dist/default/production/clock.X.production.obj
+__pmediumconst B95E 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_dn_tone BFAD 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__size_of_handle_repeat 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_alarm_ampm 38 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+_alarm_song BE29 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_alarm_time 37 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+__end_of_main B44 0 CODE 0 text0 dist/default/production/clock.X.production.obj
+__pintcode 8 0 CODE 0 intcode dist/default/production/clock.X.production.obj
+__end_of_freqs B9A9 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_RCSTA FAB 0 ABS 0 - dist/default/production/clock.X.production.obj
+_SPBRG FAF 0 ABS 0 - dist/default/production/clock.X.production.obj
+_T0CON FD5 0 ABS 0 - dist/default/production/clock.X.production.obj
+_T1CON FCD 0 ABS 0 - dist/default/production/clock.X.production.obj
+_T2CON FCA 0 ABS 0 - dist/default/production/clock.X.production.obj
+_TMR0H FD7 0 ABS 0 - dist/default/production/clock.X.production.obj
+_TMR0L FD6 0 ABS 0 - dist/default/production/clock.X.production.obj
+_TRISE F96 0 ABS 0 - dist/default/production/clock.X.production.obj
+_TXREG FAD 0 ABS 0 - dist/default/production/clock.X.production.obj
+_TXSTA FAC 0 ABS 0 - dist/default/production/clock.X.production.obj
+_minutes 3F 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+__HRAM 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Hbss 0 0 RAM 1 bss dist/default/production/clock.X.production.obj
+__Hram 0 0 ABS 0 ram dist/default/production/clock.X.production.obj
+__Hsfr 0 0 ABS 0 sfr dist/default/production/clock.X.production.obj
+__LRAM 1 0 ABS 0 - dist/default/production/clock.X.production.obj
+__Lbss 0 0 RAM 1 bss dist/default/production/clock.X.production.obj
+__Lram 0 0 ABS 0 ram dist/default/production/clock.X.production.obj
+__Lsfr 0 0 ABS 0 sfr dist/default/production/clock.X.production.obj
+__size_of_decrement_time_hours 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_alarm 3D 0 COMRAM 1 bssCOMRAM dist/default/production/clock.X.production.obj
+_colon 49 0 COMRAM 1 dataCOMRAM dist/default/production/clock.X.production.obj
+_freqs B95F 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_hours 4A 0 COMRAM 1 dataCOMRAM dist/default/production/clock.X.production.obj
+__size_of_do_hour_up 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+handle_ir@ir_error 84 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+_CCP1CON FBD 0 ABS 0 - dist/default/production/clock.X.production.obj
+_CCP2CON FBA 0 ABS 0 - dist/default/production/clock.X.production.obj
+_osc3_volume 9A 0 BANK0 1 nvBANK0 dist/default/production/clock.X.production.obj
+__size_of_isr 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_power_data BD9B 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_led_masks2 BEC1 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_led_masks3 BE99 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+_led_masks4 BE71 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_dump_leds 19A2 0 CODE 0 text24 dist/default/production/clock.X.production.obj
+__initialization 1776 0 CODE 0 cinit dist/default/production/clock.X.production.obj
+_osc2_period 96 0 BANK0 1 nvBANK0 dist/default/production/clock.X.production.obj
+__pbssBANK0 60 0 BANK0 1 bssBANK0 dist/default/production/clock.X.production.obj
+__pdataCOMRAM 46 0 COMRAM 1 dataCOMRAM dist/default/production/clock.X.production.obj
+__size_of_dump_leds 0 0 ABS 0 - dist/default/production/clock.X.production.obj
+_volume_dn_data BC7F 0 MEDIUMCONST 0 mediumconst dist/default/production/clock.X.production.obj
+__end_of_decrement_time_hours 18B6 0 CODE 0 text27 dist/default/production/clock.X.production.obj
+__Hfardata 0 0 FARRAM 0 fardata dist/default/production/clock.X.production.obj
+__Hsmallconst 0 0 SMALLCONST 0 smallconst dist/default/production/clock.X.production.obj
+__end_of_handle_repeat 1716 0 CODE 0 text3 dist/default/production/clock.X.production.obj
+__Lifardata 0 0 CODE 0 ifardata dist/default/production/clock.X.production.obj
+_handle_song B44 0 CODE 0 text12 dist/default/production/clock.X.production.obj
+_handle_time 1482 0 CODE 0 text2 dist/default/production/clock.X.production.obj
+handle_ir@failed 81 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+__Hintsave_regs 0 0 BIGRAM 1 intsave_regs dist/default/production/clock.X.production.obj
+__Hintcode DA 0 CODE 0 intcode dist/default/production/clock.X.production.obj
+handle_ir@got_it 83 0 BANK0 1 cstackBANK0 dist/default/production/clock.X.production.obj
+# %SPLITSTAB Section
+# This section enumerates all the psect splits performed by the assembler.
+# The beginning of the section is indicated by %SPLITSTAB.
+# Each line is a record a particular split, where the parent psect is on
+# the left and the child on the right.  Note that a child psect is always
+# split form the top of the parent psect. All splits from a given parent
+# are listed in the order in which they occurred.
+%SPLITSTAB
+# %DABS Section
+# This section contains a table of all usuage of the assember
+# directive DABS in the program. Each line has the following format:
+#   <name> <space> <address> <size>
+# If the DABS was originally labelled then that shall be <name>,
+# otherwise name will be "-".  The <space> number is in decimal.
+# <address> and <size> are in byte units as unqaulified hexadecimal
+%DABS
+# %SEGMENTS Section
+# This sections enumerates the segments of the program.  Each segment
+# is described on a single line as follows:
+#    <name> <space> <link address> <file address> <size> <delta>
+# Addresses and size are in unqualified hexadecimal.  The link address
+# and size are in units of delta. The file address is in units of bytes.
+# All other numeric quantities are in decimal.
+%SEGMENTS
+idloc 0 200000 200000 8 1
+cstackCOMRAM 1 1 1 4C 1
+text 0 1B34 1B34 2 1
+reset_vec 0 0 0 4 1
+bssBANK0 1 60 60 3D 1
+intcode 0 8 8 1B2B 1
+bssBIGRAM 1 9D 9D 400 1
+mediumconst 0 B95E B95E 6A2 1
+config 0 300000 300000 E 1

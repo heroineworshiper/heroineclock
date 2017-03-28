@@ -1,0 +1,856 @@
+[p LITE_MODE AUTOSTATIC LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F6585 ]
+[d frameptr 4065 ]
+"8 /Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"8 /Applications/microchip/xc8/v1.41/sources/common/awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+"62 /Applications/microchip/xc8/v1.41/sources/common/float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 /Applications/microchip/xc8/v1.41/sources/common/ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"54 /Applications/microchip/xc8/v1.41/sources/common/ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 3 0 ]
+"62 /Applications/microchip/xc8/v1.41/sources/common/ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+"20 /Applications/microchip/xc8/v1.41/sources/common/ftsub.c
+[v ___ftsub __ftsub `(f  1 e 3 0 ]
+"8 /Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"8 /Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+"10 /Applications/microchip/xc8/v1.41/sources/common/sprcadd.c
+[v ___fladd __fladd `(d  1 e 3 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 3 0 ]
+"11 /Applications/microchip/xc8/v1.41/sources/common/sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 3 0 ]
+"8 /Applications/microchip/xc8/v1.41/sources/common/sprcmul.c
+[v ___flmul __flmul `(d  1 e 3 0 ]
+"15 /Applications/microchip/xc8/v1.41/sources/common/Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"575 /Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+[v _print_byte print_byte `(v  1 e 1 0 ]
+"588
+[v _print_text print_text `(v  1 e 1 0 ]
+"598
+[v _print_number_nospace print_number_nospace `(v  1 e 1 0 ]
+"613
+[v _print_number print_number `(v  1 e 1 0 ]
+"633
+[v _print_bin_nospace print_bin_nospace `(v  1 e 1 0 ]
+"672
+[v _dump_leds dump_leds `(v  1 e 1 0 ]
+"686
+[v _write_leds write_leds `(v  1 e 1 0 ]
+"721
+[v _handle_song handle_song `(v  1 e 1 0 ]
+"772
+[v _stop_song stop_song `(v  1 e 1 0 ]
+"781
+[v _play_song play_song `(v  1 e 1 0 ]
+"790
+[v _draw_time draw_time `(v  1 e 1 0 ]
+"847
+[v _draw_alarm draw_alarm `(v  1 e 1 0 ]
+"899
+[v _draw_test draw_test `(v  1 e 1 0 ]
+"909
+[v _increment_time_minutes increment_time_minutes `(v  1 e 1 0 ]
+"923
+[v _increment_alarm_minutes increment_alarm_minutes `(v  1 e 1 0 ]
+"933
+[v _decrement_time_minutes decrement_time_minutes `(v  1 e 1 0 ]
+"947
+[v _decrement_alarm_minutes decrement_alarm_minutes `(v  1 e 1 0 ]
+"957
+[v _increment_time_hours increment_time_hours `(v  1 e 1 0 ]
+"975
+[v _increment_alarm_hours increment_alarm_hours `(v  1 e 1 0 ]
+"990
+[v _decrement_time_hours decrement_time_hours `(v  1 e 1 0 ]
+"1008
+[v _decrement_alarm_hours decrement_alarm_hours `(v  1 e 1 0 ]
+"1022
+[v _do_hour_up do_hour_up `(v  1 e 1 0 ]
+"1060
+[v _do_hour_down do_hour_down `(v  1 e 1 0 ]
+"1098
+[v _do_minute_up do_minute_up `(v  1 e 1 0 ]
+"1111
+[v _do_minute_down do_minute_down `(v  1 e 1 0 ]
+"1124
+[v _handle_repeat handle_repeat `(v  1 e 1 0 ]
+"1160
+[v _handle_ir handle_ir `(v  1 e 1 0 ]
+"1377
+[v _handle_audio handle_audio `(v  1 e 1 0 ]
+"1519
+[v _handle_time handle_time `(v  1 e 1 0 ]
+"1602
+[v _start_alarm start_alarm `(v  1 e 1 0 ]
+"1615
+[v _isr isr `II(v  1 e 1 0 ]
+"1665
+[v _main main `(v  1 e 1 0 ]
+"24675 /Applications/microchip/xc8/v1.41/include/pic18f6585.h
+[v _BAUDCTL BAUDCTL `VEuc  1 e 1 @3966 ]
+"24777
+[v _SPBRGH SPBRGH `VEuc  1 e 1 @3967 ]
+[s S30 . 1 `uc 1 LATA0 1 0 :1:0 
+`uc 1 LATA1 1 0 :1:1 
+`uc 1 LATA2 1 0 :1:2 
+`uc 1 LATA3 1 0 :1:3 
+`uc 1 LATA4 1 0 :1:4 
+`uc 1 LATA5 1 0 :1:5 
+`uc 1 LATA6 1 0 :1:6 
+]
+"25804
+[s S38 . 1 `uc 1 LA0 1 0 :1:0 
+`uc 1 LA1 1 0 :1:1 
+`uc 1 LA2 1 0 :1:2 
+`uc 1 LA3 1 0 :1:3 
+`uc 1 LA4 1 0 :1:4 
+`uc 1 LA5 1 0 :1:5 
+`uc 1 LA6 1 0 :1:6 
+]
+[u S46 . 1 `S30 1 . 1 0 `S38 1 . 1 0 ]
+[v _LATAbits LATAbits `VES46  1 e 1 @3977 ]
+[s S66 . 1 `uc 1 LATC0 1 0 :1:0 
+`uc 1 LATC1 1 0 :1:1 
+`uc 1 LATC2 1 0 :1:2 
+`uc 1 LATC3 1 0 :1:3 
+`uc 1 LATC4 1 0 :1:4 
+`uc 1 LATC5 1 0 :1:5 
+`uc 1 LATC6 1 0 :1:6 
+`uc 1 LATC7 1 0 :1:7 
+]
+"26016
+[s S75 . 1 `uc 1 LC0 1 0 :1:0 
+`uc 1 LC1 1 0 :1:1 
+`uc 1 LC2 1 0 :1:2 
+`uc 1 LC3 1 0 :1:3 
+`uc 1 LC4 1 0 :1:4 
+`uc 1 LC5 1 0 :1:5 
+`uc 1 LC6 1 0 :1:6 
+`uc 1 LC7 1 0 :1:7 
+]
+[u S84 . 1 `S66 1 . 1 0 `S75 1 . 1 0 ]
+[v _LATCbits LATCbits `VES84  1 e 1 @3979 ]
+[s S328 . 1 `uc 1 LATD0 1 0 :1:0 
+`uc 1 LATD1 1 0 :1:1 
+`uc 1 LATD2 1 0 :1:2 
+`uc 1 LATD3 1 0 :1:3 
+`uc 1 LATD4 1 0 :1:4 
+`uc 1 LATD5 1 0 :1:5 
+`uc 1 LATD6 1 0 :1:6 
+`uc 1 LATD7 1 0 :1:7 
+]
+"26127
+[s S337 . 1 `uc 1 LD0 1 0 :1:0 
+`uc 1 LD1 1 0 :1:1 
+`uc 1 LD2 1 0 :1:2 
+`uc 1 LD3 1 0 :1:3 
+`uc 1 LD4 1 0 :1:4 
+`uc 1 LD5 1 0 :1:5 
+`uc 1 LD6 1 0 :1:6 
+`uc 1 LD7 1 0 :1:7 
+]
+[u S346 . 1 `S328 1 . 1 0 `S337 1 . 1 0 ]
+[v _LATDbits LATDbits `VES346  1 e 1 @3980 ]
+[s S106 . 1 `uc 1 LATE0 1 0 :1:0 
+`uc 1 LATE1 1 0 :1:1 
+`uc 1 LATE2 1 0 :1:2 
+`uc 1 LATE3 1 0 :1:3 
+`uc 1 LATE4 1 0 :1:4 
+`uc 1 LATE5 1 0 :1:5 
+`uc 1 LATE6 1 0 :1:6 
+`uc 1 LATE7 1 0 :1:7 
+]
+"26238
+[s S115 . 1 `uc 1 LE0 1 0 :1:0 
+`uc 1 LE1 1 0 :1:1 
+`uc 1 LE2 1 0 :1:2 
+`uc 1 LE3 1 0 :1:3 
+`uc 1 LE4 1 0 :1:4 
+`uc 1 LE5 1 0 :1:5 
+`uc 1 LE6 1 0 :1:6 
+`uc 1 LE7 1 0 :1:7 
+]
+[u S124 . 1 `S106 1 . 1 0 `S115 1 . 1 0 ]
+[v _LATEbits LATEbits `VES124  1 e 1 @3981 ]
+[s S146 . 1 `uc 1 LATF0 1 0 :1:0 
+`uc 1 LATF1 1 0 :1:1 
+`uc 1 LATF2 1 0 :1:2 
+`uc 1 LATF3 1 0 :1:3 
+`uc 1 LATF4 1 0 :1:4 
+`uc 1 LATF5 1 0 :1:5 
+`uc 1 LATF6 1 0 :1:6 
+`uc 1 LATF7 1 0 :1:7 
+]
+"26349
+[s S155 . 1 `uc 1 LF0 1 0 :1:0 
+`uc 1 LF1 1 0 :1:1 
+`uc 1 LF2 1 0 :1:2 
+`uc 1 LF3 1 0 :1:3 
+`uc 1 LF4 1 0 :1:4 
+`uc 1 LF5 1 0 :1:5 
+`uc 1 LF6 1 0 :1:6 
+`uc 1 LF7 1 0 :1:7 
+]
+[u S164 . 1 `S146 1 . 1 0 `S155 1 . 1 0 ]
+[v _LATFbits LATFbits `VES164  1 e 1 @3982 ]
+[s S186 . 1 `uc 1 LATG0 1 0 :1:0 
+`uc 1 LATG1 1 0 :1:1 
+`uc 1 LATG2 1 0 :1:2 
+`uc 1 LATG3 1 0 :1:3 
+`uc 1 LATG4 1 0 :1:4 
+]
+"26454
+[s S192 . 1 `uc 1 LG0 1 0 :1:0 
+`uc 1 LG1 1 0 :1:1 
+`uc 1 LG2 1 0 :1:2 
+`uc 1 LG3 1 0 :1:3 
+`uc 1 LG4 1 0 :1:4 
+]
+[u S198 . 1 `S186 1 . 1 0 `S192 1 . 1 0 ]
+[v _LATGbits LATGbits `VES198  1 e 1 @3983 ]
+[s S610 . 1 `uc 1 TRISA0 1 0 :1:0 
+`uc 1 TRISA1 1 0 :1:1 
+`uc 1 TRISA2 1 0 :1:2 
+`uc 1 TRISA3 1 0 :1:3 
+`uc 1 TRISA4 1 0 :1:4 
+`uc 1 TRISA5 1 0 :1:5 
+`uc 1 TRISA6 1 0 :1:6 
+]
+"26538
+[s S618 . 1 `uc 1 RA0 1 0 :1:0 
+`uc 1 RA1 1 0 :1:1 
+`uc 1 RA2 1 0 :1:2 
+`uc 1 RA3 1 0 :1:3 
+`uc 1 RA4 1 0 :1:4 
+`uc 1 RA5 1 0 :1:5 
+`uc 1 RA6 1 0 :1:6 
+]
+[u S626 . 1 `S610 1 . 1 0 `S618 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES626  1 e 1 @3986 ]
+[s S501 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+`uc 1 TRISC6 1 0 :1:6 
+`uc 1 TRISC7 1 0 :1:7 
+]
+"26958
+[s S510 . 1 `uc 1 RC0 1 0 :1:0 
+`uc 1 RC1 1 0 :1:1 
+`uc 1 RC2 1 0 :1:2 
+`uc 1 RC3 1 0 :1:3 
+`uc 1 RC4 1 0 :1:4 
+`uc 1 RC5 1 0 :1:5 
+`uc 1 RC6 1 0 :1:6 
+`uc 1 RC7 1 0 :1:7 
+]
+[u S519 . 1 `S501 1 . 1 0 `S510 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES519  1 e 1 @3988 ]
+[s S288 . 1 `uc 1 TRISD0 1 0 :1:0 
+`uc 1 TRISD1 1 0 :1:1 
+`uc 1 TRISD2 1 0 :1:2 
+`uc 1 TRISD3 1 0 :1:3 
+`uc 1 TRISD4 1 0 :1:4 
+`uc 1 TRISD5 1 0 :1:5 
+`uc 1 TRISD6 1 0 :1:6 
+`uc 1 TRISD7 1 0 :1:7 
+]
+"27179
+[s S297 . 1 `uc 1 RD0 1 0 :1:0 
+`uc 1 RD1 1 0 :1:1 
+`uc 1 RD2 1 0 :1:2 
+`uc 1 RD3 1 0 :1:3 
+`uc 1 RD4 1 0 :1:4 
+`uc 1 RD5 1 0 :1:5 
+`uc 1 RD6 1 0 :1:6 
+`uc 1 RD7 1 0 :1:7 
+]
+[u S306 . 1 `S288 1 . 1 0 `S297 1 . 1 0 ]
+[v _TRISDbits TRISDbits `VES306  1 e 1 @3989 ]
+"27368
+[v _TRISE TRISE `VEuc  1 e 1 @3990 ]
+[s S569 . 1 `uc 1 TRISF0 1 0 :1:0 
+`uc 1 TRISF1 1 0 :1:1 
+`uc 1 TRISF2 1 0 :1:2 
+`uc 1 TRISF3 1 0 :1:3 
+`uc 1 TRISF4 1 0 :1:4 
+`uc 1 TRISF5 1 0 :1:5 
+`uc 1 TRISF6 1 0 :1:6 
+`uc 1 TRISF7 1 0 :1:7 
+]
+"27621
+[s S578 . 1 `uc 1 RF0 1 0 :1:0 
+`uc 1 RF1 1 0 :1:1 
+`uc 1 RF2 1 0 :1:2 
+`uc 1 RF3 1 0 :1:3 
+`uc 1 RF4 1 0 :1:4 
+`uc 1 RF5 1 0 :1:5 
+`uc 1 RF6 1 0 :1:6 
+`uc 1 RF7 1 0 :1:7 
+]
+[u S587 . 1 `S569 1 . 1 0 `S578 1 . 1 0 ]
+[v _TRISFbits TRISFbits `VES587  1 e 1 @3991 ]
+[s S541 . 1 `uc 1 TRISG0 1 0 :1:0 
+`uc 1 TRISG1 1 0 :1:1 
+`uc 1 TRISG2 1 0 :1:2 
+`uc 1 TRISG3 1 0 :1:3 
+`uc 1 TRISG4 1 0 :1:4 
+]
+"27836
+[s S547 . 1 `uc 1 RG0 1 0 :1:0 
+`uc 1 RG1 1 0 :1:1 
+`uc 1 RG2 1 0 :1:2 
+`uc 1 RG3 1 0 :1:3 
+`uc 1 RG4 1 0 :1:4 
+]
+[u S553 . 1 `S541 1 . 1 0 `S547 1 . 1 0 ]
+[v _TRISGbits TRISGbits `VES553  1 e 1 @3992 ]
+[s S373 . 1 `uc 1 TMR1IE 1 0 :1:0 
+`uc 1 TMR2IE 1 0 :1:1 
+`uc 1 CCP1IE 1 0 :1:2 
+`uc 1 SSPIE 1 0 :1:3 
+`uc 1 TXIE 1 0 :1:4 
+`uc 1 RCIE 1 0 :1:5 
+`uc 1 ADIE 1 0 :1:6 
+`uc 1 PSPIE 1 0 :1:7 
+]
+"27981
+[s S382 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 TX1IE 1 0 :1:4 
+`uc 1 RC1IE 1 0 :1:5 
+]
+[u S386 . 1 `S373 1 . 1 0 `S382 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES386  1 e 1 @3997 ]
+[s S214 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 CCP1IF 1 0 :1:2 
+`uc 1 SSPIF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+`uc 1 ADIF 1 0 :1:6 
+`uc 1 PSPIF 1 0 :1:7 
+]
+"28057
+[s S223 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 TX1IF 1 0 :1:4 
+`uc 1 RC1IF 1 0 :1:5 
+]
+[u S227 . 1 `S214 1 . 1 0 `S223 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES227  1 e 1 @3998 ]
+[s S646 . 1 `uc 1 CCP2IF 1 0 :1:0 
+`uc 1 TMR3IF 1 0 :1:1 
+`uc 1 LVDIF 1 0 :1:2 
+`uc 1 BCLIF 1 0 :1:3 
+`uc 1 EEIF 1 0 :1:4 
+`uc 1 . 1 0 :1:5 
+`uc 1 CMIF 1 0 :1:6 
+]
+"28253
+[u S654 . 1 `S646 1 . 1 0 ]
+[v _PIR2bits PIR2bits `VES654  1 e 1 @4001 ]
+"28720
+[v _RCSTA RCSTA `VEuc  1 e 1 @4011 ]
+"29029
+[v _TXSTA TXSTA `VEuc  1 e 1 @4012 ]
+"29284
+[v _TXREG TXREG `VEuc  1 e 1 @4013 ]
+"29306
+[v _SPBRG SPBRG `VEuc  1 e 1 @4015 ]
+"29747
+[v _CCP2CON CCP2CON `VEuc  1 e 1 @4026 ]
+"29816
+[v _CCPR2L CCPR2L `VEuc  1 e 1 @4027 ]
+"29822
+[v _CCPR2H CCPR2H `VEuc  1 e 1 @4028 ]
+"29828
+[v _CCP1CON CCP1CON `VEuc  1 e 1 @4029 ]
+"29915
+[v _CCPR1L CCPR1L `VEuc  1 e 1 @4030 ]
+"29997
+[v _ADCON1 ADCON1 `VEuc  1 e 1 @4033 ]
+"30606
+[v _T2CON T2CON `VEuc  1 e 1 @4042 ]
+"30676
+[v _PR2 PR2 `VEuc  1 e 1 @4043 ]
+"30791
+[v _T1CON T1CON `VEuc  1 e 1 @4045 ]
+"31219
+[v _T0CON T0CON `VEuc  1 e 1 @4053 ]
+"31294
+[v _TMR0L TMR0L `VEuc  1 e 1 @4054 ]
+"31300
+[v _TMR0H TMR0H `VEuc  1 e 1 @4055 ]
+[s S245 . 1 `uc 1 INT1IF 1 0 :1:0 
+`uc 1 INT2IF 1 0 :1:1 
+`uc 1 INT3IF 1 0 :1:2 
+`uc 1 INT1IE 1 0 :1:3 
+`uc 1 INT2IE 1 0 :1:4 
+`uc 1 INT3IE 1 0 :1:5 
+`uc 1 INT1IP 1 0 :1:6 
+`uc 1 INT2IP 1 0 :1:7 
+]
+"31559
+[s S254 . 1 `uc 1 INT1F 1 0 :1:0 
+`uc 1 INT2F 1 0 :1:1 
+`uc 1 INT3F 1 0 :1:2 
+`uc 1 INT1E 1 0 :1:3 
+`uc 1 INT2E 1 0 :1:4 
+`uc 1 INT3E 1 0 :1:5 
+`uc 1 INT1P 1 0 :1:6 
+`uc 1 INT2P 1 0 :1:7 
+]
+[u S263 . 1 `S245 1 . 1 0 `S254 1 . 1 0 ]
+[v _INTCON3bits INTCON3bits `VES263  1 e 1 @4080 ]
+[s S403 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 NOT_RBPU 1 0 :1:7 
+]
+"31671
+[s S406 . 1 `uc 1 RBIP 1 0 :1:0 
+`uc 1 INT3IP 1 0 :1:1 
+`uc 1 TMR0IP 1 0 :1:2 
+`uc 1 INTEDG3 1 0 :1:3 
+`uc 1 INTEDG2 1 0 :1:4 
+`uc 1 INTEDG1 1 0 :1:5 
+`uc 1 INTEDG0 1 0 :1:6 
+`uc 1 nRBPU 1 0 :1:7 
+]
+[s S415 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 INT3P 1 0 :1:1 
+`uc 1 T0IP 1 0 :1:2 
+`uc 1 . 1 0 :4:3 
+`uc 1 RBPU 1 0 :1:7 
+]
+[u S421 . 1 `S403 1 . 1 0 `S406 1 . 1 0 `S415 1 . 1 0 ]
+[v _INTCON2bits INTCON2bits `VES421  1 e 1 @4081 ]
+[s S445 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INT0IF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INT0IE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE_GIEL 1 0 :1:6 
+`uc 1 GIE_GIEH 1 0 :1:7 
+]
+"31767
+[s S454 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 INT0F 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 INT0E 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+[s S463 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 GIEL 1 0 :1:6 
+`uc 1 GIEH 1 0 :1:7 
+]
+[u S467 . 1 `S445 1 . 1 0 `S454 1 . 1 0 `S463 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES467  1 e 1 @4082 ]
+"121 /Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+[v _uart_buffer uart_buffer `[1024]uc  1 e 1024 0 ]
+"122
+[v _uart_size uart_size `ui  1 e 2 0 ]
+"123
+[v _uart_position1 uart_position1 `ui  1 e 2 0 ]
+"124
+[v _uart_position2 uart_position2 `ui  1 e 2 0 ]
+"160
+[v _freqs freqs `C[37]ui  1 e 74 0 ]
+"213
+[v _osc1_period osc1_period `ui  1 e 2 0 ]
+"214
+[v _osc2_period osc2_period `ui  1 e 2 0 ]
+"215
+[v _osc3_period osc3_period `ui  1 e 2 0 ]
+"217
+[v _osc1_volume osc1_volume `uc  1 e 1 0 ]
+"218
+[v _osc2_volume osc2_volume `uc  1 e 1 0 ]
+"219
+[v _osc3_volume osc3_volume `uc  1 e 1 0 ]
+"220
+[v _decay_count decay_count `ui  1 e 2 0 ]
+"221
+[v _powerdown_count powerdown_count `ui  1 e 2 0 ]
+"223
+[v _osc1_time osc1_time `ui  1 e 2 0 ]
+"224
+[v _osc2_time osc2_time `ui  1 e 2 0 ]
+"225
+[v _osc3_time osc3_time `ui  1 e 2 0 ]
+"227
+[v _next_duty next_duty `uc  1 e 1 0 ]
+[s S21 . 4 `uc 1 delay 1 0 `uc 1 osc 1 1 `uc 1 freq 1 2 `uc 1 volume 1 3 ]
+"247
+[v _test_tone test_tone `C[3]S21  1 e 12 0 ]
+"254
+[v _alarm_off_tone alarm_off_tone `C[9]S21  1 e 36 0 ]
+"267
+[v _alarm_on_tone alarm_on_tone `C[9]S21  1 e 36 0 ]
+"280
+[v _set_alarm_tone1 set_alarm_tone1 `C[5]S21  1 e 20 0 ]
+"289
+[v _set_alarm_tone2 set_alarm_tone2 `C[5]S21  1 e 20 0 ]
+"298
+[v _set_time_tone1 set_time_tone1 `C[5]S21  1 e 20 0 ]
+"307
+[v _set_time_tone2 set_time_tone2 `C[5]S21  1 e 20 0 ]
+"316
+[v _up_tone up_tone `C[3]S21  1 e 12 0 ]
+"323
+[v _dn_tone dn_tone `C[3]S21  1 e 12 0 ]
+"330
+[v _alarm_song alarm_song `C[18]S21  1 e 72 0 ]
+"353
+[v _song_ptr song_ptr `*.33CS21  1 e 3 0 ]
+"355
+[v _song_counter song_counter `uc  1 e 1 0 ]
+"356
+[v _song_delay song_delay `uc  1 e 1 0 ]
+"366
+[v _led_masks2 led_masks2 `C[10][4]uc  1 e 40 0 ]
+"382
+[v _led_masks3 led_masks3 `C[10][4]uc  1 e 40 0 ]
+"398
+[v _led_masks4 led_masks4 `C[10][4]uc  1 e 40 0 ]
+"425
+[v _crystal_time crystal_time `ui  1 e 2 0 ]
+"427
+[v _display_flash display_flash `uc  1 e 1 0 ]
+"429
+[v _time_hz time_hz `uc  1 e 1 0 ]
+"431
+[v _seconds seconds `uc  1 e 1 0 ]
+"432
+[v _minutes minutes `uc  1 e 1 0 ]
+"433
+[v _hours hours `uc  1 e 1 0 ]
+"434
+[v _ampm ampm `uc  1 e 1 0 ]
+"435
+[v _alarm alarm `uc  1 e 1 0 ]
+"436
+[v _colon colon `uc  1 e 1 0 ]
+"446
+[v _mode mode `uc  1 e 1 0 ]
+"449
+[v _repeating repeating `uc  1 e 1 0 ]
+"453
+[v _repeat_counter repeat_counter `uc  1 e 1 0 ]
+"455
+[v _alarm_hours alarm_hours `uc  1 e 1 0 ]
+"456
+[v _alarm_minutes alarm_minutes `uc  1 e 1 0 ]
+"457
+[v _alarm_ampm alarm_ampm `uc  1 e 1 0 ]
+"458
+[v _alarm_sounding alarm_sounding `uc  1 e 1 0 ]
+"461
+[v _alarm_time alarm_time `uc  1 e 1 0 ]
+"470
+[v _led_mask0 led_mask0 `uc  1 e 1 0 ]
+"471
+[v _led_mask1 led_mask1 `uc  1 e 1 0 ]
+"472
+[v _led_mask2 led_mask2 `uc  1 e 1 0 ]
+"473
+[v _led_mask3 led_mask3 `uc  1 e 1 0 ]
+"495
+[v _power_data power_data `C[71]i  1 e 142 0 ]
+"500
+[v _volume_up_data volume_up_data `C[71]i  1 e 142 0 ]
+"505
+[v _volume_dn_data volume_dn_data `C[71]i  1 e 142 0 ]
+"510
+[v _next_track_data next_track_data `C[71]i  1 e 142 0 ]
+"515
+[v _prev_track_data prev_track_data `C[71]i  1 e 142 0 ]
+"520
+[v _number1_data number1_data `C[71]i  1 e 142 0 ]
+"525
+[v _number2_data number2_data `C[71]i  1 e 142 0 ]
+"530
+[v _number3_data number3_data `C[71]i  1 e 142 0 ]
+[s S26 . 4 `*.25Ci 1 data 2 0 `Cuc 1 size 1 2 `Cuc 1 value 1 3 ]
+"539
+[v _ir_codes ir_codes `C[8]S26  1 e 32 0 ]
+"556
+[v _ir_code_failed ir_code_failed `[8]uc  1 e 8 0 ]
+"557
+[v _ir_size ir_size `uc  1 e 1 0 ]
+"559
+[v _have_ir have_ir `uc  1 e 1 0 ]
+"561
+[v _ir_code ir_code `uc  1 e 1 0 ]
+"564
+[v _got_ir_int got_ir_int `VEuc  1 e 1 0 ]
+"566
+[v _ir_time ir_time `i  1 e 2 0 ]
+"568
+[v _ir_time2 ir_time2 `VEui  1 e 2 0 ]
+"569
+[v _first_edge first_edge `uc  1 e 1 0 ]
+"620
+[v _hex_table hex_table `C[16]uc  1 e 16 0 ]
+"1614
+[v _interrupt_done interrupt_done `uc  1 e 1 0 ]
+"1665
+[v _main main `(v  1 e 1 0 ]
+{
+"1800
+[v main@i_1023 i `uc  1 a 1 18 ]
+"1787
+[v main@test_time test_time `ui  1 a 2 14 ]
+"1752
+[v main@i i `ui  1 a 2 16 ]
+"1891
+} 0
+"1602
+[v _start_alarm start_alarm `(v  1 e 1 0 ]
+{
+"1608
+} 0
+"1519
+[v _handle_time handle_time `(v  1 e 1 0 ]
+{
+"1599
+} 0
+"1124
+[v _handle_repeat handle_repeat `(v  1 e 1 0 ]
+{
+"1158
+} 0
+"1160
+[v _handle_ir handle_ir `(v  1 e 1 0 ]
+{
+[s S26 . 4 `*.25Ci 1 data 2 0 `Cuc 1 size 1 2 `Cuc 1 value 1 3 ]
+"1179
+[v handle_ir@code code `*.25CS26  1 a 2 11 ]
+"1186
+[v handle_ir@error error `i  1 a 2 7 ]
+"1180
+[v handle_ir@data data `*.25Ci  1 a 2 5 ]
+"1181
+[v handle_ir@code_size code_size `Cuc  1 a 1 1 ]
+"1182
+[v handle_ir@failed failed `uc  1 a 1 0 ]
+"1364
+[v handle_ir@i_916 i `uc  1 a 1 10 ]
+"1167
+[v handle_ir@ir_error ir_error `ui  1 a 2 3 ]
+"1170
+[v handle_ir@j j `uc  1 a 1 13 ]
+[v handle_ir@i i `uc  1 a 1 9 ]
+"1172
+[v handle_ir@got_it got_it `uc  1 a 1 2 ]
+"1373
+} 0
+"772
+[v _stop_song stop_song `(v  1 e 1 0 ]
+{
+"778
+} 0
+"588
+[v _print_text print_text `(v  1 e 1 0 ]
+{
+[v print_text@s s `*.25Cuc  1 p 2 20 ]
+"595
+} 0
+"613
+[v _print_number print_number `(v  1 e 1 0 ]
+{
+[v print_number@number number `ui  1 p 2 33 ]
+"618
+} 0
+"598
+[v _print_number_nospace print_number_nospace `(v  1 e 1 0 ]
+{
+[v print_number_nospace@number number `ui  1 p 2 31 ]
+"605
+} 0
+"8 /Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+{
+"11
+[v ___lwmod@counter counter `uc  1 a 1 30 ]
+"8
+[v ___lwmod@dividend dividend `ui  1 p 2 26 ]
+[v ___lwmod@divisor divisor `ui  1 p 2 28 ]
+"26
+} 0
+"8 /Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+{
+"11
+[v ___lwdiv@quotient quotient `ui  1 a 2 24 ]
+"12
+[v ___lwdiv@counter counter `uc  1 a 1 23 ]
+"8
+[v ___lwdiv@dividend dividend `ui  1 p 2 19 ]
+[v ___lwdiv@divisor divisor `ui  1 p 2 21 ]
+"31
+} 0
+"781 /Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+[v _play_song play_song `(v  1 e 1 0 ]
+{
+[s S21 . 4 `uc 1 delay 1 0 `uc 1 osc 1 1 `uc 1 freq 1 2 `uc 1 volume 1 3 ]
+[v play_song@ptr ptr `*.25CS21  1 p 2 19 ]
+"787
+} 0
+"721
+[v _handle_song handle_song `(v  1 e 1 0 ]
+{
+"768
+} 0
+"899
+[v _draw_test draw_test `(v  1 e 1 0 ]
+{
+"906
+} 0
+"1098
+[v _do_minute_up do_minute_up `(v  1 e 1 0 ]
+{
+"1109
+} 0
+"909
+[v _increment_time_minutes increment_time_minutes `(v  1 e 1 0 ]
+{
+"921
+} 0
+"923
+[v _increment_alarm_minutes increment_alarm_minutes `(v  1 e 1 0 ]
+{
+"931
+} 0
+"1111
+[v _do_minute_down do_minute_down `(v  1 e 1 0 ]
+{
+"1122
+} 0
+"933
+[v _decrement_time_minutes decrement_time_minutes `(v  1 e 1 0 ]
+{
+"945
+} 0
+"947
+[v _decrement_alarm_minutes decrement_alarm_minutes `(v  1 e 1 0 ]
+{
+"955
+} 0
+"1022
+[v _do_hour_up do_hour_up `(v  1 e 1 0 ]
+{
+"1057
+} 0
+"957
+[v _increment_time_hours increment_time_hours `(v  1 e 1 0 ]
+{
+"973
+} 0
+"975
+[v _increment_alarm_hours increment_alarm_hours `(v  1 e 1 0 ]
+{
+"988
+} 0
+"1060
+[v _do_hour_down do_hour_down `(v  1 e 1 0 ]
+{
+"1095
+} 0
+"672
+[v _dump_leds dump_leds `(v  1 e 1 0 ]
+{
+"683
+} 0
+"633
+[v _print_bin_nospace print_bin_nospace `(v  1 e 1 0 ]
+{
+[v print_bin_nospace@number number `uc  1 a 1 wreg ]
+[v print_bin_nospace@number number `uc  1 a 1 wreg ]
+"635
+[v print_bin_nospace@number number `uc  1 a 1 36 ]
+"643
+} 0
+"575
+[v _print_byte print_byte `(v  1 e 1 0 ]
+{
+[v print_byte@c c `uc  1 a 1 wreg ]
+[v print_byte@c c `uc  1 a 1 wreg ]
+"577
+[v print_byte@c c `uc  1 a 1 19 ]
+"586
+} 0
+"990
+[v _decrement_time_hours decrement_time_hours `(v  1 e 1 0 ]
+{
+"1006
+} 0
+"790
+[v _draw_time draw_time `(v  1 e 1 0 ]
+{
+"806
+[v draw_time@ptr ptr `*.25Cuc  1 a 2 31 ]
+"812
+[v draw_time@minutes10 minutes10 `uc  1 a 1 30 ]
+"799
+[v draw_time@hours10 hours10 `uc  1 a 1 29 ]
+"843
+} 0
+"1008
+[v _decrement_alarm_hours decrement_alarm_hours `(v  1 e 1 0 ]
+{
+"1020
+} 0
+"847
+[v _draw_alarm draw_alarm `(v  1 e 1 0 ]
+{
+"863
+[v draw_alarm@ptr ptr `*.25Cuc  1 a 2 31 ]
+"869
+[v draw_alarm@minutes10 minutes10 `uc  1 a 1 30 ]
+"856
+[v draw_alarm@hours10 hours10 `uc  1 a 1 29 ]
+"897
+} 0
+"686
+[v _write_leds write_leds `(v  1 e 1 0 ]
+{
+"715
+} 0
+"8 /Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+{
+"11
+[v ___awdiv@quotient quotient `i  1 a 2 25 ]
+"12
+[v ___awdiv@sign sign `uc  1 a 1 24 ]
+[v ___awdiv@counter counter `uc  1 a 1 23 ]
+"8
+[v ___awdiv@dividend dividend `i  1 p 2 19 ]
+[v ___awdiv@divisor divisor `i  1 p 2 21 ]
+"42
+} 0
+"1615 /Volumes/192.168.56.101-2/root/heroineclock/clock.X/clock.c
+[v _isr isr `II(v  1 e 1 0 ]
+{
+"1662
+} 0
+"1377
+[v _handle_audio handle_audio `(v  1 e 1 0 ]
+{
+"1416
+[v handle_audio@amplitude amplitude `uc  1 a 1 2 ]
+"1515
+} 0

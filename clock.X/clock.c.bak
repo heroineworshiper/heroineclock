@@ -1,0 +1,504 @@
+// heroineclock 2
+
+
+// remote is PWM modulated
+// press tuner button to engage tuner codes
+
+
+
+// pins:
+// 
+// A0 - LED
+// A1 - LED
+// A2 - LED
+// A3 - LED
+// A5 - LED
+// B3 - IR RX
+// C0 - LED
+// C1 - LED
+// C2/P1A - speaker
+// C3 - LED
+// C4 - LED
+// C5 - LED
+// C6/TX - DEBUG UART
+// C7/RX - 
+// E0 - LED
+// E1 - LED
+// E2 - LED
+// E3 - LED
+// E4 - LED
+// E5 - LED
+// E6 - LED
+// E7 - LED
+// F0 - LED
+// F1 - LED
+// F2 - LED
+// F3 - LED
+// F4 - LED
+// F5 - LED
+// F6 - LED
+// G0 - LED
+// G1 - LED
+
+
+
+// CONFIG1H
+#pragma config OSC = HS         // Oscillator (HS oscillator)
+#pragma config OSCS = OFF       // Osc. Switch Enable (Oscillator system clock switch option is disabled (main oscillator is source))
+
+
+
+
+#include <p18f6585.h>
+#include <stdint.h>
+
+
+
+
+
+
+#define ENABLE_DEBUG
+
+#ifdef ENABLE_DEBUG
+#define DEBUG_TRIS TRISDbits.TRISD7
+#define DEBUG_LAT LATDbits.LATD7
+
+
+#define UART_BUFSIZE 256
+uint8_t uart_buffer[UART_BUFSIZE];
+uint8_t uart_size = 0;
+uint8_t uart_position = 0;
+#endif // ENABLE_DEBUG
+
+
+// mane timer increments at this rate
+#define HZ 250
+// 115200 baud for debug
+#define BAUD_CODE 35
+
+
+// time in seconds * HZ
+volatile uint32_t time;
+volatile uint8_t have_serial = 0;
+volatile uint8_t serial_in = 0;
+
+
+
+
+#define ENABLE_ALARM 0x00
+#define HOUR_UP 0x01
+#define HOUR_DN 0x02
+#define MINUTE_UP 0x03
+#define MINUTE_DN 0x04
+#define ALARM 0x05
+#define TIME 0x06
+#define TEST 0x07
+
+
+typedef struct
+{
+    const uint8_t *data;
+    const uint8_t value;
+} ir_code_t;
+
+// remote control codes
+const uint8_t power_data[] =     { 0x00 };
+const uint8_t volume_up_data[] = { 0x00 };
+const uint8_t volume_dn_data[] = { 0x00 };
+const uint8_t next_track_data[] = { 0x00 };
+const uint8_t prev_track_data[] = { 0x00 };
+const uint8_t number1_data[] =     { 0x00 };
+const uint8_t number2_data[] =      { 0x00 };
+const uint8_t number3_data[] =      { 0x00 };
+
+// translate the remote control buttons to clock buttons
+const ir_code_t ir_codes[] = { 
+    { power_data, ENABLE_ALARM },
+	{ volume_up_data, HOUR_UP },
+	{ volume_dn_data, HOUR_DN },
+	{ next_track_data, MINUTE_UP },
+	{ prev_track_data, MINUTE_DN },
+	{ number1_data, SET_ALARM },
+	{ number2_data, SET_TIME },
+	{ number3_data, SET_TEST },
+};
+
+
+void (*ir_state)();
+// IR interrupt fired
+uint8_t got_ir_int = 0;
+// time of IR interrupt in us / 4
+uint16_t ir_time = 0;
+// current byte from IR
+uint8_t ir_byte = 0;
+uint8_t ir_count = 0;
+#define IR_BUFSIZE 16
+uint8_t ir_buffer[IR_BUFSIZE];
+uint8_t ir_size = 0;
+// time margin in us / 4
+#define IR_MARGIN 125
+#define IR_MARGIN2 60
+
+
+#ifdef ENABLE_DEBUG
+
+
+void print_byte(uint8_t c)
+{
+	if(uart_size < UART_BUFSIZE)
+	{
+		uart_buffer[uart_size++] = c;
+	}
+}
+
+void print_text(const uint8_t *s)
+{
+	while(*s != 0)
+	{
+		print_byte(*s);
+		s++;
+	}
+}
+
+
+void print_number_nospace(uint16_t number)
+{
+	if(number >= 10000) print_byte('0' + (number / 10000));
+	if(number >= 1000) print_byte('0' + ((number / 1000) % 10));
+	if(number >= 100) print_byte('0' + ((number / 100) % 10));
+	if(number >= 10) print_byte('0' + ((number / 10) % 10));
+	print_byte('0' + (number % 10));
+}
+
+void print_number(uint16_t number)
+{
+    print_number_nospace(number);
+   	print_byte(' ');
+ 
+}
+
+const char hex_table[] = 
+{
+	'0', '1', '2', '3', '4', '5', '6', '7', 
+	'8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+};
+
+void print_hex2(uint8_t number)
+{
+	print_byte(hex_table[(number >> 4) & 0xf]);
+	print_byte(hex_table[number & 0xf]);
+	print_byte(' ');
+}
+
+void print_bin_nospace(uint8_t number)
+{
+	print_byte((number & 0x80) ? '1' : '0');
+	print_byte((number & 0x40) ? '1' : '0');
+	print_byte((number & 0x20) ? '1' : '0');
+	print_byte((number & 0x10) ? '1' : '0');
+	print_byte((number & 0x8) ? '1' : '0');
+	print_byte((number & 0x4) ? '1' : '0');
+	print_byte((number & 0x2) ? '1' : '0');
+	print_byte((number & 0x1) ? '1' : '0');
+}
+
+
+
+
+
+
+
+
+#else // ENABLE_DEBUG
+
+
+#define print_text(x) ;
+#define print_hex2(x) ;
+#define print_number(x) ;
+#define print_number_nospace(x) ;
+#define print_byte(x) ;
+
+
+
+
+
+
+
+
+#endif // !ENABLE_DEBUG
+
+// wait for rising edge
+void repeat_code1()
+{
+	if(got_ir_int)
+	{
+		if(ir_time < 2225
+	}
+}
+
+
+
+// wait for falling edge of bit
+void ir_bit2()
+{
+	if(got_ir_int)
+	{
+		
+		if(ir_time < 200 + IR_MARGIN2)
+		{
+			bit = 0;
+			if_count++;
+		}
+		else
+		if(ir_time < 400 + IR_MARGIN2)
+		{
+			bit = 1;
+			ir_byte |= 1 >> ir_count;
+			ir_count++;
+		}
+		else
+		if(ir_time < 10000 + IR_MARGIN)
+		{
+// end of sequence, start of repeat code
+			ir_buffer[ir_size++] = ir_byte;
+			INTCON2bits.INTEDG3 = 1; // interrupt on rising edge
+			ir_state = repeat_code1;
+
+			print_text("ir_bit2 ");
+			uint8_t i;
+			for(i = 0; i < ir_size; i++)
+			{
+				print_hex2(ir_buffer[i]);
+			}
+			print_byte('\n');
+		}
+		else
+		{
+// invalid code
+			INTCON2bits.INTEDG3 = 0; // interrupt on falling edge
+			ir_state = start_code1;
+		}
+	}
+}
+
+
+
+// wait for rising edge of bit
+void ir_bit1()
+{
+	if(got_ir_int)
+	{
+		if(ir_time > 775 - IR_MARGIN2 &&
+			ir_time < 775 + IR_MARGIN2)
+		{
+			INTCON2bits.INTEDG3 = 1; // interrupt on rising edge
+			ir_state = ir_bit2;
+		}
+		else
+		{
+// invalid code
+			INTCON2bits.INTEDG3 = 0; // interrupt on falling edge
+			ir_state = start_code1;
+		}
+	}
+}
+
+
+// wait for falling edge
+void start_code3()
+{
+	if(got_ir_int)
+	{
+		if(ir_time > 1125 - IR_MARGIN &&
+			ir_time < 1125 + IR_MARGIN)
+		{
+			INTCON2bits.INTEDG3 = 1; // interrupt on rising edge
+			ir_state = ir_bit1;
+// start a new sequence
+			ir_byte = 0;
+			ir_count = 0;
+			ir_size = 0;
+		}
+		else
+		{ 
+// invalid code
+			INTCON2bits.INTEDG3 = 0; // interrupt on falling edge
+			ir_state = start_code1;
+		}
+	}
+}
+
+
+// wait for rising edge
+void start_code2()
+{
+	if(got_ir_int)
+	{
+		if(ir_time > 2250 - IR_MARGIN &&
+			ir_time < 2250 + IR_MARGIN)
+		{
+			INTCON2bits.INTEDG3 = 0; // interrupt on falling edge
+			ir_state = start_code3;
+		}
+		else
+		{
+// invalid code
+			INTCON2bits.INTEDG3 = 0; // interrupt on falling edge
+			ir_state = start_code1;
+		}
+	}
+}
+
+
+// wait for falling edge
+void start_code1()
+{
+	if(got_ir_int)
+	{
+		INTCON2bits.INTEDG3 = 1; // interrupt on rising edge
+		ir_state = start_code2;
+	}
+}
+
+
+void interrupt isr()
+{
+    uint8_t interrupt_done = 0;
+    
+    while(!interrupt_done)
+    {
+        interrupt_done = 1;
+        
+        if(PIR1bits.RCIF)
+        {
+            PIR1bits.RCIF = 0;
+            serial_in = RCREG;
+            have_serial = 1;
+			interrupt_done = 0;
+        }
+        
+        if(PIR1bits.TMR2IF)
+        {
+            PIR1bits.TMR2IF = 0;
+            time++;
+			interrupt_done = 0;
+        }
+        
+		if(INTCON3bits.INT3IF)
+		{
+			INTCON3bits.INT3IF = 0;
+			got_ir_int = 1;
+			ir_time = TMR0L;
+			ir_time |= ((uint16_t)TMR0H) << 8;
+			TMR0L = 0;
+			TMR0H = 0;
+			interrupt_done = 0;
+		}
+    }
+    
+    
+}
+
+
+void main()
+{
+    
+    ADCON1 = 0xff; // all digital
+    DEBUG_TRIS = 0; // output
+    DEBUG_LAT = 1;
+    
+    // initialize serial port
+    TXSTA = 0x24;
+    RCSTA = 0x90;
+    BAUDCTL = 0x08;
+    SPBRGH = BAUD_CODE >> 8;
+    SPBRG = BAUD_CODE & 0xff;
+    PIR1bits.RCIF = 0;
+    PIE1bits.RCIE = 1;
+	
+	// IR interrupt
+	INTCON2bits.INTEDG3 = 0; // interrupt on falling edge
+	INTCON3bits.INT3IE = 1;
+	INTCON3bits.INT3IF = 0;
+	ir_state = start_code1;
+    
+	
+	// IR timer
+	T0CON = 0x83;   // 1 cycle every 4ms
+	INTCONbits.TMR0IF = 0;
+	
+	
+	
+    // the mane timer
+    T2CON = 0x3f; // 16x prescaler 8x postscaler
+    PR2 = 125; // period
+    PIR1bits.TMR2IF = 0;
+    PIE1bits.TMR2IE = 1;
+    
+    // enable all interrupts
+    INTCONbits.PEIE = 1;
+    INTCONbits.GIE = 1;
+    
+    // wait a while
+    uint16_t i;
+    for(i = 0; i < 32768; i++)
+    {
+    }
+	
+	
+	print_text("Welcome to Heroineclock 2\n");
+    
+    while(1)
+    {
+        ClrWdt();
+
+        if(have_serial)
+		{
+			have_serial = 0;
+		}
+        
+		
+		uint16_t test_time = TMR0L;
+		test_time |= ((uint16_t)TMR0H) << 8;
+// IR timed out
+		if(test_time > 27500 &&
+			ir_state != start_code1)
+		{
+			INTCON2bits.INTEDG3 = 0; // interrupt on falling edge
+			ir_state = start_code1;
+			TMR0L = 0;
+			TMR0H = 0;
+		}
+
+		ir_state();
+
+
+		
+        
+#ifdef ENABLE_DEBUG
+        // send a UART char
+        if(uart_size > uart_position &&
+                PIR1bits.TXIF)
+        {
+            PIR1bits.TXIF = 0;
+            TXREG = uart_buffer[uart_position++];
+            
+            if(uart_position >= uart_size)
+            {
+                uart_size = 0;
+                uart_position = 0;
+            }
+        }
+#endif
+    }
+    
+    
+}
+
+
+
+
+
+
+
+

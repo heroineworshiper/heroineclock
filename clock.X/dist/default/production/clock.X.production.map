@@ -1,0 +1,2053 @@
+Microchip MPLAB XC8 Compiler V1.41 ()
+
+Linker command line:
+
+--edf=/Applications/microchip/xc8/v1.41/dat/en_msgs.txt -cs \
+  -h+dist/default/production/clock.X.production.sym \
+  --cmf=dist/default/production/clock.X.production.cmf -z -Q18F6585 \
+  -o/tmp/xcXBVtjqG -Mdist/default/production/clock.X.production.map -E1 \
+  -ver=XC8 -ASTACK=049Dh-0cffh -pstack=STACK -ACODE=00h-0BFFFh \
+  -ACONST=00h-0BFFFh -ASMALLCONST=0D00h-0DFFhx179 \
+  -AMEDIUMCONST=0D00h-0BFFFh -ACOMRAM=01h-05Fh -AABS1=00h-0CFFh \
+  -ABIGRAM=01h-0CFFh -ARAM=060h-0FFh,0100h-01FFhx12 -ABANK0=060h-0FFh \
+  -ABANK1=0100h-01FFh -ABANK2=0200h-02FFh -ABANK3=0300h-03FFh \
+  -ABANK4=0400h-04FFh -ABANK5=0500h-05FFh -ABANK6=0600h-06FFh \
+  -ABANK7=0700h-07FFh -ABANK8=0800h-08FFh -ABANK9=0900h-09FFh \
+  -ABANK10=0A00h-0AFFh -ABANK11=0B00h-0BFFh -ABANK12=0C00h-0CFFh \
+  -ASFR=0D00h-0DFFhx2,0F00h-0F5Fh,0F60h-0FFFh \
+  -preset_vec=00h,intcode=08h,intcodelo,powerup,init -pramtop=0D00h \
+  -psmallconst=SMALLCONST -pmediumconst=MEDIUMCONST -pconst=CONST \
+  -AFARRAM=00h-00h -ACONFIG=0300000h-030000Dh -pconfig=CONFIG \
+  -AIDLOC=0200000h-0200007h -pidloc=IDLOC -AEEDATA=0F00000h-0F003FFh \
+  -peeprom_data=EEDATA \
+  -prdata=COMRAM,nvrram=COMRAM,nvbit=COMRAM,rbss=COMRAM,rbit=COMRAM \
+  -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
+  -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
+  -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE -prparam=COMRAM \
+  /tmp/xcnrXnUQA.obj dist/default/production/clock.X.production.obj 
+
+Object code version is 3.11
+
+Machine type is 18F6585
+
+Call graph: (short form)
+
+
+
+
+                Name                               Link     Load   Length Selector   Space Scale
+/tmp/xcnrXnUQA.obj
+                text                               1B34     1B34        2      D9A       0
+                init                                 DA       DA        4        4       0
+                reset_vec                             0        0        4        0       0
+                idloc                            200000   200000        8   200000       0
+                config                           300000   300000        E   300000       0
+dist/default/production/clock.X.production.obj
+                intcode                               8        8       D2        4       0
+                temp                                 4C       4C        1        1       1
+                mediumconst                        B95E     B95E      6A2     5CAF       0
+                text34                              F08      F08      1C0        4       0
+                text32                             1538     1538       98        4       0
+                text31                              5B0      5B0      2F8        4       0
+                text30                             10C8     10C8      1BC        4       0
+                text29                             19A2     19A2       34        4       0
+                text28                              D2A      D2A      1DE        4       0
+                text27                             186C     186C       4A        4       0
+                text26                             18B6     18B6       48        4       0
+                text25                             138A     138A       F8        4       0
+                text24                             196C     196C       36        4       0
+                text23                             1640     1640       70        4       0
+                text22                             1936     1936       36        4       0
+                text21                             1820     1820       4C        4       0
+                text20                             15D0     15D0       70        4       0
+                text19                             1AEE     1AEE       18        4       0
+                text18                             1A06     1A06       2E        4       0
+                text17                             1A9C     1A9C       20        4       0
+                text16                             1ABC     1ABC       1A        4       0
+                text15                             19D6     19D6       30        4       0
+                text14                             1A7C     1A7C       20        4       0
+                text13                             1B1C     1B1C       12        4       0
+                text12                              B44      B44      1E6        4       0
+                text11                             1A58     1A58       24        4       0
+                text10                             1716     1716       60        4       0
+                text9                              17D0     17D0       50        4       0
+                text8                              1284     1284      106        4       0
+                text7                              1AD6     1AD6       18        4       0
+                text6                              18FE     18FE       38        4       0
+                text5                              1A34     1A34       24        4       0
+                text4                                DE       DE      4D2        4       0
+                text3                              16B0     16B0       66        4       0
+                text2                              1482     1482       B6        4       0
+                text1                              1B06     1B06       16        4       0
+                text0                               8A8      8A8      29C        4       0
+                cstackCOMRAM                          1        1       2D        1       1
+                cstackBANK0                          81       81       13       60       1
+                bssBIGRAM                            9D       9D      400       9D       1
+                bssBANK0                             60       60       21       60       1
+                dataCOMRAM                           46       46        5        1       1
+                bssCOMRAM                            2E       2E       18        1       1
+                cinit                              1776     1776       5A        4       0
+                nvBANK0                              94       94        9       60       1
+                nvCOMRAM                             4B       4B        1        1       1
+                idataCOMRAM                        1B2E     1B2E        5        4       0
+
+TOTAL           Name                               Link     Load   Length     Space
+        CLASS   STACK          
+
+        CLASS   CODE           
+                intcode                               8        8       D2         0
+                text                               1B34     1B34        2         0
+                init                                 DA       DA        4         0
+                reset_vec                             0        0        4         0
+                text34                              F08      F08      1C0         0
+                text32                             1538     1538       98         0
+                text31                              5B0      5B0      2F8         0
+                text30                             10C8     10C8      1BC         0
+                text29                             19A2     19A2       34         0
+                text28                              D2A      D2A      1DE         0
+                text27                             186C     186C       4A         0
+                text26                             18B6     18B6       48         0
+                text25                             138A     138A       F8         0
+                text24                             196C     196C       36         0
+                text23                             1640     1640       70         0
+                text22                             1936     1936       36         0
+                text21                             1820     1820       4C         0
+                text20                             15D0     15D0       70         0
+                text19                             1AEE     1AEE       18         0
+                text18                             1A06     1A06       2E         0
+                text17                             1A9C     1A9C       20         0
+                text16                             1ABC     1ABC       1A         0
+                text15                             19D6     19D6       30         0
+                text14                             1A7C     1A7C       20         0
+                text13                             1B1C     1B1C       12         0
+                text12                              B44      B44      1E6         0
+                text11                             1A58     1A58       24         0
+                text10                             1716     1716       60         0
+                text9                              17D0     17D0       50         0
+                text8                              1284     1284      106         0
+                text7                              1AD6     1AD6       18         0
+                text6                              18FE     18FE       38         0
+                text5                              1A34     1A34       24         0
+                text4                                DE       DE      4D2         0
+                text3                              16B0     16B0       66         0
+                text2                              1482     1482       B6         0
+                text1                              1B06     1B06       16         0
+                text0                               8A8      8A8      29C         0
+                cinit                              1776     1776       5A         0
+                idataCOMRAM                        1B2E     1B2E        5         0
+
+        CLASS   CONST          
+
+        CLASS   SMALLCONST     
+
+        CLASS   MEDIUMCONST    
+                mediumconst                        B95E     B95E      6A2         0
+
+        CLASS   COMRAM         
+                temp                                 4C       4C        1         1
+                cstackCOMRAM                          1        1       2D         1
+                dataCOMRAM                           46       46        5         1
+                bssCOMRAM                            2E       2E       18         1
+                nvCOMRAM                             4B       4B        1         1
+
+        CLASS   ABS1           
+
+        CLASS   BIGRAM         
+                bssBIGRAM                            9D       9D      400         1
+
+        CLASS   RAM            
+
+        CLASS   BANK0          
+                cstackBANK0                          81       81       13         1
+                bssBANK0                             60       60       21         1
+                nvBANK0                              94       94        9         1
+
+        CLASS   BANK1          
+
+        CLASS   BANK2          
+
+        CLASS   BANK3          
+
+        CLASS   BANK4          
+
+        CLASS   BANK5          
+
+        CLASS   BANK6          
+
+        CLASS   BANK7          
+
+        CLASS   BANK8          
+
+        CLASS   BANK9          
+
+        CLASS   BANK10         
+
+        CLASS   BANK11         
+
+        CLASS   BANK12         
+
+        CLASS   SFR            
+
+        CLASS   FARRAM         
+
+        CLASS   CONFIG         
+                config                           300000   300000        E         0
+
+        CLASS   IDLOC          
+                idloc                            200000   200000        8         0
+
+        CLASS   EEDATA         
+
+
+
+SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class
+
+                reset_vec                      000000  000004  000004         0       0  CODE    
+                cstackCOMRAM                   000001  00004C  00004D         1       1  COMRAM  
+                intcode                        000008  001B2B  001B33         4       0  CODE    
+                bssBANK0                       000060  00003D  00009D        60       1  BANK0   
+                bssBIGRAM                      00009D  000400  00049D        9D       1  BIGRAM  
+                text                           001B34  000002  001B36       D9A       0  CODE    
+                mediumconst                    00B95E  0006A2  00C000      5CAF       0  MEDIUMCO
+                idloc                          200000  000008  200008    200000       0  IDLOC   
+                config                         300000  00000E  30000E    300000       0  CONFIG  
+
+
+UNUSED ADDRESS RANGES
+
+        Name                Unused          Largest block    Delta
+        BANK10           000A00-000AFF              100
+        BANK11           000B00-000BFF              100
+        BANK12           000C00-000CFF              100
+        BANK4            00049D-0004FF               63
+        BANK5            000500-0005FF              100
+        BANK6            000600-0006FF              100
+        BANK7            000700-0007FF              100
+        BANK8            000800-0008FF              100
+        BANK9            000900-0009FF              100
+        BIGRAM           00004D-00005F               13
+                         00049D-000CFF              863
+        CODE             000004-000007                4
+                         001B33-001B33                1
+                         001B36-00B95D             9E28
+        COMRAM           00004D-00005F               13
+        CONST            000004-000007                4
+                         001B33-001B33                1
+                         001B36-00B95D             9E28
+        EEDATA           F00000-F003FF              400
+        MEDIUMCONST      001B33-001B33                1
+                         001B36-00B95D             9E28
+        RAM              00049D-000CFF              100
+        SFR              000D00-000FFF              100
+        SMALLCONST       001B33-001B33                1
+                         001B36-00B95D              100
+        STACK            00049D-000CFF              863
+
+                                  Symbol Table
+
+?___awdiv                                                     cstackCOMRAM 000014
+?___lwdiv                                                     cstackCOMRAM 000014
+?___lwmod                                                     cstackCOMRAM 00001B
+_ADCON1                                                       (abs)        000FC1
+_BAUDCTL                                                      (abs)        000F7E
+_CCP1CON                                                      (abs)        000FBD
+_CCP2CON                                                      (abs)        000FBA
+_CCPR1L                                                       (abs)        000FBE
+_CCPR2H                                                       (abs)        000FBC
+_CCPR2L                                                       (abs)        000FBB
+_INTCON2bits                                                  (abs)        000FF1
+_INTCON3bits                                                  (abs)        000FF0
+_INTCONbits                                                   (abs)        000FF2
+_LATAbits                                                     (abs)        000F89
+_LATCbits                                                     (abs)        000F8B
+_LATDbits                                                     (abs)        000F8C
+_LATEbits                                                     (abs)        000F8D
+_LATFbits                                                     (abs)        000F8E
+_LATGbits                                                     (abs)        000F8F
+_PIE1bits                                                     (abs)        000F9D
+_PIR1bits                                                     (abs)        000F9E
+_PIR2bits                                                     (abs)        000FA1
+_PR2                                                          (abs)        000FCB
+_RCSTA                                                        (abs)        000FAB
+_SPBRG                                                        (abs)        000FAF
+_SPBRGH                                                       (abs)        000F7F
+_T0CON                                                        (abs)        000FD5
+_T1CON                                                        (abs)        000FCD
+_T2CON                                                        (abs)        000FCA
+_TMR0H                                                        (abs)        000FD7
+_TMR0L                                                        (abs)        000FD6
+_TRISAbits                                                    (abs)        000F92
+_TRISCbits                                                    (abs)        000F94
+_TRISDbits                                                    (abs)        000F95
+_TRISE                                                        (abs)        000F96
+_TRISFbits                                                    (abs)        000F97
+_TRISGbits                                                    (abs)        000F98
+_TXREG                                                        (abs)        000FAD
+_TXSTA                                                        (abs)        000FAC
+__CFG_LVP$OFF                                                 (abs)        000000
+__CFG_OSC$HSPLL                                               (abs)        000000
+__HRAM                                                        (abs)        000000
+__Habs1                                                       abs1         000000
+__Hbank0                                                      bank0        000000
+__Hbank1                                                      bank1        000000
+__Hbank10                                                     bank10       000000
+__Hbank11                                                     bank11       000000
+__Hbank12                                                     bank12       000000
+__Hbank2                                                      bank2        000000
+__Hbank3                                                      bank3        000000
+__Hbank4                                                      bank4        000000
+__Hbank5                                                      bank5        000000
+__Hbank6                                                      bank6        000000
+__Hbank7                                                      bank7        000000
+__Hbank8                                                      bank8        000000
+__Hbank9                                                      bank9        000000
+__Hbigbss                                                     bigbss       000000
+__Hbigdata                                                    bigdata      000000
+__Hbigram                                                     bigram       000000
+__Hbss                                                        bss          000000
+__HbssBANK0                                                   bssBANK0     000000
+__HbssBIGRAM                                                  bssBIGRAM    000000
+__HbssCOMRAM                                                  bssCOMRAM    000000
+__Hcinit                                                      cinit        000000
+__Hclrtext                                                    clrtext      000000
+__Hcomram                                                     comram       000000
+__Hconfig                                                     config       30000E
+__Hconst                                                      const        000000
+__HcstackBANK0                                                cstackBANK0  000000
+__HcstackCOMRAM                                               cstackCOMRAM 000000
+__Hdata                                                       data         000000
+__HdataCOMRAM                                                 dataCOMRAM   000000
+__Heeprom_data                                                eeprom_data  000000
+__Hfarbss                                                     farbss       000000
+__Hfardata                                                    fardata      000000
+__Hibigdata                                                   ibigdata     000000
+__Hidata                                                      idata        000000
+__HidataCOMRAM                                                idataCOMRAM  000000
+__Hidloc                                                      idloc        200008
+__Hifardata                                                   ifardata     000000
+__Hinit                                                       init         0000DE
+__Hintcode                                                    intcode      0000DA
+__Hintcode_body                                               intcode_body 000000
+__Hintcodelo                                                  intcodelo    0000DA
+__Hintentry                                                   intentry     000000
+__Hintret                                                     intret       000000
+__Hintsave_regs                                               intsave_regs 000000
+__Hirdata                                                     irdata       000000
+__Hmediumconst                                                mediumconst  00C000
+__HnvBANK0                                                    nvBANK0      000000
+__HnvCOMRAM                                                   nvCOMRAM     000000
+__HnvFARRAM                                                   nvFARRAM     000000
+__Hnvbit                                                      nvbit        000000
+__Hnvrram                                                     nvrram       000000
+__Hparam                                                      rparam       000000
+__Hpowerup                                                    powerup      0000DA
+__Hram                                                        ram          000000
+__Hramtop                                                     ramtop       000D00
+__Hrbit                                                       rbit         000000
+__Hrbss                                                       rbss         000000
+__Hrdata                                                      rdata        000000
+__Hreset_vec                                                  reset_vec    000004
+__Hrparam                                                     rparam       000000
+__Hsfr                                                        sfr          000000
+__Hsmallconst                                                 smallconst   000000
+__Hspace_0                                                    (abs)        30000E
+__Hspace_1                                                    (abs)        00049D
+__Hspace_2                                                    (abs)        000000
+__Hstack                                                      stack        000000
+__Hstruct                                                     struct       000000
+__Htemp                                                       temp         00004D
+__Htext                                                       text         000000
+__Htext0                                                      text0        000000
+__Htext1                                                      text1        000000
+__Htext10                                                     text10       000000
+__Htext11                                                     text11       000000
+__Htext12                                                     text12       000000
+__Htext13                                                     text13       000000
+__Htext14                                                     text14       000000
+__Htext15                                                     text15       000000
+__Htext16                                                     text16       000000
+__Htext17                                                     text17       000000
+__Htext18                                                     text18       000000
+__Htext19                                                     text19       000000
+__Htext2                                                      text2        000000
+__Htext20                                                     text20       000000
+__Htext21                                                     text21       000000
+__Htext22                                                     text22       000000
+__Htext23                                                     text23       000000
+__Htext24                                                     text24       000000
+__Htext25                                                     text25       000000
+__Htext26                                                     text26       000000
+__Htext27                                                     text27       000000
+__Htext28                                                     text28       000000
+__Htext29                                                     text29       000000
+__Htext3                                                      text3        000000
+__Htext30                                                     text30       000000
+__Htext31                                                     text31       000000
+__Htext32                                                     text32       000000
+__Htext34                                                     text34       000000
+__Htext4                                                      text4        000000
+__Htext5                                                      text5        000000
+__Htext6                                                      text6        000000
+__Htext7                                                      text7        000000
+__Htext8                                                      text8        000000
+__Htext9                                                      text9        000000
+__LRAM                                                        (abs)        000001
+__Labs1                                                       abs1         000000
+__Lbank0                                                      bank0        000000
+__Lbank1                                                      bank1        000000
+__Lbank10                                                     bank10       000000
+__Lbank11                                                     bank11       000000
+__Lbank12                                                     bank12       000000
+__Lbank2                                                      bank2        000000
+__Lbank3                                                      bank3        000000
+__Lbank4                                                      bank4        000000
+__Lbank5                                                      bank5        000000
+__Lbank6                                                      bank6        000000
+__Lbank7                                                      bank7        000000
+__Lbank8                                                      bank8        000000
+__Lbank9                                                      bank9        000000
+__Lbigbss                                                     bigbss       000000
+__Lbigdata                                                    bigdata      000000
+__Lbigram                                                     bigram       000000
+__Lbss                                                        bss          000000
+__LbssBANK0                                                   bssBANK0     000000
+__LbssBIGRAM                                                  bssBIGRAM    000000
+__LbssCOMRAM                                                  bssCOMRAM    000000
+__Lcinit                                                      cinit        000000
+__Lclrtext                                                    clrtext      000000
+__Lcomram                                                     comram       000000
+__Lconfig                                                     config       300000
+__Lconst                                                      const        000000
+__LcstackBANK0                                                cstackBANK0  000000
+__LcstackCOMRAM                                               cstackCOMRAM 000000
+__Ldata                                                       data         000000
+__LdataCOMRAM                                                 dataCOMRAM   000000
+__Leeprom_data                                                eeprom_data  000000
+__Lfarbss                                                     farbss       000000
+__Lfardata                                                    fardata      000000
+__Libigdata                                                   ibigdata     000000
+__Lidata                                                      idata        000000
+__LidataCOMRAM                                                idataCOMRAM  000000
+__Lidloc                                                      idloc        200000
+__Lifardata                                                   ifardata     000000
+__Linit                                                       init         0000DA
+__Lintcode                                                    intcode      000008
+__Lintcode_body                                               intcode_body 000000
+__Lintcodelo                                                  intcodelo    0000DA
+__Lintentry                                                   intentry     000000
+__Lintret                                                     intret       000000
+__Lintsave_regs                                               intsave_regs 000000
+__Lirdata                                                     irdata       000000
+__Lmediumconst                                                mediumconst  00B95E
+__LnvBANK0                                                    nvBANK0      000000
+__LnvCOMRAM                                                   nvCOMRAM     000000
+__LnvFARRAM                                                   nvFARRAM     000000
+__Lnvbit                                                      nvbit        000000
+__Lnvrram                                                     nvrram       000000
+__Lparam                                                      rparam       000000
+__Lpowerup                                                    powerup      0000DA
+__Lram                                                        ram          000000
+__Lramtop                                                     ramtop       000D00
+__Lrbit                                                       rbit         000000
+__Lrbss                                                       rbss         000000
+__Lrdata                                                      rdata        000000
+__Lreset_vec                                                  reset_vec    000000
+__Lrparam                                                     rparam       000000
+__Lsfr                                                        sfr          000000
+__Lsmallconst                                                 smallconst   000000
+__Lspace_0                                                    (abs)        000000
+__Lspace_1                                                    (abs)        000000
+__Lspace_2                                                    (abs)        000000
+__Lstack                                                      stack        000000
+__Lstruct                                                     struct       000000
+__Ltemp                                                       temp         00004C
+__Ltext                                                       text         000000
+__Ltext0                                                      text0        000000
+__Ltext1                                                      text1        000000
+__Ltext10                                                     text10       000000
+__Ltext11                                                     text11       000000
+__Ltext12                                                     text12       000000
+__Ltext13                                                     text13       000000
+__Ltext14                                                     text14       000000
+__Ltext15                                                     text15       000000
+__Ltext16                                                     text16       000000
+__Ltext17                                                     text17       000000
+__Ltext18                                                     text18       000000
+__Ltext19                                                     text19       000000
+__Ltext2                                                      text2        000000
+__Ltext20                                                     text20       000000
+__Ltext21                                                     text21       000000
+__Ltext22                                                     text22       000000
+__Ltext23                                                     text23       000000
+__Ltext24                                                     text24       000000
+__Ltext25                                                     text25       000000
+__Ltext26                                                     text26       000000
+__Ltext27                                                     text27       000000
+__Ltext28                                                     text28       000000
+__Ltext29                                                     text29       000000
+__Ltext3                                                      text3        000000
+__Ltext30                                                     text30       000000
+__Ltext31                                                     text31       000000
+__Ltext32                                                     text32       000000
+__Ltext34                                                     text34       000000
+__Ltext4                                                      text4        000000
+__Ltext5                                                      text5        000000
+__Ltext6                                                      text6        000000
+__Ltext7                                                      text7        000000
+__Ltext8                                                      text8        000000
+__Ltext9                                                      text9        000000
+__S0                                                          (abs)        30000E
+__S1                                                          (abs)        00049D
+__S2                                                          (abs)        000000
+___awdiv                                                      text32       001538
+___awdiv@counter                                              cstackCOMRAM 000018
+___awdiv@dividend                                             cstackCOMRAM 000014
+___awdiv@divisor                                              cstackCOMRAM 000016
+___awdiv@quotient                                             cstackCOMRAM 00001A
+___awdiv@sign                                                 cstackCOMRAM 000019
+___inthi_sp                                                   stack        000000
+___intlo_sp                                                   stack        000000
+___lwdiv                                                      text10       001716
+___lwdiv@counter                                              cstackCOMRAM 000018
+___lwdiv@dividend                                             cstackCOMRAM 000014
+___lwdiv@divisor                                              cstackCOMRAM 000016
+___lwdiv@quotient                                             cstackCOMRAM 000019
+___lwmod                                                      text9        0017D0
+___lwmod@counter                                              cstackCOMRAM 00001F
+___lwmod@dividend                                             cstackCOMRAM 00001B
+___lwmod@divisor                                              cstackCOMRAM 00001D
+___param_bank                                                 (abs)        000000
+___rparam_used                                                (abs)        000001
+___sp                                                         stack        000000
+__accesstop                                                   (abs)        000060
+__activetblptr                                                (abs)        000002
+__cntErrataNOP_/tmp/xcnrXnUQA.obj                             (abs)        000001
+__cntErrataNOP_dist/default/production/clock.X.production.obj (abs)        000141
+__end_of___awdiv                                              text32       0015D0
+__end_of___lwdiv                                              text10       001776
+__end_of___lwmod                                              text9        001820
+__end_of__initialization                                      cinit        0017C2
+__end_of_alarm_off_tone                                       mediumconst  00BF31
+__end_of_alarm_on_tone                                        mediumconst  00BF0D
+__end_of_alarm_song                                           mediumconst  00BE71
+__end_of_decrement_alarm_hours                                text29       0019D6
+__end_of_decrement_alarm_minutes                              text19       001B06
+__end_of_decrement_time_hours                                 text27       0018B6
+__end_of_decrement_time_minutes                               text18       001A34
+__end_of_dn_tone                                              mediumconst  00BFAD
+__end_of_do_hour_down                                         text23       0016B0
+__end_of_do_hour_up                                           text20       001640
+__end_of_do_minute_down                                       text17       001ABC
+__end_of_do_minute_up                                         text14       001A9C
+__end_of_draw_alarm                                           text30       001284
+__end_of_draw_test                                            text13       001B2E
+__end_of_draw_time                                            text28       000F08
+__end_of_dump_leds                                            text24       0019A2
+__end_of_freqs                                                mediumconst  00B9A9
+__end_of_handle_audio                                         text34       0010C8
+__end_of_handle_ir                                            text4        0005B0
+__end_of_handle_repeat                                        text3        001716
+__end_of_handle_song                                          text12       000D2A
+__end_of_handle_time                                          text2        001538
+__end_of_hex_table                                            mediumconst  00B9B9
+__end_of_increment_alarm_hours                                text22       00196C
+__end_of_increment_alarm_minutes                              text16       001AD6
+__end_of_increment_time_hours                                 text21       00186C
+__end_of_increment_time_minutes                               text15       001A06
+__end_of_ir_codes                                             mediumconst  00BF51
+__end_of_isr                                                  intcode      0000DA
+__end_of_led_masks2                                           mediumconst  00BEE9
+__end_of_led_masks3                                           mediumconst  00BEC1
+__end_of_led_masks4                                           mediumconst  00BE99
+__end_of_main                                                 text0        000B44
+__end_of_next_track_data                                      mediumconst  00BC7F
+__end_of_number1_data                                         mediumconst  00BB63
+__end_of_number2_data                                         mediumconst  00BAD5
+__end_of_number3_data                                         mediumconst  00BA47
+__end_of_play_song                                            text11       001A7C
+__end_of_power_data                                           mediumconst  00BE29
+__end_of_prev_track_data                                      mediumconst  00BBF1
+__end_of_print_bin_nospace                                    text25       001482
+__end_of_print_byte                                           text26       0018FE
+__end_of_print_number                                         text7        001AEE
+__end_of_print_number_nospace                                 text8        00138A
+__end_of_print_text                                           text6        001936
+__end_of_set_alarm_tone1                                      mediumconst  00BFA1
+__end_of_set_alarm_tone2                                      mediumconst  00BF8D
+__end_of_set_time_tone1                                       mediumconst  00BF79
+__end_of_set_time_tone2                                       mediumconst  00BF65
+__end_of_start_alarm                                          text1        001B1C
+__end_of_stop_song                                            text5        001A58
+__end_of_test_tone                                            mediumconst  00BFC5
+__end_of_up_tone                                              mediumconst  00BFB9
+__end_of_volume_dn_data                                       mediumconst  00BD0D
+__end_of_volume_up_data                                       mediumconst  00BD9B
+__end_of_write_leds                                           text31       0008A8
+__initialization                                              cinit        001776
+__mediumconst                                                 mediumconst  00B95E
+__pbssBANK0                                                   bssBANK0     000060
+__pbssBIGRAM                                                  bssBIGRAM    00009D
+__pbssCOMRAM                                                  bssCOMRAM    00002E
+__pcinit                                                      cinit        001776
+__pcstackBANK0                                                cstackBANK0  000081
+__pcstackCOMRAM                                               cstackCOMRAM 000001
+__pdataCOMRAM                                                 dataCOMRAM   000046
+__pidataCOMRAM                                                idataCOMRAM  001B2E
+__pintcode                                                    intcode      000008
+__pmediumconst                                                mediumconst  00B95E
+__pnvBANK0                                                    nvBANK0      000094
+__pnvCOMRAM                                                   nvCOMRAM     00004B
+__ptext0                                                      text0        0008A8
+__ptext1                                                      text1        001B06
+__ptext10                                                     text10       001716
+__ptext11                                                     text11       001A58
+__ptext12                                                     text12       000B44
+__ptext13                                                     text13       001B1C
+__ptext14                                                     text14       001A7C
+__ptext15                                                     text15       0019D6
+__ptext16                                                     text16       001ABC
+__ptext17                                                     text17       001A9C
+__ptext18                                                     text18       001A06
+__ptext19                                                     text19       001AEE
+__ptext2                                                      text2        001482
+__ptext20                                                     text20       0015D0
+__ptext21                                                     text21       001820
+__ptext22                                                     text22       001936
+__ptext23                                                     text23       001640
+__ptext24                                                     text24       00196C
+__ptext25                                                     text25       00138A
+__ptext26                                                     text26       0018B6
+__ptext27                                                     text27       00186C
+__ptext28                                                     text28       000D2A
+__ptext29                                                     text29       0019A2
+__ptext3                                                      text3        0016B0
+__ptext30                                                     text30       0010C8
+__ptext31                                                     text31       0005B0
+__ptext32                                                     text32       001538
+__ptext34                                                     text34       000F08
+__ptext4                                                      text4        0000DE
+__ptext5                                                      text5        001A34
+__ptext6                                                      text6        0018FE
+__ptext7                                                      text7        001AD6
+__ptext8                                                      text8        001284
+__ptext9                                                      text9        0017D0
+__ramtop                                                      ramtop       000D00
+__size_of___awdiv                                             (abs)        000000
+__size_of___lwdiv                                             (abs)        000000
+__size_of___lwmod                                             (abs)        000000
+__size_of_decrement_alarm_hours                               (abs)        000000
+__size_of_decrement_alarm_minutes                             (abs)        000000
+__size_of_decrement_time_hours                                (abs)        000000
+__size_of_decrement_time_minutes                              (abs)        000000
+__size_of_do_hour_down                                        (abs)        000000
+__size_of_do_hour_up                                          (abs)        000000
+__size_of_do_minute_down                                      (abs)        000000
+__size_of_do_minute_up                                        (abs)        000000
+__size_of_draw_alarm                                          (abs)        000000
+__size_of_draw_test                                           (abs)        000000
+__size_of_draw_time                                           (abs)        000000
+__size_of_dump_leds                                           (abs)        000000
+__size_of_handle_audio                                        (abs)        000000
+__size_of_handle_ir                                           (abs)        000000
+__size_of_handle_repeat                                       (abs)        000000
+__size_of_handle_song                                         (abs)        000000
+__size_of_handle_time                                         (abs)        000000
+__size_of_increment_alarm_hours                               (abs)        000000
+__size_of_increment_alarm_minutes                             (abs)        000000
+__size_of_increment_time_hours                                (abs)        000000
+__size_of_increment_time_minutes                              (abs)        000000
+__size_of_isr                                                 (abs)        000000
+__size_of_main                                                (abs)        000000
+__size_of_play_song                                           (abs)        000000
+__size_of_print_bin_nospace                                   (abs)        000000
+__size_of_print_byte                                          (abs)        000000
+__size_of_print_number                                        (abs)        000000
+__size_of_print_number_nospace                                (abs)        000000
+__size_of_print_text                                          (abs)        000000
+__size_of_start_alarm                                         (abs)        000000
+__size_of_stop_song                                           (abs)        000000
+__size_of_write_leds                                          (abs)        000000
+__smallconst                                                  smallconst   000000
+_alarm                                                        bssCOMRAM    00003D
+_alarm_ampm                                                   bssCOMRAM    000038
+_alarm_hours                                                  dataCOMRAM   000048
+_alarm_minutes                                                bssCOMRAM    000039
+_alarm_off_tone                                               mediumconst  00BF0D
+_alarm_on_tone                                                mediumconst  00BEE9
+_alarm_song                                                   mediumconst  00BE29
+_alarm_sounding                                               dataCOMRAM   000047
+_alarm_time                                                   bssCOMRAM    000037
+_ampm                                                         bssCOMRAM    00003E
+_colon                                                        dataCOMRAM   000049
+_crystal_time                                                 bssBANK0     00006C
+_decay_count                                                  bssBANK0     000076
+_decrement_alarm_hours                                        text29       0019A2
+_decrement_alarm_minutes                                      text19       001AEE
+_decrement_time_hours                                         text27       00186C
+_decrement_time_minutes                                       text18       001A06
+_display_flash                                                bssCOMRAM    000042
+_dn_tone                                                      mediumconst  00BFA1
+_do_hour_down                                                 text23       001640
+_do_hour_up                                                   text20       0015D0
+_do_minute_down                                               text17       001A9C
+_do_minute_up                                                 text14       001A7C
+_draw_alarm                                                   text30       0010C8
+_draw_test                                                    text13       001B1C
+_draw_time                                                    text28       000D2A
+_dump_leds                                                    text24       00196C
+_first_edge                                                   dataCOMRAM   000046
+_freqs                                                        mediumconst  00B95F
+_got_ir_int                                                   bssCOMRAM    000031
+_handle_audio                                                 text34       000F08
+_handle_ir                                                    text4        0000DE
+_handle_repeat                                                text3        0016B0
+_handle_song                                                  text12       000B44
+_handle_time                                                  text2        001482
+_have_ir                                                      bssCOMRAM    000032
+_hex_table                                                    mediumconst  00B9A9
+_hours                                                        dataCOMRAM   00004A
+_increment_alarm_hours                                        text22       001936
+_increment_alarm_minutes                                      text16       001ABC
+_increment_time_hours                                         text21       001820
+_increment_time_minutes                                       text15       0019D6
+_interrupt_done                                               bssBANK0     00007E
+_ir_code                                                      bssBANK0     00007F
+_ir_code_failed                                               bssBANK0     000060
+_ir_codes                                                     mediumconst  00BF31
+_ir_size                                                      bssCOMRAM    000033
+_ir_time                                                      bssBANK0     00006A
+_ir_time2                                                     bssBANK0     000068
+_isr                                                          intcode      000008
+_led_mask0                                                    nvCOMRAM     00004B
+_led_mask1                                                    bssCOMRAM    000036
+_led_mask2                                                    bssCOMRAM    000035
+_led_mask3                                                    bssCOMRAM    000034
+_led_masks2                                                   mediumconst  00BEC1
+_led_masks3                                                   mediumconst  00BE99
+_led_masks4                                                   mediumconst  00BE71
+_main                                                         text0        0008A8
+_minutes                                                      bssCOMRAM    00003F
+_mode                                                         bssCOMRAM    00003C
+_need_audio                                                   bssBANK0     000080
+_next_duty                                                    bssCOMRAM    000045
+_next_track_data                                              mediumconst  00BBF1
+_number1_data                                                 mediumconst  00BAD5
+_number2_data                                                 mediumconst  00BA47
+_number3_data                                                 mediumconst  00B9B9
+_osc1_period                                                  nvBANK0      000098
+_osc1_time                                                    bssBANK0     000072
+_osc1_volume                                                  nvBANK0      00009C
+_osc2_period                                                  nvBANK0      000096
+_osc2_time                                                    bssBANK0     000070
+_osc2_volume                                                  nvBANK0      00009B
+_osc3_period                                                  nvBANK0      000094
+_osc3_time                                                    bssBANK0     00006E
+_osc3_volume                                                  nvBANK0      00009A
+_play_song                                                    text11       001A58
+_power_data                                                   mediumconst  00BD9B
+_powerdown_count                                              bssBANK0     000074
+_prev_track_data                                              mediumconst  00BB63
+_print_bin_nospace                                            text25       00138A
+_print_bin_nospace$802                                        cstackCOMRAM 000015
+_print_bin_nospace$803                                        cstackCOMRAM 000017
+_print_bin_nospace$804                                        cstackCOMRAM 000019
+_print_bin_nospace$805                                        cstackCOMRAM 00001B
+_print_bin_nospace$806                                        cstackCOMRAM 00001D
+_print_bin_nospace$807                                        cstackCOMRAM 00001F
+_print_bin_nospace$808                                        cstackCOMRAM 000021
+_print_bin_nospace$809                                        cstackCOMRAM 000023
+_print_byte                                                   text26       0018B6
+_print_number                                                 text7        001AD6
+_print_number_nospace                                         text8        001284
+_print_text                                                   text6        0018FE
+_repeat_counter                                               bssCOMRAM    00003A
+_repeating                                                    bssCOMRAM    00003B
+_seconds                                                      bssCOMRAM    000040
+_set_alarm_tone1                                              mediumconst  00BF8D
+_set_alarm_tone2                                              mediumconst  00BF79
+_set_time_tone1                                               mediumconst  00BF65
+_set_time_tone2                                               mediumconst  00BF51
+_song_counter                                                 bssCOMRAM    000044
+_song_delay                                                   bssCOMRAM    000043
+_song_ptr                                                     bssCOMRAM    00002E
+_start_alarm                                                  text1        001B06
+_stop_song                                                    text5        001A34
+_test_tone                                                    mediumconst  00BFB9
+_time_hz                                                      bssCOMRAM    000041
+_uart_buffer                                                  bssBIGRAM    00009D
+_uart_position1                                               bssBANK0     00007A
+_uart_position2                                               bssBANK0     000078
+_uart_size                                                    bssBANK0     00007C
+_up_tone                                                      mediumconst  00BFAD
+_volume_dn_data                                               mediumconst  00BC7F
+_volume_up_data                                               mediumconst  00BD0D
+_write_leds                                                   text31       0005B0
+btemp                                                         temp         00004C
+draw_alarm@hours10                                            cstackCOMRAM 00001E
+draw_alarm@minutes10                                          cstackCOMRAM 00001F
+draw_alarm@ptr                                                cstackCOMRAM 000020
+draw_time@hours10                                             cstackCOMRAM 00001E
+draw_time@minutes10                                           cstackCOMRAM 00001F
+draw_time@ptr                                                 cstackCOMRAM 000020
+end_of_initialization                                         cinit        0017C2
+handle_audio@amplitude                                        cstackCOMRAM 000003
+handle_ir@code                                                cstackBANK0  00008C
+handle_ir@code_size                                           cstackBANK0  000082
+handle_ir@data                                                cstackBANK0  000086
+handle_ir@error                                               cstackBANK0  000088
+handle_ir@failed                                              cstackBANK0  000081
+handle_ir@got_it                                              cstackBANK0  000083
+handle_ir@i                                                   cstackBANK0  00008A
+handle_ir@i_916                                               cstackBANK0  00008B
+handle_ir@ir_error                                            cstackBANK0  000084
+handle_ir@j                                                   cstackBANK0  00008E
+int$flags                                                     temp         00004C
+intlevel0                                                     text         001B34
+intlevel1                                                     text         001B34
+intlevel2                                                     text         001B34
+intlevel3                                                     text         001B34
+main@i                                                        cstackBANK0  000091
+main@i_1023                                                   cstackBANK0  000093
+main@test_time                                                cstackBANK0  00008F
+play_song@ptr                                                 cstackCOMRAM 000014
+print_bin_nospace@number                                      cstackCOMRAM 000025
+print_byte@c                                                  cstackCOMRAM 000014
+print_number@number                                           cstackCOMRAM 000022
+print_number_nospace@number                                   cstackCOMRAM 000020
+print_text@s                                                  cstackCOMRAM 000015
+stackhi                                                       (abs)        000CFF
+stacklo                                                       (abs)        00049D
+start                                                         init         0000DA
+start_initialization                                          cinit        001776
+
+
+FUNCTION INFORMATION:
+
+ *************** function _main *****************
+ Defined at:
+		line 1665 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  i               1   18[BANK0 ] unsigned char 
+  test_time       2   14[BANK0 ] unsigned int 
+  i               2   16[BANK0 ] unsigned int 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       5       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          2       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         2       5       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        7 bytes
+ Hardware stack levels required when called:    7
+ This function calls:
+		_draw_time
+		_handle_ir
+		_handle_repeat
+		_handle_time
+		_print_text
+		_start_alarm
+ This function is called by:
+		Startup code after reset
+ This function uses a non-reentrant model
+
+
+ *************** function _start_alarm *****************
+ Defined at:
+		line 1602 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_play_song
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _handle_time *****************
+ Defined at:
+		line 1519 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_draw_time
+		_handle_song
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _handle_repeat *****************
+ Defined at:
+		line 1124 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    6
+ This function calls:
+		_do_hour_down
+		_do_hour_up
+		_do_minute_down
+		_do_minute_up
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _handle_ir *****************
+ Defined at:
+		line 1160 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  code            2   11[BANK0 ] PTR const struct .
+		 -> ir_codes(32), 
+  error           2    7[BANK0 ] int 
+  data            2    5[BANK0 ] PTR const int 
+		 -> number3_data(142), number2_data(142), number1_data(142), prev_track_data(142), 
+		 -> next_track_data(142), volume_dn_data(142), volume_up_data(142), power_data(142), 
+  code_size       1    1[BANK0 ] const unsigned char 
+  failed          1    0[BANK0 ] unsigned char 
+  i               1   10[BANK0 ] unsigned char 
+  ir_error        2    3[BANK0 ] unsigned int 
+  j               1   13[BANK0 ] unsigned char 
+  i               1    9[BANK0 ] unsigned char 
+  got_it          1    2[BANK0 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0      14       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          6       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         6      14       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:       20 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    6
+ This function calls:
+		_do_hour_down
+		_do_hour_up
+		_do_minute_down
+		_do_minute_up
+		_draw_alarm
+		_draw_test
+		_draw_time
+		_play_song
+		_print_byte
+		_print_number
+		_print_text
+		_stop_song
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _stop_song *****************
+ Defined at:
+		line 772 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		Nothing
+ This function is called by:
+		_handle_ir
+ This function uses a non-reentrant model
+
+
+ *************** function _print_text *****************
+ Defined at:
+		line 588 in file "clock.c"
+ Parameters:    Size  Location     Type
+  s               2   20[COMRAM] PTR const unsigned char 
+		 -> STR_5(14), STR_4(2), STR_3(27), STR_2(7), 
+		 -> STR_1(10), 
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         2       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         2       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    3
+ This function calls:
+		_print_byte
+ This function is called by:
+		_handle_ir
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _print_number *****************
+ Defined at:
+		line 613 in file "clock.c"
+ Parameters:    Size  Location     Type
+  number          2   33[COMRAM] unsigned int 
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         2       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         2       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_print_byte
+		_print_number_nospace
+ This function is called by:
+		_handle_ir
+ This function uses a non-reentrant model
+
+
+ *************** function _print_number_nospace *****************
+ Defined at:
+		line 598 in file "clock.c"
+ Parameters:    Size  Location     Type
+  number          2   31[COMRAM] unsigned int 
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         2       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         2       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    3
+ This function calls:
+		___lwdiv
+		___lwmod
+		_print_byte
+ This function is called by:
+		_print_number
+ This function uses a non-reentrant model
+
+
+ *************** function ___lwmod *****************
+ Defined at:
+		line 8 in file "/Applications/microchip/xc8/v1.41/sources/common/lwmod.c"
+ Parameters:    Size  Location     Type
+  dividend        2   26[COMRAM] unsigned int 
+  divisor         2   28[COMRAM] unsigned int 
+ Auto vars:     Size  Location     Type
+  counter         1   30[COMRAM] unsigned char 
+ Return value:  Size  Location     Type
+                  2   26[COMRAM] unsigned int 
+ Registers used:
+		wreg, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         4       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         1       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         5       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        5 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		Nothing
+ This function is called by:
+		_print_number_nospace
+ This function uses a non-reentrant model
+
+
+ *************** function ___lwdiv *****************
+ Defined at:
+		line 8 in file "/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c"
+ Parameters:    Size  Location     Type
+  dividend        2   19[COMRAM] unsigned int 
+  divisor         2   21[COMRAM] unsigned int 
+ Auto vars:     Size  Location     Type
+  quotient        2   24[COMRAM] unsigned int 
+  counter         1   23[COMRAM] unsigned char 
+ Return value:  Size  Location     Type
+                  2   19[COMRAM] unsigned int 
+ Registers used:
+		wreg, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         4       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         3       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         7       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        7 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		Nothing
+ This function is called by:
+		_print_number_nospace
+ This function uses a non-reentrant model
+
+
+ *************** function _play_song *****************
+ Defined at:
+		line 781 in file "clock.c"
+ Parameters:    Size  Location     Type
+  ptr             2   19[COMRAM] PTR const struct .
+		 -> alarm_song(72), dn_tone(12), up_tone(12), set_time_tone2(20), 
+		 -> set_time_tone1(20), set_alarm_tone2(20), set_alarm_tone1(20), alarm_on_tone(36), 
+		 -> alarm_off_tone(36), test_tone(12), 
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         2       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         2       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    3
+ This function calls:
+		_handle_song
+ This function is called by:
+		_handle_ir
+		_start_alarm
+ This function uses a non-reentrant model
+
+
+ *************** function _handle_song *****************
+ Defined at:
+		line 721 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		Nothing
+ This function is called by:
+		_play_song
+		_handle_time
+ This function uses a non-reentrant model
+
+
+ *************** function _draw_test *****************
+ Defined at:
+		line 899 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    3
+ This function calls:
+		_write_leds
+ This function is called by:
+		_handle_ir
+ This function uses a non-reentrant model
+
+
+ *************** function _do_minute_up *****************
+ Defined at:
+		line 1098 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    5
+ This function calls:
+		_increment_alarm_minutes
+		_increment_time_minutes
+ This function is called by:
+		_handle_repeat
+		_handle_ir
+ This function uses a non-reentrant model
+
+
+ *************** function _increment_time_minutes *****************
+ Defined at:
+		line 909 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_draw_time
+ This function is called by:
+		_do_minute_up
+ This function uses a non-reentrant model
+
+
+ *************** function _increment_alarm_minutes *****************
+ Defined at:
+		line 923 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_draw_alarm
+ This function is called by:
+		_do_minute_up
+ This function uses a non-reentrant model
+
+
+ *************** function _do_minute_down *****************
+ Defined at:
+		line 1111 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    5
+ This function calls:
+		_decrement_alarm_minutes
+		_decrement_time_minutes
+ This function is called by:
+		_handle_repeat
+		_handle_ir
+ This function uses a non-reentrant model
+
+
+ *************** function _decrement_time_minutes *****************
+ Defined at:
+		line 933 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_draw_time
+ This function is called by:
+		_do_minute_down
+ This function uses a non-reentrant model
+
+
+ *************** function _decrement_alarm_minutes *****************
+ Defined at:
+		line 947 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_draw_alarm
+ This function is called by:
+		_do_minute_down
+ This function uses a non-reentrant model
+
+
+ *************** function _do_hour_up *****************
+ Defined at:
+		line 1022 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    5
+ This function calls:
+		_dump_leds
+		_increment_alarm_hours
+		_increment_time_hours
+		_write_leds
+ This function is called by:
+		_handle_repeat
+		_handle_ir
+ This function uses a non-reentrant model
+
+
+ *************** function _increment_time_hours *****************
+ Defined at:
+		line 957 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_draw_time
+ This function is called by:
+		_do_hour_up
+ This function uses a non-reentrant model
+
+
+ *************** function _increment_alarm_hours *****************
+ Defined at:
+		line 975 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_draw_alarm
+ This function is called by:
+		_do_hour_up
+ This function uses a non-reentrant model
+
+
+ *************** function _do_hour_down *****************
+ Defined at:
+		line 1060 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    5
+ This function calls:
+		_decrement_alarm_hours
+		_decrement_time_hours
+		_dump_leds
+		_write_leds
+ This function is called by:
+		_handle_repeat
+		_handle_ir
+ This function uses a non-reentrant model
+
+
+ *************** function _dump_leds *****************
+ Defined at:
+		line 672 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_print_bin_nospace
+		_print_byte
+ This function is called by:
+		_do_hour_up
+		_do_hour_down
+ This function uses a non-reentrant model
+
+
+ *************** function _print_bin_nospace *****************
+ Defined at:
+		line 633 in file "clock.c"
+ Parameters:    Size  Location     Type
+  number          1    wreg     unsigned char 
+ Auto vars:     Size  Location     Type
+  number          1   36[COMRAM] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:        17       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:        17       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:       17 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    3
+ This function calls:
+		_print_byte
+ This function is called by:
+		_dump_leds
+ This function uses a non-reentrant model
+
+
+ *************** function _print_byte *****************
+ Defined at:
+		line 575 in file "clock.c"
+ Parameters:    Size  Location     Type
+  c               1    wreg     unsigned char 
+ Auto vars:     Size  Location     Type
+  c               1   19[COMRAM] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         1       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         1       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        1 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		Nothing
+ This function is called by:
+		_print_text
+		_print_number_nospace
+		_print_number
+		_print_bin_nospace
+		_dump_leds
+		_handle_ir
+		_print_number2
+		_print_hex2
+ This function uses a non-reentrant model
+
+
+ *************** function _decrement_time_hours *****************
+ Defined at:
+		line 990 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_draw_time
+ This function is called by:
+		_do_hour_down
+ This function uses a non-reentrant model
+
+
+ *************** function _draw_time *****************
+ Defined at:
+		line 790 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  ptr             2   31[COMRAM] PTR const unsigned char 
+		 -> led_masks4(40), led_masks3(40), led_masks2(40), 
+  minutes10       1   30[COMRAM] unsigned char 
+  hours10         1   29[COMRAM] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         4       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          2       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         6       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        6 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    3
+ This function calls:
+		___awdiv
+		_write_leds
+ This function is called by:
+		_increment_time_minutes
+		_decrement_time_minutes
+		_increment_time_hours
+		_decrement_time_hours
+		_handle_ir
+		_handle_time
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _decrement_alarm_hours *****************
+ Defined at:
+		line 1008 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_draw_alarm
+ This function is called by:
+		_do_hour_down
+ This function uses a non-reentrant model
+
+
+ *************** function _draw_alarm *****************
+ Defined at:
+		line 847 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  ptr             2   31[COMRAM] PTR const unsigned char 
+		 -> led_masks4(40), led_masks3(40), led_masks2(40), 
+  minutes10       1   30[COMRAM] unsigned char 
+  hours10         1   29[COMRAM] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         4       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          2       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         6       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        6 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    3
+ This function calls:
+		___awdiv
+		_write_leds
+ This function is called by:
+		_increment_alarm_minutes
+		_decrement_alarm_minutes
+		_increment_alarm_hours
+		_decrement_alarm_hours
+		_handle_ir
+ This function uses a non-reentrant model
+
+
+ *************** function _write_leds *****************
+ Defined at:
+		line 686 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          1       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         1       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        1 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		Nothing
+ This function is called by:
+		_draw_time
+		_draw_alarm
+		_draw_test
+		_do_hour_up
+		_do_hour_down
+ This function uses a non-reentrant model
+
+
+ *************** function ___awdiv *****************
+ Defined at:
+		line 8 in file "/Applications/microchip/xc8/v1.41/sources/common/awdiv.c"
+ Parameters:    Size  Location     Type
+  dividend        2   19[COMRAM] int 
+  divisor         2   21[COMRAM] int 
+ Auto vars:     Size  Location     Type
+  quotient        2   25[COMRAM] int 
+  sign            1   24[COMRAM] unsigned char 
+  counter         1   23[COMRAM] unsigned char 
+ Return value:  Size  Location     Type
+                  2   19[COMRAM] int 
+ Registers used:
+		wreg, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         4       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         4       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         8       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        8 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		Nothing
+ This function is called by:
+		_draw_time
+		_draw_alarm
+		_print_number2
+ This function uses a non-reentrant model
+
+
+ *************** function _isr *****************
+ Defined at:
+		line 1615 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:         16       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:        16       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:       16 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    1
+ This function calls:
+		_handle_audio
+ This function is called by:
+		Interrupt level 2
+ This function uses a non-reentrant model
+
+
+ *************** function _handle_audio *****************
+ Defined at:
+		line 1377 in file "clock.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  amplitude       1    2[COMRAM] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         1       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          2       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         3       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        3 bytes
+ Hardware stack levels used:    1
+ This function calls:
+		Nothing
+ This function is called by:
+		_isr
+ This function uses a non-reentrant model
+
+
+
+MODULE INFORMATION
+
+Module		Function		Class		Link	Load	Size
+clock.c
+		_draw_alarm    		CODE           	10C8	0000	445
+		_print_number  		CODE           	1AD6	0000	25
+		_increment_alarm_minutes		CODE           	1ABC	0000	27
+		_print_text    		CODE           	18FE	0000	57
+		_start_alarm   		CODE           	1B06	0000	23
+		_increment_alarm_hours		CODE           	1936	0000	55
+		_decrement_time_minutes		CODE           	1A06	0000	47
+		_handle_ir     		CODE           	00DE	0000	1235
+		_main          		CODE           	08A8	0000	669
+		_handle_time   		CODE           	1482	0000	183
+		_handle_song   		CODE           	0B44	0000	487
+		_decrement_time_hours		CODE           	186C	0000	75
+		_do_hour_up    		CODE           	15D0	0000	113
+		_handle_audio  		CODE           	0F08	0000	449
+		_do_hour_down  		CODE           	1640	0000	113
+		_handle_repeat 		CODE           	16B0	0000	103
+		_print_number_nospace		CODE           	1284	0000	263
+		_play_song     		CODE           	1A58	0000	37
+		_do_minute_up  		CODE           	1A7C	0000	33
+		_stop_song     		CODE           	1A34	0000	37
+		_draw_time     		CODE           	0D2A	0000	479
+		_increment_time_minutes		CODE           	19D6	0000	49
+		_increment_time_hours		CODE           	1820	0000	77
+		_isr           		CODE           	0008	0000	211
+		_write_leds    		CODE           	05B0	0000	761
+		_do_minute_down		CODE           	1A9C	0000	33
+		_draw_test     		CODE           	1B1C	0000	19
+		_print_byte    		CODE           	18B6	0000	73
+		_decrement_alarm_minutes		CODE           	1AEE	0000	25
+		_print_bin_nospace		CODE           	138A	0000	249
+		_decrement_alarm_hours		CODE           	19A2	0000	53
+		_dump_leds     		CODE           	196C	0000	55
+
+clock.c estimated size: 6560
+
+/Applications/microchip/xc8/v1.41/sources/common/lwmod.c
+		___lwmod       		CODE           	17D0	0000	81
+
+/Applications/microchip/xc8/v1.41/sources/common/lwmod.c estimated size: 81
+
+shared
+		_test_tone     		MEDIUMCONST    	BFB9	0000	13
+		_led_masks2    		MEDIUMCONST    	BEC1	0000	41
+		_led_masks3    		MEDIUMCONST    	BE99	0000	41
+		_led_masks4    		MEDIUMCONST    	BE71	0000	41
+		_up_tone       		MEDIUMCONST    	BFAD	0000	13
+		_ir_codes      		MEDIUMCONST    	BF31	0000	33
+		_number1_data  		MEDIUMCONST    	BAD5	0000	143
+		_alarm_on_tone 		MEDIUMCONST    	BEE9	0000	37
+		_prev_track_data		MEDIUMCONST    	BB63	0000	143
+		_hex_table     		MEDIUMCONST    	B9A9	0000	17
+		_freqs         		MEDIUMCONST    	B95F	0000	75
+		_alarm_off_tone		MEDIUMCONST    	BF0D	0000	37
+		__initialization		CODE           	1776	0000	77
+		_volume_dn_data		MEDIUMCONST    	BC7F	0000	143
+		_volume_up_data		MEDIUMCONST    	BD0D	0000	143
+		_power_data    		MEDIUMCONST    	BD9B	0000	143
+		_set_alarm_tone1		MEDIUMCONST    	BF8D	0000	21
+		_set_alarm_tone2		MEDIUMCONST    	BF79	0000	21
+		_number3_data  		MEDIUMCONST    	B9B9	0000	143
+		_next_track_data		MEDIUMCONST    	BBF1	0000	143
+		_set_time_tone1		MEDIUMCONST    	BF65	0000	21
+		_set_time_tone2		MEDIUMCONST    	BF51	0000	21
+		_number2_data  		MEDIUMCONST    	BA47	0000	143
+		_alarm_song    		MEDIUMCONST    	BE29	0000	73
+		_dn_tone       		MEDIUMCONST    	BFA1	0000	13
+
+shared estimated size: 1739
+
+/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c
+		___lwdiv       		CODE           	1716	0000	97
+
+/Applications/microchip/xc8/v1.41/sources/common/lwdiv.c estimated size: 97
+
+/Applications/microchip/xc8/v1.41/sources/common/awdiv.c
+		___awdiv       		CODE           	1538	0000	153
+
+/Applications/microchip/xc8/v1.41/sources/common/awdiv.c estimated size: 153
+
