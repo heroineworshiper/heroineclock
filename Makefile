@@ -11,6 +11,16 @@ PROGRAMMER_OBJS := \
 
 all: $(PROGRAMMER) $(ASM)
 
+
+temp_log: temp_log.c
+	$(GCC) -g -o temp_log temp_log.c -lpthread -lrt
+
+miditoclock: miditoclock.c
+	$(GCC) -g -o miditoclock miditoclock.c
+
+testclock: testclock.c
+	$(GCC) -g -o testclock testclock.c
+
 $(PROGRAMMER): $(PROGRAMMER_OBJS)
 	$(GCC) -o $(PROGRAMMER) $(PROGRAMMER_OBJS) -lpthread
 
@@ -24,6 +34,10 @@ $(PROGRAMMER_OBJS):
 thermotable.inc: thermotable.c
 	$(GCC) thermotable.c -o thermotable
 	thermotable > thermotable.inc
+
+dist:
+        miditoclock.c
+        
 
 clean:
 	rm -f thermotable thermotable.inc *.o *.s19 executor programmer 

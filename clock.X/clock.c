@@ -48,6 +48,7 @@
 // E5 - LED
 // E6 - LED
 // E7 - LED
+
 // F0 - LED
 // F1 - LED
 // F2 - LED
@@ -55,6 +56,8 @@
 // F4 - LED
 // F5 - LED
 // F6 - LED
+
+
 // G0 - LED
 // G1 - LED
 
@@ -208,7 +211,9 @@ const uint16_t freqs[] =
 #define SPEAKER_TRIS TRISCbits.TRISC2
 // period of the audio PWM
 #define AUDIO_PERIOD 0xff
-#define MAX_VOLUME (AUDIO_PERIOD / 3)
+// change this to change the volume.  It determines the DC offset 0 ... 0x7f.
+#define MAX_VOLUME 0x68
+#define NOTE_VOLUME (MAX_VOLUME / 3)
 // periods for the oscillators in CPU clocks
 uint16_t osc1_period;
 uint16_t osc2_period;
@@ -246,106 +251,111 @@ typedef struct
 
 const song_t test_tone[] = 
 {
-	{ 0, 0, _A3, MAX_VOLUME / 2 },
-	{ 0, 1, _C4, MAX_VOLUME / 2 },
+	{ 0, 0, _A3, NOTE_VOLUME },
+	{ 0, 1, _C4, NOTE_VOLUME },
     { 0xff, 0xff, 0xff, 0xff },
 };
 
 const song_t alarm_off_tone[] = 
 {
-	{ 0, 0, _C3, MAX_VOLUME / 3 },
-	{ 3, 1, _D3, MAX_VOLUME / 3 },
-	{ 3, 2, _Eb3, MAX_VOLUME / 3 },
-	{ 3, 0, _F3, MAX_VOLUME / 3 },
-	{ 3, 1, _G3, MAX_VOLUME / 3 },
-	{ 3, 2, _Ab3, MAX_VOLUME / 3 },
-	{ 3, 0, _B3, MAX_VOLUME / 3 },
-	{ 3, 1, _C4, MAX_VOLUME / 3 },
+	{ 0, 0, _C3, NOTE_VOLUME },
+	{ 3, 1, _D3, NOTE_VOLUME },
+	{ 3, 2, _Eb3, NOTE_VOLUME },
+	{ 3, 0, _F3, NOTE_VOLUME },
+	{ 3, 1, _G3, NOTE_VOLUME },
+	{ 3, 2, _Ab3, NOTE_VOLUME },
+	{ 3, 0, _B3, NOTE_VOLUME },
+	{ 3, 1, _C4, NOTE_VOLUME },
     { 0xff, 0xff, 0xff, 0xff },
 };
 
 const song_t alarm_on_tone[] = 
 {
- 	{ 0, 0, _C4, MAX_VOLUME / 3 },
-	{ 3, 1, _B3, MAX_VOLUME / 3 },
-	{ 3, 2, _Ab3, MAX_VOLUME / 3 },
-	{ 3, 0, _G3, MAX_VOLUME / 3 },
-	{ 3, 1, _F3, MAX_VOLUME / 3 },
-	{ 3, 2, _Eb3, MAX_VOLUME / 3 },
-	{ 3, 0, _D3, MAX_VOLUME / 3 },
-	{ 3, 1, _C3, MAX_VOLUME / 3 },
+ 	{ 0, 0, _C4, NOTE_VOLUME },
+	{ 3, 1, _B3, NOTE_VOLUME },
+	{ 3, 2, _Ab3, NOTE_VOLUME },
+	{ 3, 0, _G3, NOTE_VOLUME },
+	{ 3, 1, _F3, NOTE_VOLUME },
+	{ 3, 2, _Eb3, NOTE_VOLUME },
+	{ 3, 0, _D3, NOTE_VOLUME },
+	{ 3, 1, _C3, NOTE_VOLUME },
     { 0xff, 0xff, 0xff, 0xff },
 };
 
 const song_t set_alarm_tone1[] = 
 {
-	{ 0, 0, _C3,  MAX_VOLUME / 3 },
-	{ 3, 1, _Eb3, MAX_VOLUME / 3 },
-	{ 3, 2, _Gb3, MAX_VOLUME / 3 },
-	{ 3, 0, _C4,  MAX_VOLUME / 3 },
+	{ 0, 0, _C3,  NOTE_VOLUME },
+	{ 3, 1, _Eb3, NOTE_VOLUME },
+	{ 3, 2, _Gb3, NOTE_VOLUME },
+	{ 3, 0, _C4,  NOTE_VOLUME },
     { 0xff, 0xff, 0xff, 0xff },
 };
 
 const song_t set_alarm_tone2[] = 
 {
-	{ 0, 0, _C4,  MAX_VOLUME / 3 },
-	{ 3, 1, _Gb3, MAX_VOLUME / 3 },
-	{ 3, 2, _Eb3, MAX_VOLUME / 3 },
-	{ 3, 0, _C3,  MAX_VOLUME / 3 },
+	{ 0, 0, _C4,  NOTE_VOLUME },
+	{ 3, 1, _Gb3, NOTE_VOLUME },
+	{ 3, 2, _Eb3, NOTE_VOLUME },
+	{ 3, 0, _C3,  NOTE_VOLUME },
     { 0xff, 0xff, 0xff, 0xff },
 };
 
 const song_t set_time_tone1[] = 
 {
-	{ 0, 0, _C3,  MAX_VOLUME / 3 },
-	{ 3, 1, _E3,  MAX_VOLUME / 3 },
-	{ 3, 2, _G3,  MAX_VOLUME / 3 },
-	{ 3, 0, _C4,  MAX_VOLUME / 3 },
+	{ 0, 0, _C3,  NOTE_VOLUME },
+	{ 3, 1, _E3,  NOTE_VOLUME },
+	{ 3, 2, _G3,  NOTE_VOLUME },
+	{ 3, 0, _C4,  NOTE_VOLUME },
     { 0xff, 0xff, 0xff, 0xff },
 };
 
 const song_t set_time_tone2[] = 
 {
-	{ 0, 0, _C4,  MAX_VOLUME / 3 },
-	{ 3, 1, _G3,  MAX_VOLUME / 3 },
-	{ 3, 2, _E3,  MAX_VOLUME / 3 },
-	{ 3, 0, _C3,  MAX_VOLUME / 3 },
+	{ 0, 0, _C4,  NOTE_VOLUME },
+	{ 3, 1, _G3,  NOTE_VOLUME },
+	{ 3, 2, _E3,  NOTE_VOLUME },
+	{ 3, 0, _C3,  NOTE_VOLUME },
     { 0xff, 0xff, 0xff, 0xff },
 };
 
 const song_t up_tone[] = 
 {
-	{ 0, 0, _C3,  MAX_VOLUME / 3 },
-	{ 3, 1, _C4,  MAX_VOLUME / 3 },
+	{ 0, 0, _C3,  NOTE_VOLUME },
+	{ 3, 1, _C4,  NOTE_VOLUME },
     { 0xff, 0xff, 0xff, 0xff },
 };
 
 const song_t dn_tone[] = 
 {
-	{ 0, 0, _C4,  MAX_VOLUME / 3 },
-	{ 3, 1, _C3,  MAX_VOLUME / 3 },
+	{ 0, 0, _C4,  NOTE_VOLUME },
+	{ 3, 1, _C3,  NOTE_VOLUME },
     { 0xff, 0xff, 0xff, 0xff },
 };
 
 const song_t alarm_song[] = 
 {
-    { 0, 0, 12, MAX_VOLUME / 3 },
-    { 7, 1, 16, MAX_VOLUME / 3 },
-    { 6, 2, 19, MAX_VOLUME / 3 },
-    { 6, 0, 23, MAX_VOLUME / 3 },
-    { 6, 1, 24, MAX_VOLUME / 3 },
-    { 6, 0, 23, MAX_VOLUME / 3 },
-    { 6, 2, 19, MAX_VOLUME / 3 },
-    { 6, 1, 16, MAX_VOLUME / 3 },
-    { 6, 0, 12, MAX_VOLUME / 3 },
-    { 6, 1, 16, MAX_VOLUME / 3 },
-    { 6, 2, 19, MAX_VOLUME / 3 },
-    { 6, 0, 23, MAX_VOLUME / 3 },
-    { 6, 1, 24, MAX_VOLUME / 3 },
-    { 6, 0, 23, MAX_VOLUME / 3 },
-    { 6, 2, 19, MAX_VOLUME / 3 },
-    { 6, 1, 16, MAX_VOLUME / 3 },
-    { 6, 0, 12, MAX_VOLUME / 3 },
+    { 0, 0, _C2, NOTE_VOLUME },
+    { 6, 1, _E2, NOTE_VOLUME },
+    { 6, 2, _G2, NOTE_VOLUME },
+    { 6, 0, _B2, NOTE_VOLUME },
+
+    { 6, 1, _C3, NOTE_VOLUME },
+    { 6, 1, _E3, NOTE_VOLUME },
+    { 6, 2, _G3, NOTE_VOLUME },
+    { 6, 0, _B3, NOTE_VOLUME },
+	
+    { 6, 1, _C4, NOTE_VOLUME },
+    { 6, 0, _B3, NOTE_VOLUME },
+    { 6, 2, _G3, NOTE_VOLUME },
+    { 6, 1, _E3, NOTE_VOLUME },
+	
+    { 6, 1, _C3, NOTE_VOLUME },
+    { 6, 0, _B2, NOTE_VOLUME },
+    { 6, 2, _G2, NOTE_VOLUME },
+    { 6, 1, _E2, NOTE_VOLUME },
+
+    { 6, 0, _C2, NOTE_VOLUME },
+    { 6 * 16, 0, 0, 0 },
     { 0xff, 0xff, 0xff, 0xff },
 };
 
@@ -421,19 +431,22 @@ const uint8_t led_masks4[][4] =
 
 #define ABS(x) ((x) < 0 ? (-(x)) : (x))
 
-// counter for crystal tweeking
+// counter for crystal tweeking.  Incremented HZ times per second
 uint16_t crystal_time = 0;
 // counter for flashing the display
 uint8_t display_flash = 0;
-// counter for 1 second
+// counter for 1 second.  Incremented HZ times per second
 uint8_t time_hz = 0;
 // the display
 uint8_t seconds = 0;
 uint8_t minutes = 0;
 uint8_t hours = 12;
 uint8_t ampm = 0;
+// whether the alarm is enabled
 uint8_t alarm = 0;
 uint8_t colon = 1;
+// whether the time has been set
+uint8_t not_set = 1;
 // interrupt fired
 //volatile uint8_t have_time = 0;
 
@@ -455,7 +468,7 @@ uint8_t repeat_counter = 0;
 uint8_t alarm_hours = 12;
 uint8_t alarm_minutes = 0;
 uint8_t alarm_ampm = 0;
-uint8_t alarm_sounding = 1;
+uint8_t alarm_sounding = 0;
 // number of seconds the alarm has been sounding
 #define MAX_ALARM_TIME (4 * 60)
 uint8_t alarm_time = 0;
@@ -724,6 +737,7 @@ void handle_song()
 	{
 		if(song_delay >= song_ptr->delay)
 		{
+			PIE1bits.TMR2IE = 0; // disable interrupt
 			switch(song_ptr->osc)
 			{
 				case 0:
@@ -739,6 +753,9 @@ void handle_song()
 					osc3_volume = song_ptr->volume;
 					break;
 			}
+			PIE1bits.TMR2IE = 1; // enable interrupt
+
+
 			song_ptr++;
 			song_delay = 0;
 
@@ -780,6 +797,15 @@ void stop_song()
 
 void play_song(const song_t *ptr)
 {
+	PIE1bits.TMR2IE = 0; // disable interrupt
+	osc1_period = 0;
+	osc1_volume = 0;
+	osc2_period = 0;
+	osc2_volume = 0;
+	osc3_period = 0;
+	osc3_volume = 0;
+	PIE1bits.TMR2IE = 1; // enable interrupt
+
 	song_ptr = ptr;
 	song_counter = 0;
 	song_delay = 0;
@@ -795,49 +821,52 @@ void draw_time()
 	led_mask2 = 0;
 	led_mask3 = 0;
 
+// print the time
+    if(!not_set || colon || mode == MODE_SET_TIME)
+    {
+        uint8_t hours10 = hours;
+        if(hours > 9)
+        {
+            hours10 -= 10;
+            led_mask0 = 0b00010100;
+        }
 
-	uint8_t hours10 = hours;
-	if(hours > 9)
-	{
-		hours10 -= 10;
-		led_mask0 = 0b00010100;
-	}
-	
-	const uint8_t *ptr = &led_masks2[hours10];
-	led_mask0 |= ptr[0];
-	led_mask1 |= ptr[1];
-	led_mask2 |= ptr[2];
-	led_mask3 |= ptr[3];
-	
-	uint8_t minutes10 = minutes / 10;
-	ptr = &led_masks3[minutes10];
-	led_mask0 |= ptr[0];
-	led_mask1 |= ptr[1];
-	led_mask2 |= ptr[2];
-	led_mask3 |= ptr[3];
-	
-	minutes10 = minutes - minutes10 * 10;
-	ptr = &led_masks4[minutes10];
-	led_mask0 |= ptr[0];
-	led_mask1 |= ptr[1];
-	led_mask2 |= ptr[2];
-	led_mask3 |= ptr[3];
-	
-	if(colon || mode == MODE_SET_TIME)
-	{
-		led_mask1 |= 0b00001000;
-		led_mask2 |= 0b00100000;
-	}
-	
-	if(ampm)
-	{
-		led_mask0 |= 0b10000000;
-	}
-	
-	if((alarm || mode == MODE_SET_ALARM) && mode != MODE_SET_TIME)
-	{
-		led_mask1 |= 0b00000001;
-	}
+        const uint8_t *ptr = &led_masks2[hours10];
+        led_mask0 |= ptr[0];
+        led_mask1 |= ptr[1];
+        led_mask2 |= ptr[2];
+        led_mask3 |= ptr[3];
+
+        uint8_t minutes10 = minutes / 10;
+        ptr = &led_masks3[minutes10];
+        led_mask0 |= ptr[0];
+        led_mask1 |= ptr[1];
+        led_mask2 |= ptr[2];
+        led_mask3 |= ptr[3];
+
+        minutes10 = minutes - minutes10 * 10;
+        ptr = &led_masks4[minutes10];
+        led_mask0 |= ptr[0];
+        led_mask1 |= ptr[1];
+        led_mask2 |= ptr[2];
+        led_mask3 |= ptr[3];
+
+        if(colon || mode == MODE_SET_TIME)
+        {
+            led_mask1 |= 0b00001000;
+            led_mask2 |= 0b00100000;
+        }
+
+        if(ampm)
+        {
+            led_mask0 |= 0b10000000;
+        }
+
+        if(alarm)
+        {
+            led_mask1 |= 0b00000001;
+        }
+    }
 	
 	write_leds();
 }
@@ -917,6 +946,7 @@ void increment_time_minutes()
 	{
 		minutes = 0;
 	}
+    not_set = 0;
 	draw_time();
 }
 
@@ -941,6 +971,8 @@ void decrement_time_minutes()
 	{
 		minutes = 59;
 	}
+    not_set = 0;
+
 	draw_time();
 }
 
@@ -969,6 +1001,7 @@ void increment_time_hours()
 	{
 		hours = 1;
 	}
+    not_set = 0;
 	draw_time();
 }
 
@@ -1002,6 +1035,7 @@ void decrement_time_hours()
 	{
 		ampm = !ampm;
 	}
+    not_set = 0;
 	draw_time();
 }
 
@@ -1029,6 +1063,7 @@ void do_hour_up()
 			led_mask1 = 0x00;
 			led_mask2 = 0x00;
 			led_mask3 = 0x00;
+			write_leds();
 		}
 		else
 		{
@@ -1067,6 +1102,7 @@ void do_hour_down()
 			led_mask1 = 0x00;
 			led_mask2 = 0x00;
 			led_mask3 = 0x00;
+			write_leds();
 		}
 		else
 		{
@@ -1234,15 +1270,22 @@ void handle_ir()
 					{
 						case ENABLE_ALARM:
 							alarm = !alarm;
-							if(mode == MODE_TIME || mode == MODE_SET_TIME)
+							if(mode == MODE_TIME || 
+								mode == MODE_SET_TIME)
 							{
 								draw_time();
+							}
+							else
+							if(mode == MODE_SET_ALARM)
+							{
+								draw_alarm();
 							}
 
 // user interrupted alarm
 							if(alarm_sounding)
 							{
-								stop_song();
+//								stop_song();
+								play_song(alarm_off_tone);
 								alarm_sounding = 0;
 								alarm_time = 0;
 							}
@@ -1349,6 +1392,13 @@ void handle_ir()
 								play_song(dn_tone);
 							}
  							break;
+					}
+
+// stop alarm for all keys
+					if(alarm_sounding)
+					{
+						alarm_sounding = 0;
+						alarm_time = 0;
 					}
 				}
 
@@ -1515,12 +1565,12 @@ void handle_audio()
 }
 
 
-	
 void handle_time()
 {
 	
 
 
+// increment the mane time by 1000ms/HZ
 	time_hz++;
 	if(time_hz == HZ)
 	{
@@ -1551,6 +1601,14 @@ void handle_time()
 			alarm_time++;
 		}
 
+// DEBUG for testclock.c
+		print_byte('>');
+		print_number2(hours);
+		print_byte(':');
+		print_number2(minutes);
+		print_byte(':');
+		print_number2(seconds);
+		print_byte('\n');
 	}
 
 	display_flash++;
@@ -1564,26 +1622,6 @@ void handle_time()
 		}
 	}
 
-
-// DEBUG
-// 			if((time % HZ) == 0)
-// 			{
-// 				int32_t total_seconds = time / HZ;
-// 				int32_t total_minutes = total_seconds / 60;
-// 				int16_t hours = total_minutes / 60;
-// 				uint8_t minutes = total_minutes - hours * 60;
-// 				uint8_t seconds = total_seconds - total_minutes * 60;
-// 				
-// 				print_byte('>');
-// 				print_number2(hours);
-// 				print_byte(':');
-// 				print_number2(minutes);
-// 				print_byte(':');
-// 				print_number2(seconds);
-// 				print_byte('\n');
-// 			}
-
-//			DEBUG_LAT = !DEBUG_LAT;
 
 // update song
 	if(song_ptr)
@@ -1628,12 +1666,6 @@ void interrupt isr()
 // 			interrupt_done = 0;
 //         }
 
-// mane timer
-//         if(PIR2bits.CCP2IF)
-//         {
-//             PIR2bits.CCP2IF = 0;
-// 			have_time = 1;
-// 		}
 
 
 		if(PIR1bits.TMR2IF)
@@ -1641,7 +1673,6 @@ void interrupt isr()
 			PIR1bits.TMR2IF = 0;
 			CCPR1L = next_duty;
 			handle_audio();
-//			need_audio = 1;
  		}
 
 
@@ -1705,9 +1736,9 @@ void main()
 	osc1_period = freqs[_F3];
 	osc2_period = freqs[_A3];
 	osc3_period = freqs[_C4];
-	osc1_volume = MAX_VOLUME / 3;
-	osc2_volume = MAX_VOLUME / 3;
-	osc3_volume = MAX_VOLUME / 3;
+	osc1_volume = NOTE_VOLUME;
+	osc2_volume = NOTE_VOLUME;
+	osc3_volume = NOTE_VOLUME;
     T2CON = 0x1c;  // 4:1 postscaler
     PR2 = 0xff; // period
  	CCP1CON = 0x0c; // PWM mode
@@ -1836,8 +1867,9 @@ void main()
 			
 // oscillator error
 			crystal_time++;
-// add 4ms every 41.2 seconds
-			if(crystal_time == 10300)
+// add 1 tick after a certain number of ticks, derived from the observed drift
+//			if(crystal_time == 10300)
+			if(crystal_time == 19230)
 			{
 				crystal_time = 0;
 				handle_time();
@@ -1855,20 +1887,14 @@ void main()
 				!alarm_sounding &&
 				hours == alarm_hours &&
 				minutes == alarm_minutes &&
-				seconds == 0)
+				seconds == 0 &&
+				ampm == alarm_ampm)
 			{
 				start_alarm();
 			}
 			
         }
 
-
-// audio sample timer
-//		if(need_audio)
-//		{
-//			need_audio = 0;
-//            handle_audio();
-//		}
 
 
         

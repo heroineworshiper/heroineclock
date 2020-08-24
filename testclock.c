@@ -1,6 +1,6 @@
 // Compare times received from UART with system clock
 
-
+// build with make testclock
 
 
 //#define OUTPUT_USLEEP 0
@@ -348,12 +348,12 @@ int main(int argc, char *argv[])
 					test_state = 0;
 					test_buffer[test_size++] = 0;
 					
-					int seconds = atoi(&test_buffer[6]);
-					int minutes = atoi(&test_buffer[3]);
 					int hours = atoi(&test_buffer[0]);
+					int minutes = atoi(&test_buffer[3]);
+					int seconds = atoi(&test_buffer[6]);
 					
 					seconds += minutes * 60 + hours * 3600;
-					if(seconds == 1)
+					if(seconds == 1 * 3600 + 1)
 					{
 						reset_timer(&clock_time);
 						got_time = 1;
@@ -362,7 +362,7 @@ int main(int argc, char *argv[])
 					if(got_time)
 					{
 						int system_clock = get_timer_difference(&clock_time);
-						int heroine_clock = (seconds - 1) * 1000;
+						int heroine_clock = (seconds - 1 - 1 * 3600) * 1000;
 						printf(" %d ms off", heroine_clock - system_clock);
 					}
 					

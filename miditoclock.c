@@ -1,6 +1,8 @@
 // convert a midi file into clock data
 // copied from aplaymidi.c
 
+// build with make miditoclock
+
 
 #include <stdio.h>
 #include <stdlib.h>

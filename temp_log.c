@@ -1,0 +1,405 @@
+// record temperatures coming from the 2 sensors
+// gcc -O2 -o temp_log temp_log.c -lpthread -lrt
+
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <termios.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <sys/time.h>
+#include <unistd.h>
+#include <linux/serial.h>
+#include <pthread.h>
+
+int do_daemon = 0;
+
+#define BAUD 8192
+
+// number of seconds between logs
+#define LOG_INTERVAL (60 * 5)
+
+// key for packets coming from outside
+const uint8_t EXT_PACKET_KEY[] = 
+{
+    0xff, 0x98, 0xdf, 0x72, 0x36, 0xb9, 0x0d, 0x48, 
+    0x82, 0xc9, 0x28, 0x31, 0x2f, 0x56, 0xe5, 0x7c
+};
+
+// key for packets coming from inside, for testing
+const uint8_t INT_PACKET_KEY[] = 
+{
+    0xff, 0x5c, 0xf8, 0x98, 0xc6, 0xe8, 0xdc, 0x41, 
+    0x2b, 0x96, 0xbe, 0x7c, 0xd3, 0x7a, 0xc6, 0xf2
+};
+
+#define KEY_SIZE sizeof(EXT_PACKET_KEY)
+
+#define LOG_PATH "/var/climate.log"
+#define TEXTLEN 1024
+#define REPEATS 4
+#define INT_DATA_SIZE REPEATS
+#define EXT_DATA_SIZE (REPEATS * 2)
+
+unsigned char serial_in;
+FILE *log_fd = 0;
+struct timespec start_time;
+struct timespec current_time;
+
+typedef struct
+{
+    int key_offset;
+    const uint8_t *key;
+    void (*function)(void *ptr);
+    int data_size;
+    uint8_t serial_data[EXT_DATA_SIZE];
+    int data_offset;
+    int min_temp;
+    int max_temp;
+    int temp_valid;
+    const char *title;
+    int is_ext;
+    float voltage;
+} serial_state_t;
+
+serial_state_t ext_state;
+serial_state_t int_state;
+pthread_mutex_t temp_lock;
+
+// Returns the FD of the serial port
+static int init_serial(char *path, int baud, int custom_baud)
+{
+	struct termios term;
+
+	printf("init_serial %d: opening %s\n", __LINE__, path);
+
+// Initialize serial port
+	int fd = open(path, O_RDWR | O_NOCTTY | O_SYNC);
+	if(fd < 0)
+	{
+		printf("init_serial %d: path=%s: %s\n", __LINE__, path, strerror(errno));
+		return -1;
+	}
+	
+	if (tcgetattr(fd, &term))
+	{
+		printf("init_serial %d: path=%s %s\n", __LINE__, path, strerror(errno));
+		close(fd);
+		return -1;
+	}
+
+
+#ifndef __clang__
+// Try to set kernel to custom baud and low latency
+	if(custom_baud)
+	{
+		struct serial_struct serial_struct;
+		if(ioctl(fd, TIOCGSERIAL, &serial_struct) < 0)
+		{
+			printf("init_serial %d: path=%s %s\n", __LINE__, path, strerror(errno));
+		}
+
+		serial_struct.flags |= ASYNC_LOW_LATENCY;
+		serial_struct.flags &= ~ASYNC_SPD_CUST;
+		if(custom_baud)
+		{
+			serial_struct.flags |= ASYNC_SPD_CUST;
+			serial_struct.custom_divisor = (int)((float)serial_struct.baud_base / 
+				(float)custom_baud + 0.5);
+			baud = B38400;
+		}  
+/*
+ * printf("init_serial: %d serial_struct.baud_base=%d serial_struct.custom_divisor=%d\n", 
+ * __LINE__,
+ * serial_struct.baud_base,
+ * serial_struct.custom_divisor);
+ */
+
+
+// Do setserial on the command line to ensure it actually worked.
+		if(ioctl(fd, TIOCSSERIAL, &serial_struct) < 0)
+		{
+			printf("init_serial %d: path=%s %s\n", __LINE__, path, strerror(errno));
+		}
+	}
+#endif // !__clang__
+/*
+ * printf("init_serial: %d path=%s iflag=0x%08x oflag=0x%08x cflag=0x%08x\n", 
+ * __LINE__, 
+ * path, 
+ * term.c_iflag, 
+ * term.c_oflag, 
+ * term.c_cflag);
+ */
+ 
+	tcflush(fd, TCIOFLUSH);
+	cfsetispeed(&term, baud);
+	cfsetospeed(&term, baud);
+//	term.c_iflag = IGNBRK;
+	term.c_iflag = 0;
+	term.c_oflag = 0;
+	term.c_lflag = 0;
+//	term.c_cflag &= ~(PARENB | PARODD | CRTSCTS | CSTOPB | CSIZE);
+//	term.c_cflag |= CS8;
+//    term.c_cflag |= CRTSCTS; // flow control
+	term.c_cc[VTIME] = 1;
+	term.c_cc[VMIN] = 1;
+/*
+ * printf("init_serial: %d path=%s iflag=0x%08x oflag=0x%08x cflag=0x%08x\n", 
+ * __LINE__, 
+ * path, 
+ * term.c_iflag, 
+ * term.c_oflag, 
+ * term.c_cflag);
+ */
+	if(tcsetattr(fd, TCSANOW, &term))
+	{
+		printf("init_serial %d: path=%s %s\n", __LINE__, path, strerror(errno));
+		close(fd);
+		return -1;
+	}
+
+	printf("init_serial %d: opened %s\n", __LINE__, path);
+	return fd;
+}
+
+
+void get_key(void *ptr);
+void get_temp(void *ptr)
+{
+    serial_state_t *state = (serial_state_t*)ptr;
+    state->serial_data[state->data_offset++] = serial_in;
+    if(state->data_offset >= state->data_size)
+    {
+        state->key_offset = 0;
+        state->function = get_key;
+
+// test temperature integrity
+        uint8_t i;
+        uint8_t failed = 0;
+        for(i = 1; i < REPEATS; i++)
+        {
+            if(state->serial_data[0] != state->serial_data[i])
+            {
+// reject packet if any value is different
+                failed = 1;
+                break;
+            }
+        }
+
+// test voltage integrity
+    	if(state->is_ext && !failed)
+        {
+            for(i = 1; i < REPEATS; i++)
+            {
+                if(state->serial_data[REPEATS] != state->serial_data[REPEATS + i])
+                {
+// reject packet if any value is different
+                    failed = 1;
+                    break;
+                }
+            }
+        }
+
+// new temperature reading
+        if(!failed)
+        {
+            int temp = state->serial_data[0];
+
+            if(temp != 0xff)
+            {            
+                pthread_mutex_lock(&temp_lock);
+                if(!state->temp_valid)
+                {
+                    state->min_temp = temp;
+                    state->max_temp = temp;
+                }
+                if(state->min_temp > temp)
+                {
+                    state->min_temp = temp;
+                }
+                if(state->max_temp < temp)
+                {
+                    state->max_temp = temp;
+                }
+                state->temp_valid = 1;
+                pthread_mutex_unlock(&temp_lock);
+            }
+
+// get voltage
+            if(state->is_ext)
+            {
+                state->voltage = (float)state->serial_data[4] / 10;
+            }
+            
+            printf("get_temp %d new %s temp=%d voltage=%.1f\n", 
+                __LINE__, 
+                state->title, 
+                temp,
+                state->voltage);
+        }
+    }    
+}
+
+
+void get_key(void *ptr)
+{
+    serial_state_t *state = (serial_state_t*)ptr;
+
+// get packet key from radio
+    if(serial_in == state->key[state->key_offset])
+    {
+        state->key_offset++;
+        if(state->key_offset >= KEY_SIZE)
+        {
+            state->function = get_temp;
+            state->data_offset = 0;
+        }
+    }
+    else
+    if(serial_in == state->key[0])
+    {
+        state->key_offset = 1;
+    }
+    else
+    if(state->key_offset > 0)
+    {
+        state->key_offset = 0;
+    }
+}
+
+void* log_writer(void *ptr)
+{
+    while(1)
+    {
+        sleep(1);
+        clock_gettime(CLOCK_MONOTONIC, &current_time);
+        if(current_time.tv_sec / LOG_INTERVAL != start_time.tv_sec / LOG_INTERVAL)
+        {
+            start_time = current_time;
+            FILE *utc_fd = popen("date -u", "r");
+            char string[TEXTLEN];
+            fread(string, 1, TEXTLEN, utc_fd);
+            fclose(utc_fd);
+            
+// strip trailing newline from date
+            char *ptr = string + strlen(string);
+            while(ptr > string)
+            {
+                ptr--;
+                if(*ptr == '\n' || *ptr == '\r')
+                {
+                    *ptr = 0;
+                }
+            }
+            pthread_mutex_lock(&temp_lock);
+            printf("log_writer %d: new line\n", __LINE__);
+            fprintf(log_fd, 
+                "%s\t%d\t%d\t%d\t%d\t%d\t%d\t%.1f\n",
+                string,
+                int_state.temp_valid,
+                int_state.min_temp,
+                int_state.max_temp,
+                ext_state.temp_valid,
+                ext_state.min_temp,
+                ext_state.max_temp,
+                ext_state.voltage);
+            fflush(log_fd);
+            
+            int_state.temp_valid = 0;
+            ext_state.temp_valid = 0;
+            pthread_mutex_unlock(&temp_lock);
+        }
+    }
+}
+
+
+int main(int argc, char *argv[])
+{
+    int i;
+    for(i = 1; i < argc; i++)
+    {
+        if(!strcmp(argv[i], "-d"))
+        {
+            do_daemon = 1;
+        }
+        else
+        if(!strcmp(argv[i], "-h"))
+        {
+            printf("Record temperatures from remote thermometers\n");
+            printf("Usage: -d - run in the background\n");
+            exit(0);
+        }
+    }
+    
+
+    if(do_daemon)
+    {
+        int pid = fork();
+        if(pid)
+        {
+            _exit(0);
+        }
+    }
+    
+    printf("main %d recording temperatures\n", __LINE__);
+    int serial_fd = init_serial("/dev/ttyUSB0", B38400, BAUD);
+	if(serial_fd < 0) serial_fd = init_serial("/dev/ttyUSB0", B38400, BAUD);
+	if(serial_fd < 0) serial_fd = init_serial("/dev/ttyUSB1", B38400, BAUD);
+	if(serial_fd < 0) serial_fd = init_serial("/dev/ttyUSB2", B38400, BAUD);
+    if(serial_fd < 0)
+    {
+        printf("main %d failed to open serial port\n", __LINE__);
+        exit(1);
+    }
+    
+    bzero(&ext_state, sizeof(ext_state));
+    bzero(&int_state, sizeof(int_state));
+    ext_state.function = get_key;
+    int_state.function = get_key;
+    ext_state.key = EXT_PACKET_KEY;
+    int_state.key = INT_PACKET_KEY;
+    ext_state.title = "EXT";
+    int_state.title = "INT";
+    ext_state.is_ext = 1;
+    ext_state.data_size = EXT_DATA_SIZE;
+    int_state.data_size = INT_DATA_SIZE;
+    ext_state.min_temp = 0xff;
+    int_state.min_temp = 0xff;
+    ext_state.max_temp = -0xff;
+    int_state.max_temp = -0xff;
+
+	pthread_mutexattr_t attr;
+	pthread_mutexattr_init(&attr);
+	pthread_mutex_init(&temp_lock, &attr);
+    
+    log_fd = fopen(LOG_PATH, "a");
+    if(!log_fd)
+    {
+        printf("main %d: failed to open log file\n", __LINE__);
+        exit(1);
+    }
+    clock_gettime(CLOCK_MONOTONIC, &start_time);
+
+    
+	pthread_attr_t tid_attr;
+  	pthread_t tid;
+	pthread_attr_init(&tid_attr);
+    pthread_create(&tid, &tid_attr, log_writer, 0);
+    
+    while(1)
+    {
+        int result = read(serial_fd, &serial_in, 1);
+        if(result <= 0)
+		{
+			printf("main %d Unplugged\n", __LINE__);
+			exit(0);
+		}
+        
+        ext_state.function(&ext_state);
+        int_state.function(&int_state);
+        
+    }
+}

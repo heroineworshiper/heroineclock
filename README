@@ -1,4 +1,61 @@
-Programming HeroineClock:
+WHAT YOU'LL FIND HERE:
+
+Source code for the original heroineclock circa 2004.
+
+Source code for heroineclock 2 circa 2017 & the later thermometers.
+
+clock.X: heroineclock 2's source code
+
+clock.pcb: layout of the clock controller
+
+miditoclock.c: convert a midi file into data which heroineclock 2 can play
+
+temp_log.c: records temperature data from 2 wireless thermometers.
+
+temp_sensor.X: The solar powered temperature sensor & all the radio
+modules.
+
+temp_sensor.pcb: incomplete layout of the solar powered temperature
+sensor & the radio modules
+
+testclock.c: compares time from heroineclock 2 with the system clock.
+
+thermo.X: The temperature display.
+
+thermo.pcb: layout of the temperature display
+
+temp_tester.c: calculates lookup tables for the heroineclock 2's thermometers
+
+
+
+
+
+OBSOLETE FILES:
+
+clock1.s init.s  printf.s  putc.s  registers.s: 
+Abandoned clock based on a 68HC11
+
+clock2.s: the original heroineclock based on a PIC16F877
+
+executor.c lib68hc11e1.c lib68hc11e1.h: Support for a 68HC11 from the
+lion kingdom's very 1st forays into microcontrollers.
+
+programmer.c: Obsolete parallel port programmer for a 16F877
+
+thermotable.c: obsolete way of calibrating heroineclock 1's thermometer
+
+
+
+
+
+
+
+
+
+
+
+
+Programming HeroineClock 1:
 
 All connections are made with the fat part of the connector facing towards the
 circuit board.
