@@ -20,12 +20,15 @@ sensor & the radio modules
 
 testclock.c: compares time from heroineclock 2 with the system clock.
 
+test.mid: test MIDI file
+
 thermo.X: The temperature display.
 
 thermo.pcb: layout of the temperature display
 
 temp_tester.c: calculates lookup tables for the heroineclock 2's thermometers
 
+thermometer01.jpg: table that came with the radio shack thermistor
 
 
 
