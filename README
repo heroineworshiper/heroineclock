@@ -1,39 +1,8 @@
 WHAT YOU'LL FIND HERE:
 
-Source code for the original heroineclock circa 2004.
+Source code for the original heroineclock circa 2004:
+--------------------------------------------------------------------------------
 
-Source code for heroineclock 2 circa 2017 & the later thermometers.
-
-clock.X: heroineclock 2's source code
-
-clock.pcb: layout of the clock controller
-
-miditoclock.c: convert a midi file into data which heroineclock 2 can play
-
-temp_log.c: records temperature data from 2 wireless thermometers.
-
-temp_sensor.X: The solar powered temperature sensor & all the radio
-modules.
-
-temp_sensor.pcb: incomplete layout of the solar powered temperature
-sensor & the radio modules
-
-testclock.c: compares time from heroineclock 2 with the system clock.
-
-test.mid: test MIDI file
-
-thermo.X: The temperature display.
-
-thermo.pcb: layout of the temperature display
-
-temp_tester.c: calculates lookup tables for the heroineclock 2's thermometers
-
-thermometer01.jpg: table that came with the radio shack thermistor
-
-
-
-
-OBSOLETE FILES:
 
 clock1.s init.s  printf.s  putc.s  registers.s: 
 Abandoned clock based on a 68HC11
@@ -50,6 +19,41 @@ thermotable.c: obsolete way of calibrating heroineclock 1's thermometer
 
 
 
+Source code for heroineclock 2 circa 2017 & the later thermometers.
+--------------------------------------------------------------------------------
+clock.X: heroineclock 2's source code
+
+clock.pcb: layout of the clock controller
+
+miditoclock.c: convert a midi file into data which heroineclock 2 can play
+
+testclock.c: compares time from heroineclock 2 with the system clock.
+
+test.mid: test MIDI file
+
+
+Weather station files:
+--------------------------------------------------------------------------------
+
+temp_log.c: records temperature data from a radio connected to a serial
+port.
+
+temp_sensor.X: The solar powered temperature sensor & all the radio
+modules.
+
+temp_sensor.pcb: incomplete layout of the solar powered temperature
+sensor & the radio modules
+
+temp_tester.c: calculates lookup tables for the thermometers
+
+thermo.pcb: layout of the temperature display
+
+thermo.X: The temperature display.
+
+thermometer01.jpg: table that came with the radio shack thermistor
+
+solar.FCStd: a 3D printed enclosure which could attach loose solar cells
+to a backing
 
 
 
@@ -68,7 +72,7 @@ Disconnect MCLR jumper on programmer.
 make and run programmer clock2.hex
 
 
-Calibrating HeroineClock thermometer:
+Calibrating HeroineClock 1 thermometer:
 
 Use images/key.xcf.bz2 to find test points.
 Connect 1k resistor to thermometer connector.

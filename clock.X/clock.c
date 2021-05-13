@@ -159,10 +159,14 @@ uint16_t uart_position2 = 0;
 
 #define _C2 12
 #define _D2 14
+#define _Eb2 15
 #define _E2 16
 #define _F2 17
+#define _Gb2 18
 #define _G2 19
+#define _Ab2 20
 #define _A2 21
+#define _Bb2 22
 #define _B2 23
 
 #define _C3 24
@@ -174,6 +178,7 @@ uint16_t uart_position2 = 0;
 #define _G3 31
 #define _Ab3 32
 #define _A3 33
+#define _Bb3 34
 #define _B3 35
 
 #define _C4 36
@@ -233,7 +238,7 @@ const uint16_t freqs[] =
 #define AUDIO_PERIOD 0xff
 // change this to change the volume.  It determines the DC offset 0 ... 0x7f.
 #define MAX_VOLUME 0x68
-#define NOTE_VOLUME (MAX_VOLUME / 3)
+#define NOTE_VOLUME (MAX_VOLUME / 4)
 // periods for the oscillators in CPU clocks
 uint16_t osc1_period;
 uint16_t osc2_period;
@@ -337,6 +342,27 @@ const song_t set_time_tone2[] =
 	{ 3, 0, _C3,  NOTE_VOLUME },
     { 0xff, 0xff, 0xff, 0xff },
 };
+
+const song_t seconds_tone1[] =
+{
+	{ 0, 0, _F2,  NOTE_VOLUME },
+	{ 3, 1, _G2,  NOTE_VOLUME },
+	{ 3, 2, _Ab2,  NOTE_VOLUME },
+	{ 3, 0, _Bb2,  NOTE_VOLUME },
+	{ 3, 1, _B2,  NOTE_VOLUME },
+    { 0xff, 0xff, 0xff, 0xff },
+};
+
+const song_t seconds_tone2[] =
+{
+	{ 0, 0, _B2,  NOTE_VOLUME },
+	{ 3, 1, _Bb2,  NOTE_VOLUME },
+	{ 3, 2, _Ab2,  NOTE_VOLUME },
+	{ 3, 0, _G2,  NOTE_VOLUME },
+	{ 3, 1, _F2,  NOTE_VOLUME },
+    { 0xff, 0xff, 0xff, 0xff },
+};
+
 
 const song_t up_tone[] = 
 {
@@ -476,6 +502,7 @@ uint8_t not_set = 1;
 #define MODE_SET_TIME 1 // set the time
 #define MODE_SET_ALARM 2 // set the alarm
 #define MODE_TEST 3 // test mode
+#define MODE_SECONDS 4 // seconds
 uint8_t mode = MODE_TIME;
 
 // key repeat
@@ -513,7 +540,8 @@ uint8_t led_mask3 = 0;
 #define MINUTE_DN 0x04
 #define SET_ALARM 0x05 // 1
 #define SET_TIME 0x06  // 2
-#define SET_TEST 0x07  // 3
+#define SET_TEST 0x07  // 3, 4
+#define SECONDS 0x08  // 5
 
 
 typedef struct
@@ -540,15 +568,15 @@ const int16_t volume_dn_data[] =
 	1406, 694, 118, 58, 113, 236, 115, 57, 110, 240, 112, 238, 112, 237, 109, 241, 109, 64, 108, 242, 110, 63, 111, 239, 108, 65, 108, 65, 108, 65, 108, 65, 108, 242, 111, 239, 107, 243, 108, 65, 107, 242, 108, 241, 107, 66, 107, 66, 107, 66, 107, 66, 107, 66, 107, 243, 107, 66, 107, 66, 107, 243, 104, 246, 104, 246, 107, 6193, 1394, 323, 104
 };
 
-const int16_t next_track_data[] = 
-{  
-	1404, 698, 117, 57, 115, 235, 113, 59, 114, 237, 113, 239, 112, 235, 113, 240, 112, 60, 109, 241, 111, 62, 110, 240, 109, 64, 108, 65, 108, 65, 109, 64, 108, 242, 108, 65, 109, 240, 107, 66, 107, 66, 107, 242, 105, 67, 107, 243, 106, 68, 105, 244, 107, 65, 105, 245, 107, 242, 103, 70, 103, 247, 104, 69, 105, 245, 107, 6193, 1392, 326, 106
-};
-
-const int16_t prev_track_data[] = 
-{  
-	1404, 698, 115, 58, 112, 237, 118, 55, 115, 235, 112, 241, 111, 236, 115, 235, 112, 64, 108, 242, 111, 62, 109, 241, 111, 62, 112, 61, 109, 64, 111, 62, 112, 238, 108, 242, 108, 242, 105, 68, 105, 69, 106, 243, 107, 65, 105, 245, 107, 66, 107, 66, 107, 66, 106, 243, 107, 243, 105, 68, 104, 246, 105, 68, 104, 246, 106, 6194, 1391, 327, 103
-};
+// const int16_t next_track_data[] = 
+// {  
+// 	1404, 698, 117, 57, 115, 235, 113, 59, 114, 237, 113, 239, 112, 235, 113, 240, 112, 60, 109, 241, 111, 62, 110, 240, 109, 64, 108, 65, 108, 65, 109, 64, 108, 242, 108, 65, 109, 240, 107, 66, 107, 66, 107, 242, 105, 67, 107, 243, 106, 68, 105, 244, 107, 65, 105, 245, 107, 242, 103, 70, 103, 247, 104, 69, 105, 245, 107, 6193, 1392, 326, 106
+// };
+// 
+// const int16_t prev_track_data[] = 
+// {  
+// 	1404, 698, 115, 58, 112, 237, 118, 55, 115, 235, 112, 241, 111, 236, 115, 235, 112, 64, 108, 242, 111, 62, 109, 241, 111, 62, 112, 61, 109, 64, 111, 62, 112, 238, 108, 242, 108, 242, 105, 68, 105, 69, 106, 243, 107, 65, 105, 245, 107, 66, 107, 66, 107, 66, 106, 243, 107, 243, 105, 68, 104, 246, 105, 68, 104, 246, 106, 6194, 1391, 327, 103
+// };
 
 const int16_t number1_data[] =     
 {  
@@ -560,11 +588,39 @@ const int16_t number2_data[] =
 	1402, 698, 119, 53, 116, 237, 112, 58, 115, 238, 112, 234, 111, 242, 109, 240, 112, 61, 112, 238, 108, 65, 111, 238, 109, 64, 108, 65, 108, 65, 107, 65, 107, 242, 107, 66, 105, 244, 105, 245, 108, 65, 108, 242, 107, 66, 107, 66, 107, 66, 107, 243, 107, 66, 106, 67, 106, 244, 106, 67, 104, 246, 107, 243, 107, 242, 104, 6197, 1390, 328, 107
 };
 
+
+// 3 & 4 are the same code
 const int16_t number3_data[] =      
 {  
 	1404, 697, 115, 58, 114, 236, 116, 57, 113, 236, 111, 239, 112, 240, 111, 236, 112, 64, 108, 242, 108, 65, 108, 242, 108, 64, 106, 67, 105, 68, 104, 68, 104, 245, 107, 66, 104, 69, 106, 66, 104, 246, 108, 242, 105, 68, 106, 67, 107, 66, 107, 243, 104, 246, 104, 246, 105, 68, 106, 67, 104, 246, 104, 246, 103, 247, 103, 6197, 1390, 327, 103
 };
 
+const int16_t number5_data[] =      
+{  
+	1400, 700, 111, 62, 111, 242, 107, 65, 106, 244, 107, 243, 105, 245, 106, 244, 105, 68, 105, 245, 104, 69, 104, 246, 104, 68, 105, 69, 104, 69, 104, 69, 104, 246, 104, 69, 104, 69, 103, 247, 104, 69, 104, 245, 104, 69, 104, 246, 104, 69, 104, 246, 103, 246, 104, 70, 103, 246, 104, 70, 104, 246, 104, 69, 104, 246, 104, 6200, 1392, 327, 103,
+};
+
+
+// these buttons alternate between 2 codes
+const int16_t tv_up_data[] =
+{
+    180, 95, 177, 98, 310, 104, 169, 106, 167, 108, 166, 109, 164, 111, 163, 249, 301, 114, 159, 116, 158, 120, 155, 13991, 165, 110, 163, 112, 300, 115, 160, 118, 156, 120, 154, 121, 154, 121, 154, 258, 294, 121, 154, 121, 154, 121, 153,
+};
+
+const int16_t tv_up_data2[] =
+{
+    187, 88, 315, 99, 174, 103, 168, 105, 167, 108, 168, 107, 165, 109, 166, 248, 300, 115, 159, 117, 158, 117, 157, 13988, 166, 109, 303, 111, 162, 116, 159, 118, 159, 115, 158, 117, 157, 118, 155, 257, 294, 121, 154, 121, 154, 121, 155,
+};
+
+const int16_t tv_down_data[] = 
+{
+    183, 92, 176, 101, 309, 105, 166, 108, 166, 109, 167, 108, 164, 111, 163, 250, 298, 116, 159, 119, 155, 254, 157, 13855, 163, 111, 163, 112, 300, 115, 158, 117, 158, 118, 157, 121, 154, 122, 153, 258, 294, 121, 154, 120, 155, 260, 152,
+};
+
+const int16_t tv_down_data2[] = 
+{
+    182, 93, 315, 100, 171, 106, 166, 107, 166, 109, 167, 108, 165, 111, 163, 249, 297, 117, 159, 118, 155, 254, 158, 13856, 166, 109, 303, 112, 161, 114, 159, 116, 159, 120, 154, 121, 154, 121, 154, 258, 293, 122, 153, 121, 154, 258, 154,
+};
 
 
 
@@ -573,11 +629,16 @@ const ir_code_t ir_codes[] = {
     { power_data,      sizeof(power_data) / 2,      ENABLE_ALARM },
 	{ volume_up_data,  sizeof(volume_up_data) / 2,  HOUR_UP },
 	{ volume_dn_data,  sizeof(volume_dn_data) / 2,  HOUR_DN },
-	{ next_track_data, sizeof(next_track_data) / 2, MINUTE_UP },
-	{ prev_track_data, sizeof(prev_track_data) / 2, MINUTE_DN },
+//	{ next_track_data, sizeof(next_track_data) / 2, MINUTE_UP },
+//	{ prev_track_data, sizeof(prev_track_data) / 2, MINUTE_DN },
+	{ tv_up_data,      sizeof(tv_up_data) / 2,      MINUTE_UP },
+	{ tv_down_data,    sizeof(tv_down_data) / 2,    MINUTE_DN },
+	{ tv_up_data2,      sizeof(tv_up_data2) / 2,      MINUTE_UP },
+	{ tv_down_data2,    sizeof(tv_down_data2) / 2,    MINUTE_DN },
 	{ number1_data,    sizeof(number1_data) / 2,    SET_ALARM },
 	{ number2_data,    sizeof(number2_data) / 2,    SET_TIME },
 	{ number3_data,    sizeof(number3_data) / 2,    SET_TEST },
+    { number5_data,    sizeof(number5_data) / 2,    SECONDS }
 };
 
 #define IR_MARGIN 16
@@ -891,6 +952,44 @@ void draw_time()
 	write_leds();
 }
 
+void draw_seconds()
+{
+
+	led_mask0 = 0;
+	led_mask1 = 0;
+	led_mask2 = 0;
+	led_mask3 = 0;
+
+    if(!not_set || colon)
+    {
+        uint8_t seconds10 = seconds / 10;
+        const uint8_t *ptr = &led_masks3[seconds10];
+        led_mask0 |= ptr[0];
+        led_mask1 |= ptr[1];
+        led_mask2 |= ptr[2];
+        led_mask3 |= ptr[3];
+
+        seconds10 = seconds - seconds10 * 10;
+        ptr = &led_masks4[seconds10];
+        led_mask0 |= ptr[0];
+        led_mask1 |= ptr[1];
+        led_mask2 |= ptr[2];
+        led_mask3 |= ptr[3];
+
+
+        if(ampm)
+        {
+            led_mask0 |= 0b10000000;
+        }
+
+        if(alarm)
+        {
+            led_mask1 |= 0b00000001;
+        }
+    }
+	write_leds();
+}
+
 
 
 void draw_alarm()
@@ -1073,7 +1172,7 @@ void decrement_alarm_hours()
 	draw_alarm();
 }
 
-void do_hour_up()
+uint8_t do_hour_up()
 {
 	if(mode == MODE_TEST)
 	{
@@ -1098,21 +1197,25 @@ void do_hour_up()
 			write_leds();
 		}
 		dump_leds();
+        return 1;
 	}
 	else
 	if(mode == MODE_SET_TIME)
 	{
 		increment_time_hours();
+        return 1;
 	}
 	else
 	if(mode == MODE_SET_ALARM)
 	{
 		increment_alarm_hours();
+        return 1;
 	}
+    return 0;
 }
 
 
-void do_hour_down()
+uint8_t do_hour_down()
 {
 	if(mode == MODE_TEST)
 	{
@@ -1137,44 +1240,54 @@ void do_hour_down()
 			write_leds();
 		}
 		dump_leds();
+        return 1;
 	}
 	else
 	if(mode == MODE_SET_TIME)
 	{
 		decrement_time_hours();
+        return 1;
 	}
 	else
 	if(mode == MODE_SET_ALARM)
 	{
 		decrement_alarm_hours();
+        return 1;
 	}
+    return 0;
 }
 
 
-void do_minute_up()
+uint8_t do_minute_up()
 {
 	if(mode == MODE_SET_TIME)
 	{
 		increment_time_minutes();
+        return 1;
 	}
 	else
 	if(mode == MODE_SET_ALARM)
 	{
 		increment_alarm_minutes();
+        return 1;
 	}
+    return 0;
 }
 
-void do_minute_down()
+uint8_t do_minute_down()
 {
 	if(mode == MODE_SET_TIME)
 	{
 		decrement_time_minutes();
+        return 1;
 	}
 	else
 	if(mode == MODE_SET_ALARM)
 	{
 		decrement_alarm_minutes();
+        return 1;
 	}
+    return 0;
 }
 
 void handle_repeat()
@@ -1215,6 +1328,8 @@ void handle_repeat()
 
 void handle_ir()
 {
+// uncomment this to capture the IR codes
+// DEBUG
 //print_number_nospace(ir_time);
 //print_text(", ");
 
@@ -1226,7 +1341,7 @@ void handle_ir()
 	uint8_t i, j;
 // test all bytes so far against every code
 	uint8_t got_it = 0;
-	for(j = 0; j < sizeof(ir_codes) / sizeof(ir_code_t); j++)
+	for(j = 0; j < TOTAL_CODES; j++)
 //	for(j = 0; j < 1; j++)
 	{
 // code has matched all previous bytes
@@ -1290,6 +1405,7 @@ void handle_ir()
 					{
 						case ENABLE_ALARM:
 							alarm = !alarm;
+// update the icon
 							if(mode == MODE_TIME || 
 								mode == MODE_SET_TIME)
 							{
@@ -1300,6 +1416,11 @@ void handle_ir()
 							{
 								draw_alarm();
 							}
+                            else
+                            if(mode == MODE_SECONDS)
+                            {
+                                draw_seconds();
+                            }
 
 // user interrupted alarm
 							if(alarm_sounding)
@@ -1354,6 +1475,21 @@ void handle_ir()
 							}
 							break;
 
+                        case SECONDS:
+                            if(mode == MODE_SECONDS)
+                            {
+                                mode = MODE_TIME;
+                                play_song(seconds_tone2);
+								draw_time();
+                            }
+                            else
+                            {
+                                mode = MODE_SECONDS;
+                                play_song(seconds_tone1);
+                                draw_seconds();
+                            }
+                            break;
+
 
  						case SET_TEST:
 							play_song(test_tone);
@@ -1371,18 +1507,22 @@ void handle_ir()
 
 
 						case HOUR_UP:
-							do_hour_up();
+                        {
+							uint8_t result = do_hour_up();
 							repeat_counter = REPEAT_COUNT1;
 							repeating = 1;
-							play_song(up_tone);
+							if(result) play_song(up_tone);
 							break;
+                        }
 
 						case HOUR_DN:
-							do_hour_down();
+                        {
+							uint8_t result = do_hour_down();
 							repeat_counter = REPEAT_COUNT1;
 							repeating = 1;
-							play_song(dn_tone);
+							if(result) play_song(dn_tone);
 							break;
+                        }
 							
 							
  						case MINUTE_UP:
@@ -1392,10 +1532,10 @@ void handle_ir()
 							}
 							else
 							{
-								do_minute_up();
+								uint8_t result = do_minute_up();
 								repeat_counter = REPEAT_COUNT1;
 								repeating = 1;
-								play_song(up_tone);
+								if(result) play_song(up_tone);
  							}
 							break;
 							
@@ -1406,10 +1546,10 @@ void handle_ir()
 							}
 							else
 							{
-								do_minute_down();
+								uint8_t result = do_minute_down();
 								repeat_counter = REPEAT_COUNT1;
 								repeating = 1;
-								play_song(dn_tone);
+								if(result) play_song(dn_tone);
 							}
  							break;
 					}
@@ -1640,6 +1780,11 @@ void handle_time()
 		{
 			draw_time();
 		}
+        else
+        if(mode == MODE_SECONDS)
+        {
+            draw_seconds();
+        }
 	}
 
 

@@ -347,7 +347,7 @@ void radio_on()
     
     RADIO_SCK_LAT = 0;
     RADIO_SCK_TRIS = 0;
-    
+
 // scan for synchronous code
     write_radio(FIFORSTREG);
 // enable synchron latch

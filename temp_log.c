@@ -19,7 +19,10 @@
  */
 
 // record temperatures coming from the 2 sensors
+
+// scp it to the pi & compile it with gcc
 // gcc -O2 -o temp_log temp_log.c -lpthread -lrt
+
 
 #include <stdio.h>
 #include <stdint.h>
@@ -48,7 +51,7 @@ const uint8_t EXT_PACKET_KEY[] =
     0x82, 0xc9, 0x28, 0x31, 0x2f, 0x56, 0xe5, 0x7c
 };
 
-// key for packets coming from inside, for testing
+// key for packets coming from inside
 const uint8_t INT_PACKET_KEY[] = 
 {
     0xff, 0x5c, 0xf8, 0x98, 0xc6, 0xe8, 0xdc, 0x41, 
@@ -87,6 +90,7 @@ typedef struct
 serial_state_t ext_state;
 serial_state_t int_state;
 pthread_mutex_t temp_lock;
+int serial_fd = -1;
 
 // Returns the FD of the serial port
 static int init_serial(char *path, int baud, int custom_baud)
@@ -335,7 +339,6 @@ void* log_writer(void *ptr)
     }
 }
 
-
 int main(int argc, char *argv[])
 {
     int i;
@@ -365,15 +368,6 @@ int main(int argc, char *argv[])
     }
     
     printf("main %d recording temperatures\n", __LINE__);
-    int serial_fd = init_serial("/dev/ttyUSB0", B38400, BAUD);
-	if(serial_fd < 0) serial_fd = init_serial("/dev/ttyUSB0", B38400, BAUD);
-	if(serial_fd < 0) serial_fd = init_serial("/dev/ttyUSB1", B38400, BAUD);
-	if(serial_fd < 0) serial_fd = init_serial("/dev/ttyUSB2", B38400, BAUD);
-    if(serial_fd < 0)
-    {
-        printf("main %d failed to open serial port\n", __LINE__);
-        exit(1);
-    }
     
     bzero(&ext_state, sizeof(ext_state));
     bzero(&int_state, sizeof(int_state));
@@ -411,15 +405,34 @@ int main(int argc, char *argv[])
     
     while(1)
     {
-        int result = read(serial_fd, &serial_in, 1);
-        if(result <= 0)
-		{
-			printf("main %d Unplugged\n", __LINE__);
-			exit(0);
-		}
-        
-        ext_state.function(&ext_state);
-        int_state.function(&int_state);
-        
+        if(serial_fd < 0)
+        {
+            serial_fd = init_serial("/dev/ttyUSB0", B38400, BAUD);
+	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyUSB0", B38400, BAUD);
+	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyUSB1", B38400, BAUD);
+	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyUSB2", B38400, BAUD);
+            if(serial_fd < 0)
+            {
+                printf("main %d failed to open serial port\n", __LINE__);
+                sleep(1);
+            }
+        }
+
+        if(serial_fd >= 0)
+        {
+            int result = read(serial_fd, &serial_in, 1);
+            if(result <= 0)
+		    {
+			    printf("main %d Unplugged\n", __LINE__);
+
+// try to reopen it
+                serial_fd = -1;
+		    }
+            else
+            {
+                ext_state.function(&ext_state);
+                int_state.function(&int_state);
+            }
+        }
     }
 }
