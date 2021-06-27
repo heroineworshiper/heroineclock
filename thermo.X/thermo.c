@@ -35,6 +35,9 @@
 #define DO_RECEIVER
 
 
+// disable test mode if pickit grounds PGC
+#define DISABLE_TEST
+
 //#pragma config OSC = HSPLL  // Oscillator (HS oscillator with 4x PLL)
 #pragma config OSC = HS         // Oscillator (HS oscillator)
 #pragma config LVP = OFF    // Low Voltage Program (Low-voltage ICSP disabled)
@@ -162,11 +165,11 @@ uint32_t adc_count = 0;
 
 #ifdef DO_RECEIVER
 // key for packets coming from outside
-const uint8_t PACKET_KEY[] = 
-{
-    0xff, 0x98, 0xdf, 0x72, 0x36, 0xb9, 0x0d, 0x48, 
-    0x82, 0xc9, 0x28, 0x31, 0x2f, 0x56, 0xe5, 0x7c
-};
+// const uint8_t PACKET_KEY[] = 
+// {
+//     0xff, 0x98, 0xdf, 0x72, 0x36, 0xb9, 0x0d, 0x48, 
+//     0x82, 0xc9, 0x28, 0x31, 0x2f, 0x56, 0xe5, 0x7c
+// };
 
 // key for packets coming from inside, for testing
 // const uint8_t PACKET_KEY[] = 
@@ -175,10 +178,25 @@ const uint8_t PACKET_KEY[] =
 //     0x2b, 0x96, 0xbe, 0x7c, 0xd3, 0x7a, 0xc6, 0xf2
 // };
 
+
+// key for packets from the base station
+const uint8_t PACKET_KEY[] = 
+{
+    0xff, 0x8d, 0x4a, 0xe0, 0x84, 0x09, 0xd6, 0xb2,
+    0xd6, 0x70, 0xb1, 0x7b, 0xbd, 0x06, 0x6b, 0x2c
+};
+
+// salt for radio data
+const uint8_t salt[] = 
+{
+    0x80, 0x59, 0x4a, 0xb7, 0x39, 0xbe, 0x73, 0x51
+};
+
 uint8_t have_serial;
 uint8_t serial_in;
 uint8_t key_offset;
 uint8_t data_offset;
+// get the temp but ignore the voltage
 #define DATA_SIZE 4
 uint8_t serial_data[DATA_SIZE];
 void (*handle_serial)();
@@ -687,7 +705,8 @@ void get_key();
 void get_temp()
 {
 // get data from radio
-    serial_data[data_offset++] = serial_in;
+    serial_data[data_offset] = serial_in ^ salt[data_offset];
+    data_offset++;
     if(data_offset >= DATA_SIZE)
     {
         key_offset = 0;
@@ -886,6 +905,7 @@ void main()
 #ifdef DO_RECEIVER
         if(have_serial)
  		{
+//print_byte(serial_in);
  			have_serial = 0;
             handle_serial();
  		}
@@ -899,7 +919,11 @@ void main()
 			PIR2bits.CCP2IF = 0;
 
 // not in test mode
+#ifndef DISABLE_TEST
             if(PORTBbits.RB6)
+#else
+            if(1)
+#endif
             {
 // mane time loop
 			    handle_thermo();

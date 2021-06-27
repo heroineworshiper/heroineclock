@@ -35,14 +35,19 @@ test.mid: test MIDI file
 Weather station files:
 --------------------------------------------------------------------------------
 
-temp_log.c: records temperature data from a radio connected to a serial
-port.
+temp_log.c: base station Linux software.  Records temperature data from
+the base station hardware.
 
 temp_sensor.X: The solar powered temperature sensor & all the radio
 modules.
 
+transceiver.pcb: layout of base station for receiving weather station data &
+transmitting wunderground data to LED display
+
+transceiver.X: firmware for the base station
+
 temp_sensor.pcb: incomplete layout of the solar powered temperature
-sensor & the radio modules
+sensor & the receiver radio modules
 
 temp_tester.c: calculates lookup tables for the thermometers
 

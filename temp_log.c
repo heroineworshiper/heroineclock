@@ -1,6 +1,6 @@
 /*
- * LOGGING FOR TEMPERATURE DATA
- * Copyright (C) 2020 Adam Williams <broadcast at earthling dot net>
+ * BASE STATION FOR TEMP SENSORS
+ * Copyright (C) 2020-2021 Adam Williams <broadcast at earthling dot net>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,11 +18,13 @@
  * 
  */
 
-// record temperatures coming from the 2 sensors
+// record temperatures coming from the 2 sensors & transmit wunderground data to
+// LED panel.
 
 // scp it to the pi & compile it with gcc
 // gcc -O2 -o temp_log temp_log.c -lpthread -lrt
-
+// run it with a file that contains the wunderground command
+// nohup ./temp_log wunder.txt >& /dev/null
 
 #include <stdio.h>
 #include <stdint.h>
@@ -37,8 +39,8 @@
 #include <linux/serial.h>
 #include <pthread.h>
 
-int do_daemon = 0;
 
+// ignored for ttyACM
 #define BAUD 8192
 
 // number of seconds between logs
@@ -58,18 +60,42 @@ const uint8_t INT_PACKET_KEY[] =
     0x2b, 0x96, 0xbe, 0x7c, 0xd3, 0x7a, 0xc6, 0xf2
 };
 
+// key for packets going to panel
+const uint8_t PANEL_KEY[] = 
+{
+    0xff, 0x8d, 0x4a, 0xe0, 0x84, 0x09, 0xd6, 0xb2,
+    0xd6, 0x70, 0xb1, 0x7b, 0xbd, 0x06, 0x6b, 0x2c
+};
+
+// salt for radio data
+const uint8_t salt[] = 
+{
+    0x80, 0x59, 0x4a, 0xb7, 0x39, 0xbe, 0x73, 0x51
+};
+
 #define KEY_SIZE sizeof(EXT_PACKET_KEY)
+
+
 
 #define LOG_PATH "/var/climate.log"
 #define TEXTLEN 1024
 #define REPEATS 4
+#define RESENDS 4
+// temp only
 #define INT_DATA_SIZE REPEATS
+// temp & voltage
 #define EXT_DATA_SIZE (REPEATS * 2)
 
 unsigned char serial_in;
 FILE *log_fd = 0;
-struct timespec start_time;
-struct timespec current_time;
+struct timespec start_time = { 0 };
+struct timespec current_time = { 0 };
+struct timespec last_wunder_time = { 0 };
+char wunder_command[TEXTLEN];
+char wunder_json[TEXTLEN];
+uint8_t wunder_packet[KEY_SIZE + REPEATS];
+// number of seconds between wunder updates
+#define WUNDER_INTERVAL 25
 
 typedef struct
 {
@@ -257,12 +283,83 @@ void get_temp(void *ptr)
             {
                 state->voltage = (float)state->serial_data[4] / 10;
             }
-            
+
             printf("get_temp %d new %s temp=%d voltage=%.1f\n", 
                 __LINE__, 
                 state->title, 
                 temp,
                 state->voltage);
+
+
+// get wunderground temperature when indoor temperature is received
+            if(!state->is_ext)
+            {
+                clock_gettime(CLOCK_MONOTONIC, &current_time);
+                if(current_time.tv_sec / WUNDER_INTERVAL != last_wunder_time.tv_sec / WUNDER_INTERVAL)
+                {
+                    last_wunder_time = current_time;
+
+                    FILE *fd = popen(wunder_command, "r");
+                    if(fd)
+                    {
+                        int len = 0;
+                        while(!feof(fd))
+                        {
+                            int result = fread(wunder_json + len,
+                                1, 
+                                TEXTLEN - len - 1,
+                                fd);
+                            if(result <= 0)
+                            {
+                                break;
+                            }
+                            len += result;
+                        }
+                        fclose(fd);
+                        wunder_json[len] = 0;
+//                        printf("get_temp %d:\n%s\n\n",
+//                            __LINE__,
+//                            wunder_json);
+// find the temperature value
+                        char *ptr = strstr(wunder_json, "\"temp\":");
+                        if(ptr)
+                        {
+                            ptr += 7;
+// truncate string
+                            char *ptr2 = strchr(ptr, ',');
+                            if(ptr2)
+                            {
+                                *ptr2 = 0;
+                            }
+                            float value = atof(ptr);
+                            int rounded = (int)(value + 0.5);
+                            printf("get_temp %d: %s temp=%f rounded=%d\n", 
+                                __LINE__,
+                                ptr, 
+                                value,
+                                rounded);
+// send the packet
+                            for(i = 0; i < KEY_SIZE; i++)
+                            {
+                                wunder_packet[i] = PANEL_KEY[i];
+                            }
+
+                            for(i = 0; i < REPEATS; i++)
+                            {
+                                wunder_packet[KEY_SIZE + i] = rounded ^ salt[i];
+                            }
+// retransmit
+                            for(i = 0; i < RESENDS; i++)
+                            {
+                                int result = write(serial_fd, wunder_packet, sizeof(wunder_packet));
+//                                 printf("get_temp %d: result=%d\n",
+//                                     __LINE__,
+//                                     result);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }    
 }
@@ -344,28 +441,34 @@ int main(int argc, char *argv[])
     int i;
     for(i = 1; i < argc; i++)
     {
-        if(!strcmp(argv[i], "-d"))
-        {
-            do_daemon = 1;
-        }
-        else
         if(!strcmp(argv[i], "-h"))
         {
             printf("Record temperatures from remote thermometers\n");
-            printf("Usage: -d - run in the background\n");
             exit(0);
+        }
+        else
+        {
+            FILE *fd = fopen(argv[i], "r");
+            if(fd)
+            {
+                fread(wunder_command, 1, TEXTLEN, fd);
+                printf("wunderground command: %s\n", wunder_command);
+                fclose(fd);
+            }
+            else
+            {
+                printf("Couldn't open wunderground file %s\n", argv[i]);
+                exit(1);
+            }
         }
     }
     
-
-    if(do_daemon)
+    if(wunder_command[0] == 0)
     {
-        int pid = fork();
-        if(pid)
-        {
-            _exit(0);
-        }
+        printf("No wunderground command provided.\n");
+        exit(1);
     }
+    
     
     printf("main %d recording temperatures\n", __LINE__);
     
@@ -402,15 +505,15 @@ int main(int argc, char *argv[])
   	pthread_t tid;
 	pthread_attr_init(&tid_attr);
     pthread_create(&tid, &tid_attr, log_writer, 0);
-    
+
+// 
     while(1)
     {
         if(serial_fd < 0)
         {
-            serial_fd = init_serial("/dev/ttyUSB0", B38400, BAUD);
-	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyUSB0", B38400, BAUD);
-	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyUSB1", B38400, BAUD);
-	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyUSB2", B38400, BAUD);
+            serial_fd = init_serial("/dev/ttyACM0", B38400, BAUD);
+	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyACM1", B38400, BAUD);
+	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyACM2", B38400, BAUD);
             if(serial_fd < 0)
             {
                 printf("main %d failed to open serial port\n", __LINE__);

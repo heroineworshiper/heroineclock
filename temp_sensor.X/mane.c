@@ -32,7 +32,7 @@
 // interior readout sends a packet to the uart to trigger a transmission
 //#define DO_INT_TRANSMITTER
 
-// manes powered receiver attached to confuser & exterior readout
+// manes powered receiver attached to LED panel
 // puts the radio in receive mode & sleeps
 #define DO_RECEIVER
 
