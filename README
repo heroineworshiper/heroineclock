@@ -35,6 +35,10 @@ test.mid: test MIDI file
 Weather station files:
 --------------------------------------------------------------------------------
 
+hygrometer2.X
+hygrometer2.pcb: huge hygrometer display
+
+
 temp_log.c: base station Linux software.  Records temperature data from
 the base station hardware.
 
