@@ -23,8 +23,13 @@
 
 // scp it to the pi & compile it with gcc
 // gcc -O2 -o temp_log temp_log.c -lpthread -lrt
-// run it with a file that contains the wunderground command
-// nohup ./temp_log wunder.txt >& /dev/null
+
+// run it with a file that contains the wunderground commands
+// The file contains separate lines with commands to download 
+// different weather stations.  The lines should be in order of preference.
+// This program runs each line until a download succeeds.
+
+// nohup ./temp_log wunder.txt > /dev/null&
 
 #include <stdio.h>
 #include <stdint.h>
@@ -91,9 +96,12 @@ FILE *log_fd = 0;
 struct timespec start_time = { 0 };
 struct timespec current_time = { 0 };
 struct timespec last_wunder_time = { 0 };
-char wunder_command[TEXTLEN];
+#define MAX_COMMANDS 255
+char *wunder_commands[MAX_COMMANDS] = { 0 };
+int total_commands = 0;
 char wunder_json[TEXTLEN];
 uint8_t wunder_packet[KEY_SIZE + REPEATS];
+char string[TEXTLEN];
 // number of seconds between wunder updates
 #define WUNDER_INTERVAL 25
 
@@ -227,8 +235,8 @@ void get_temp(void *ptr)
         state->function = get_key;
 
 // test temperature integrity
-        uint8_t i;
-        uint8_t failed = 0;
+        int i, j;
+        int failed = 0;
         for(i = 1; i < REPEATS; i++)
         {
             if(state->serial_data[0] != state->serial_data[i])
@@ -299,65 +307,78 @@ void get_temp(void *ptr)
                 {
                     last_wunder_time = current_time;
 
-                    FILE *fd = popen(wunder_command, "r");
-                    if(fd)
+// Try every wunderground station until one works
+                    int got_it = 0;
+                    for(j = 0; j < total_commands && !got_it; j++)
                     {
-                        int len = 0;
-                        while(!feof(fd))
+                        char *wunder_command = wunder_commands[j];
+                        FILE *fd = popen(wunder_command, "r");
+                        if(fd)
                         {
-                            int result = fread(wunder_json + len,
-                                1, 
-                                TEXTLEN - len - 1,
-                                fd);
-                            if(result <= 0)
+                            int len = 0;
+                            while(!feof(fd))
                             {
-                                break;
+                                int result = fread(wunder_json + len,
+                                    1, 
+                                    TEXTLEN - len - 1,
+                                    fd);
+                                if(result <= 0)
+                                {
+                                    break;
+                                }
+                                len += result;
                             }
-                            len += result;
-                        }
-                        fclose(fd);
-                        wunder_json[len] = 0;
-//                        printf("get_temp %d:\n%s\n\n",
-//                            __LINE__,
-//                            wunder_json);
-// find the temperature value
-                        char *ptr = strstr(wunder_json, "\"temp\":");
-                        if(ptr)
-                        {
-                            ptr += 7;
-// truncate string
-                            char *ptr2 = strchr(ptr, ',');
-                            if(ptr2)
+                            fclose(fd);
+                            wunder_json[len] = 0;
+    //                        printf("get_temp %d:\n%s\n\n",
+    //                            __LINE__,
+    //                            wunder_json);
+    // find the temperature value
+                            char *ptr = strstr(wunder_json, "\"temp\":");
+                            if(ptr)
                             {
-                                *ptr2 = 0;
-                            }
-                            float value = atof(ptr);
-                            int rounded = (int)(value + 0.5);
-                            printf("get_temp %d: %s temp=%f rounded=%d\n", 
-                                __LINE__,
-                                ptr, 
-                                value,
-                                rounded);
-// send the packet
-                            for(i = 0; i < KEY_SIZE; i++)
-                            {
-                                wunder_packet[i] = PANEL_KEY[i];
-                            }
+                                ptr += 7;
+    // truncate string
+                                char *ptr2 = strchr(ptr, ',');
+                                if(ptr2)
+                                {
+                                    *ptr2 = 0;
+                                }
+                                float value = atof(ptr);
+                                int rounded = (int)(value + 0.5);
+                                printf("get_temp %d: %s temp=%f rounded=%d\n", 
+                                    __LINE__,
+                                    ptr, 
+                                    value,
+                                    rounded);
+    // send the packet
+                                for(i = 0; i < KEY_SIZE; i++)
+                                {
+                                    wunder_packet[i] = PANEL_KEY[i];
+                                }
 
-                            for(i = 0; i < REPEATS; i++)
-                            {
-                                wunder_packet[KEY_SIZE + i] = rounded ^ salt[i];
-                            }
-// retransmit
-                            for(i = 0; i < RESENDS; i++)
-                            {
-                                int result = write(serial_fd, wunder_packet, sizeof(wunder_packet));
-//                                 printf("get_temp %d: result=%d\n",
-//                                     __LINE__,
-//                                     result);
+                                for(i = 0; i < REPEATS; i++)
+                                {
+                                    wunder_packet[KEY_SIZE + i] = rounded ^ salt[i];
+                                }
+    // retransmit
+                                for(i = 0; i < RESENDS; i++)
+                                {
+                                    int result = write(serial_fd, wunder_packet, sizeof(wunder_packet));
+    //                                 printf("get_temp %d: result=%d\n",
+    //                                     __LINE__,
+    //                                     result);
+                                }
+                                got_it = 1;
                             }
                         }
                     }
+
+
+
+
+
+
                 }
             }
         }
@@ -451,21 +472,34 @@ int main(int argc, char *argv[])
             FILE *fd = fopen(argv[i], "r");
             if(fd)
             {
-                fread(wunder_command, 1, TEXTLEN, fd);
-                printf("wunderground command: %s\n", wunder_command);
+                while(!feof(fd))
+                {
+                    char *result = fgets(string, TEXTLEN, fd);
+                    if(!result)
+                    {
+                        break;
+                    }
+                    if(strlen(string) > 0)
+                    {
+                        wunder_commands[total_commands] = strdup(string);
+                        printf("wunderground command: %s\n", string);
+                        total_commands++;
+                    }
+                }
+
                 fclose(fd);
             }
             else
             {
-                printf("Couldn't open wunderground file %s\n", argv[i]);
+                printf("Couldn't open wunderground commands %s\n", argv[i]);
                 exit(1);
             }
         }
     }
     
-    if(wunder_command[0] == 0)
+    if(total_commands == 0)
     {
-        printf("No wunderground command provided.\n");
+        printf("No wunderground commands provided.\n");
         exit(1);
     }
     
@@ -539,3 +573,6 @@ int main(int argc, char *argv[])
         }
     }
 }
+
+
+
