@@ -141,7 +141,8 @@ table_t temp_table[] =
 
 // the clockspeed
 //#define CLOCKSPEED 40000000
-#define CLOCKSPEED 10000000
+//#define CLOCKSPEED 10000000
+#define CLOCKSPEED 11000000
 
 // 115200 baud for debug
 //#define BAUD_CODE 21   // 10Mhz
@@ -149,7 +150,8 @@ table_t temp_table[] =
 //#define BAUD_CODE 104  // 48Mhz
 
 // 8192 baud for radio
-#define BAUD_CODE 303
+//#define BAUD_CODE 303 // 10Mhz
+#define BAUD_CODE 335 // 11Mhz
 
 #define UART_BUFSIZE 1024
 uint8_t uart_buffer[UART_BUFSIZE];

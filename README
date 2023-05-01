@@ -45,8 +45,10 @@ the base station hardware.
 temp_sensor.X: The solar powered temperature sensor & all the radio
 modules.
 
-transceiver.pcb: layout of base station for receiving weather station data &
-transmitting wunderground data to LED display
+transceiver2.pcb: 
+    layout of base station for receiving weather station data &
+    transmitting wunderground data to LED display
+    receives desk transmitter on 433
 
 transceiver.X: firmware for the base station
 
