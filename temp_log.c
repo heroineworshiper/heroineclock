@@ -1,6 +1,6 @@
 /*
- * BASE STATION FOR TEMP SENSORS
- * Copyright (C) 2020-2021 Adam Williams <broadcast at earthling dot net>
+ * BASE STATION FOR TEMP SENSORS & DESK CONTROL
+ * Copyright (C) 2020-2023 Adam Williams <broadcast at earthling dot net>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,20 +50,6 @@
 
 // number of seconds between logs
 #define LOG_INTERVAL (60 * 5)
-
-// key for packets coming from outside
-const uint8_t EXT_PACKET_KEY[] = 
-{
-    0xff, 0x98, 0xdf, 0x72, 0x36, 0xb9, 0x0d, 0x48, 
-    0x82, 0xc9, 0x28, 0x31, 0x2f, 0x56, 0xe5, 0x7c
-};
-
-// key for packets coming from inside
-const uint8_t INT_PACKET_KEY[] = 
-{
-    0xff, 0x5c, 0xf8, 0x98, 0xc6, 0xe8, 0xdc, 0x41, 
-    0x2b, 0x96, 0xbe, 0x7c, 0xd3, 0x7a, 0xc6, 0xf2
-};
 
 // key for packets going to panel
 const uint8_t PANEL_KEY[] = 
