@@ -1,5 +1,5 @@
 /*
- * 900Mhz chip radio to USB serial
+ * Chip radios to USB serial
  * Copyright (C) 2021-2023 Adam Williams <broadcast at earthling dot net>
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -20,13 +20,13 @@
 
 
 // this connects to the raspberry pi
-// It receives data from the exterior weather station & transmits
-// data from a different weather station to the LED panel.
+// It receives data from the weather stations, desk control & transmits
+// data to the LED panels & desks.
 // It can also be a generic radio to USB board.
 
 // debug UART is 38400 baud
 
-// send a test packet to the radio
+// send a test packet to the LED panel
 // echo -n -e '\xff\x8d\x4a\xe0\x84\x09\xd6\xb2\xd6\x70\xb1\x7b\xbd\x06\x6b\x2c\x8a\x53\x40\xbd' > /dev/ttyACM0
 
 // CONFIG1L
@@ -1291,7 +1291,7 @@ void get_data(void *ptr)
 
                 if(!failed)
                 {
-// sened data to USB
+// send data to USB
                     put_serial_in(0xff);
                     put_serial_in(EXT_START);
                     put_serial_in(state->serial_data[0]);

@@ -43,10 +43,18 @@
 #include <unistd.h>
 #include <linux/serial.h>
 #include <pthread.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
 
-
-// ignored for ttyACM
-#define BAUD 8192
+uint8_t desk_addresses[] = 
+{
+    10,0,2,108, // ec:fa:bc:05:63:32
+    10,0,2,109, // 
+    10,0,2,110, // 
+    10,0,2,111, // 
+};
+#define DESKS 4
+#define DESK_PORT 1234
 
 // number of seconds between logs
 #define LOG_INTERVAL (60 * 5)
@@ -64,7 +72,7 @@ const uint8_t salt[] =
     0x80, 0x59, 0x4a, 0xb7, 0x39, 0xbe, 0x73, 0x51
 };
 
-#define KEY_SIZE sizeof(EXT_PACKET_KEY)
+#define KEY_SIZE sizeof(PANEL_KEY)
 
 
 
@@ -76,6 +84,12 @@ const uint8_t salt[] =
 #define INT_DATA_SIZE REPEATS
 // temp & voltage
 #define EXT_DATA_SIZE (REPEATS * 2)
+
+// start codes for USB input
+#define INT_START 0x01
+#define EXT_START 0x02
+#define DESK_START 0x03
+
 
 unsigned char serial_in;
 FILE *log_fd = 0;
@@ -93,8 +107,7 @@ char string[TEXTLEN];
 
 typedef struct
 {
-    int key_offset;
-    const uint8_t *key;
+    uint8_t start_code;
     void (*function)(void *ptr);
     int data_size;
     uint8_t serial_data[EXT_DATA_SIZE];
@@ -105,10 +118,21 @@ typedef struct
     const char *title;
     int is_ext;
     float voltage;
-} serial_state_t;
+} weather_state_t;
 
-serial_state_t ext_state;
-serial_state_t int_state;
+typedef struct
+{
+    void (*function)();
+    uint8_t data[2];
+    int data_offset;
+    int desk;
+    uint8_t button;
+} desk_state_t;
+
+desk_state_t desk_state;
+
+weather_state_t ext_state;
+weather_state_t int_state;
 pthread_mutex_t temp_lock;
 int serial_fd = -1;
 
@@ -210,161 +234,127 @@ static int init_serial(char *path, int baud, int custom_baud)
 }
 
 
-void get_key(void *ptr);
+void get_start(void *ptr);
 void get_temp(void *ptr)
 {
-    serial_state_t *state = (serial_state_t*)ptr;
+    weather_state_t *state = (weather_state_t*)ptr;
     state->serial_data[state->data_offset++] = serial_in;
     if(state->data_offset >= state->data_size)
     {
-        state->key_offset = 0;
-        state->function = get_key;
+        state->function = get_start;
 
-// test temperature integrity
-        int i, j;
-        int failed = 0;
-        for(i = 1; i < REPEATS; i++)
-        {
-            if(state->serial_data[0] != state->serial_data[i])
-            {
-// reject packet if any value is different
-                failed = 1;
-                break;
-            }
-        }
-
-// test voltage integrity
-    	if(state->is_ext && !failed)
-        {
-            for(i = 1; i < REPEATS; i++)
-            {
-                if(state->serial_data[REPEATS] != state->serial_data[REPEATS + i])
-                {
-// reject packet if any value is different
-                    failed = 1;
-                    break;
-                }
-            }
-        }
 
 // new temperature reading
-        if(!failed)
-        {
-            int temp = state->serial_data[0];
+        int temp = state->serial_data[0];
 
-            if(temp != 0xff)
-            {            
-                pthread_mutex_lock(&temp_lock);
-                if(!state->temp_valid)
-                {
-                    state->min_temp = temp;
-                    state->max_temp = temp;
-                }
-                if(state->min_temp > temp)
-                {
-                    state->min_temp = temp;
-                }
-                if(state->max_temp < temp)
-                {
-                    state->max_temp = temp;
-                }
-                state->temp_valid = 1;
-                pthread_mutex_unlock(&temp_lock);
+        if(temp != 0xff)
+        {            
+            pthread_mutex_lock(&temp_lock);
+            if(!state->temp_valid)
+            {
+                state->min_temp = temp;
+                state->max_temp = temp;
             }
+            if(state->min_temp > temp)
+            {
+                state->min_temp = temp;
+            }
+            if(state->max_temp < temp)
+            {
+                state->max_temp = temp;
+            }
+            state->temp_valid = 1;
+            pthread_mutex_unlock(&temp_lock);
+        }
 
 // get voltage
-            if(state->is_ext)
-            {
-                state->voltage = (float)state->serial_data[4] / 10;
-            }
+        if(state->is_ext)
+        {
+            state->voltage = (float)state->serial_data[4] / 10;
+        }
 
-            printf("get_temp %d new %s temp=%d voltage=%.1f\n", 
-                __LINE__, 
-                state->title, 
-                temp,
-                state->voltage);
+        printf("get_temp %d new %s temp=%d voltage=%.1f\n", 
+            __LINE__, 
+            state->title, 
+            temp,
+            state->voltage);
 
 
 // get wunderground temperature when indoor temperature is received
-            if(!state->is_ext)
+        if(!state->is_ext)
+        {
+            clock_gettime(CLOCK_MONOTONIC, &current_time);
+            if(current_time.tv_sec / WUNDER_INTERVAL != last_wunder_time.tv_sec / WUNDER_INTERVAL)
             {
-                clock_gettime(CLOCK_MONOTONIC, &current_time);
-                if(current_time.tv_sec / WUNDER_INTERVAL != last_wunder_time.tv_sec / WUNDER_INTERVAL)
-                {
-                    last_wunder_time = current_time;
+                last_wunder_time = current_time;
 
 // Try every wunderground station until one works
-                    int got_it = 0;
-                    for(j = 0; j < total_commands && !got_it; j++)
+                int got_it = 0;
+                int i, j;
+                for(j = 0; j < total_commands && !got_it; j++)
+                {
+                    char *wunder_command = wunder_commands[j];
+                    FILE *fd = popen(wunder_command, "r");
+                    if(fd)
                     {
-                        char *wunder_command = wunder_commands[j];
-                        FILE *fd = popen(wunder_command, "r");
-                        if(fd)
+                        int len = 0;
+                        while(!feof(fd))
                         {
-                            int len = 0;
-                            while(!feof(fd))
+                            int result = fread(wunder_json + len,
+                                1, 
+                                TEXTLEN - len - 1,
+                                fd);
+                            if(result <= 0)
                             {
-                                int result = fread(wunder_json + len,
-                                    1, 
-                                    TEXTLEN - len - 1,
-                                    fd);
-                                if(result <= 0)
-                                {
-                                    break;
-                                }
-                                len += result;
+                                break;
                             }
-                            fclose(fd);
-                            wunder_json[len] = 0;
-    //                        printf("get_temp %d:\n%s\n\n",
-    //                            __LINE__,
-    //                            wunder_json);
-    // find the temperature value
-                            char *ptr = strstr(wunder_json, "\"temp\":");
-                            if(ptr)
+                            len += result;
+                        }
+                        fclose(fd);
+                        wunder_json[len] = 0;
+//                        printf("get_temp %d:\n%s\n\n",
+//                            __LINE__,
+//                            wunder_json);
+// find the temperature value
+                        char *ptr = strstr(wunder_json, "\"temp\":");
+                        if(ptr)
+                        {
+                            ptr += 7;
+// truncate string
+                            char *ptr2 = strchr(ptr, ',');
+                            if(ptr2)
                             {
-                                ptr += 7;
-    // truncate string
-                                char *ptr2 = strchr(ptr, ',');
-                                if(ptr2)
-                                {
-                                    *ptr2 = 0;
-                                }
-                                float value = atof(ptr);
-                                int rounded = (int)(value + 0.5);
-                                printf("get_temp %d: %s temp=%f rounded=%d\n", 
-                                    __LINE__,
-                                    ptr, 
-                                    value,
-                                    rounded);
-    // send the packet
-                                for(i = 0; i < KEY_SIZE; i++)
-                                {
-                                    wunder_packet[i] = PANEL_KEY[i];
-                                }
+                                *ptr2 = 0;
+                            }
+                            float value = atof(ptr);
+                            int rounded = (int)(value + 0.5);
+                            printf("get_temp %d: %s temp=%f rounded=%d\n", 
+                                __LINE__,
+                                ptr, 
+                                value,
+                                rounded);
+// send the packet
+                            for(i = 0; i < KEY_SIZE; i++)
+                            {
+                                wunder_packet[i] = PANEL_KEY[i];
+                            }
 
-                                for(i = 0; i < REPEATS; i++)
-                                {
-                                    wunder_packet[KEY_SIZE + i] = rounded ^ salt[i];
-                                }
-    // retransmit
-                                for(i = 0; i < RESENDS; i++)
-                                {
-                                    int result = write(serial_fd, wunder_packet, sizeof(wunder_packet));
-    //                                 printf("get_temp %d: result=%d\n",
-    //                                     __LINE__,
-    //                                     result);
-                                }
-                                got_it = 1;
+                            for(i = 0; i < REPEATS; i++)
+                            {
+                                wunder_packet[KEY_SIZE + i] = rounded ^ salt[i];
                             }
+// retransmit
+                            for(i = 0; i < RESENDS; i++)
+                            {
+                                int result = write(serial_fd, wunder_packet, sizeof(wunder_packet));
+//                                 printf("get_temp %d: result=%d\n",
+//                                     __LINE__,
+//                                     result);
+                            }
+
+                            got_it = 1;
                         }
                     }
-
-
-
-
-
-
                 }
             }
         }
@@ -372,31 +362,98 @@ void get_temp(void *ptr)
 }
 
 
-void get_key(void *ptr)
+void get_start2(void *ptr)
 {
-    serial_state_t *state = (serial_state_t*)ptr;
-
-// get packet key from radio
-    if(serial_in == state->key[state->key_offset])
+    weather_state_t *state = (weather_state_t*)ptr;
+    if(serial_in == state->start_code)
     {
-        state->key_offset++;
-        if(state->key_offset >= KEY_SIZE)
-        {
-            state->function = get_temp;
-            state->data_offset = 0;
-        }
+        state->function = get_temp;
+        state->data_offset = 0;
     }
     else
-    if(serial_in == state->key[0])
+    if(serial_in != 0xff)
     {
-        state->key_offset = 1;
-    }
-    else
-    if(state->key_offset > 0)
-    {
-        state->key_offset = 0;
+        state->function = get_start;
     }
 }
+
+void get_start(void *ptr)
+{
+    weather_state_t *state = (weather_state_t*)ptr;
+
+// get packet key from radio
+    if(serial_in == 0xff)
+    {
+        state->function = get_start2;
+    }
+}
+
+
+
+
+void desk_start();
+void desk_data()
+{
+    desk_state.data[desk_state.data_offset++] = serial_in;
+    if(desk_state.data_offset >= 2)
+    {
+        desk_state.desk = desk_state.data[0];
+        desk_state.button = desk_state.data[1];
+        
+        printf("desk_data %d desk=%d button=0x%02x\n",
+            __LINE__,
+            desk_state.desk,
+            desk_state.button);
+        if(desk_state.desk >= DESKS)
+        {
+            printf("desk_data %d invalid desk\n",
+                __LINE__);
+        }
+        else
+        {
+// send button over UDP
+            int send_socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+            struct sockaddr_in peer_addr;
+            socklen_t peer_addr_len = sizeof(struct sockaddr_in);
+            uint8_t *address = &desk_addresses[desk_state.desk * 4];
+            peer_addr.sin_addr.s_addr = (address[0]) |
+                (address[1] << 8) |
+                (address[2] << 16) |
+                (address[3] << 24);
+            peer_addr.sin_port = htons((unsigned short)DESK_PORT);
+            connect(send_socket, 
+                (struct sockaddr*)&peer_addr, 
+		        peer_addr_len);
+            uint8_t buffer[1];
+            buffer[0] = desk_state.button;
+            int _ = write(send_socket, buffer, 1);
+            close(send_socket);
+        }
+    }
+}
+
+void desk_start2()
+{
+    if(serial_in == DESK_START)
+    {
+        desk_state.function = desk_data;
+        desk_state.data_offset = 0;
+    }
+    else
+    if(serial_in != 0xff)
+    {
+        desk_state.function = desk_start;
+    }
+}
+
+void desk_start()
+{
+    if(serial_in == 0xff)
+    {
+        desk_state.function = desk_start2;
+    }
+}
+
 
 void* log_writer(void *ptr)
 {
@@ -409,7 +466,7 @@ void* log_writer(void *ptr)
             start_time = current_time;
             FILE *utc_fd = popen("date -u", "r");
             char string[TEXTLEN];
-            fread(string, 1, TEXTLEN, utc_fd);
+            int _ = fread(string, 1, TEXTLEN, utc_fd);
             fclose(utc_fd);
             
 // strip trailing newline from date
@@ -494,10 +551,10 @@ int main(int argc, char *argv[])
     
     bzero(&ext_state, sizeof(ext_state));
     bzero(&int_state, sizeof(int_state));
-    ext_state.function = get_key;
-    int_state.function = get_key;
-    ext_state.key = EXT_PACKET_KEY;
-    int_state.key = INT_PACKET_KEY;
+    ext_state.function = get_start;
+    int_state.function = get_start;
+    ext_state.start_code = EXT_START;
+    int_state.start_code = INT_START;
     ext_state.title = "EXT";
     int_state.title = "INT";
     ext_state.is_ext = 1;
@@ -507,6 +564,9 @@ int main(int argc, char *argv[])
     int_state.min_temp = 0xff;
     ext_state.max_temp = -0xff;
     int_state.max_temp = -0xff;
+
+    bzero(&desk_state, sizeof(desk_state));
+    desk_state.function = desk_start;
 
 	pthread_mutexattr_t attr;
 	pthread_mutexattr_init(&attr);
@@ -531,9 +591,9 @@ int main(int argc, char *argv[])
     {
         if(serial_fd < 0)
         {
-            serial_fd = init_serial("/dev/ttyACM0", B38400, BAUD);
-	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyACM1", B38400, BAUD);
-	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyACM2", B38400, BAUD);
+            serial_fd = init_serial("/dev/ttyACM0", B38400, 0);
+	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyACM1", B38400, 0);
+	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyACM2", B38400, 0);
             if(serial_fd < 0)
             {
                 printf("main %d failed to open serial port\n", __LINE__);
@@ -555,6 +615,7 @@ int main(int argc, char *argv[])
             {
                 ext_state.function(&ext_state);
                 int_state.function(&int_state);
+                desk_state.function();
             }
         }
     }
