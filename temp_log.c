@@ -18,8 +18,9 @@
  * 
  */
 
-// record temperatures coming from the 2 sensors & transmit wunderground data to
-// LED panel.
+// record temperatures coming from the 2 sensors
+// transmit wunderground data & desk commands to
+// LED panel & desks.
 
 // scp it to the pi & compile it with gcc
 // gcc -O2 -o temp_log temp_log.c -lpthread -lrt
