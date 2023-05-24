@@ -40,7 +40,7 @@ hygrometer2.pcb: huge hygrometer display
 
 
 temp_log.c: base station Linux software.  Records temperature data from
-the base station hardware.
+the base station hardware.  Forwards desk commands to wifi.
 
 temp_sensor.X: The solar powered temperature sensor & all the radio
 modules.
@@ -48,7 +48,7 @@ modules.
 transceiver2.pcb: 
     layout of base station for receiving weather station data &
     transmitting wunderground data to LED display
-    receives desk transmitter on 433
+    receives a desk transmitter on 433Mhz
 
 transceiver.X: firmware for the base station
 

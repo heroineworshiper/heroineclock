@@ -1,5 +1,5 @@
 /*
- * 900Mhz chip radio to USB serial
+ * 433Mhz & 915Mhz Chip radios to ttyACM
  * Copyright (C) 2021-2023 Adam Williams <broadcast at earthling dot net>
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -20,13 +20,13 @@
 
 
 // this connects to the raspberry pi
-// It receives data from the exterior weather station & transmits
-// data from a different weather station to the LED panel.
+// It receives data from the weather stations, desk control & transmits
+// data to the LED panels & desks.
 // It can also be a generic radio to USB board.
 
 // debug UART is 38400 baud
 
-// send a test packet to the radio
+// send a test packet to the LED panel
 // echo -n -e '\xff\x8d\x4a\xe0\x84\x09\xd6\xb2\xd6\x70\xb1\x7b\xbd\x06\x6b\x2c\x8a\x53\x40\xbd' > /dev/ttyACM0
 
 // CONFIG1L
@@ -616,15 +616,17 @@ const uint8_t *data_ptr;
 volatile uint8_t *EP0_OUT = (uint8_t *)(USB_BANK);
 volatile uint8_t *EP0_IN = (uint8_t *)(USB_BANK + 4);
 // user endpoints
-volatile uint8_t *EP1_OUT = (uint8_t *)(USB_BANK + 8);
 volatile uint8_t *EP1_IN = (uint8_t *)(USB_BANK + 12);
-volatile uint8_t *setup_out_packet = (uint8_t *)(USB_BANK + 16);
-volatile uint8_t *setup_in_packet = (uint8_t *)(USB_BANK + 24);
-volatile uint8_t *EP2_OUT = (uint8_t *)(USB_BANK + 32);
-volatile uint8_t *EP2_IN = (uint8_t *)(USB_BANK + 40);
-volatile uint8_t *cdc_in_packet = (uint8_t *)(USB_BANK + 48);
-volatile uint8_t *data_in_packet = (uint8_t *)(USB_BANK + 64);
-volatile uint8_t *data_out_packet = (uint8_t *)(USB_BANK + 128);
+volatile uint8_t *EP2_OUT = (uint8_t *)(USB_BANK + 16);
+volatile uint8_t *EP2_IN = (uint8_t *)(USB_BANK + 20);
+volatile uint8_t *setup_out_packet = (uint8_t *)(USB_BANK + 24);
+volatile uint8_t *setup_in_packet = (uint8_t *)(USB_BANK + 32);
+volatile uint8_t *cdc_in_packet = (uint8_t *)(USB_BANK + 40);
+volatile uint8_t *data_in_packet = (uint8_t *)(USB_BANK + 56);
+volatile uint8_t *data_out_packet = (uint8_t *)(USB_BANK + 120);
+
+uint8_t data_out_size = 0;
+uint8_t data_out_offset = 0;
 
 #define USTAT_EP00_OUT    (0x00 << 3) | (0 << 2)
 #define USTAT_EP00_IN     (0x00 << 3) | (1 << 2)
@@ -1292,7 +1294,7 @@ void get_data(void *ptr)
 
                 if(!failed)
                 {
-// sened data to USB
+// send data to USB
                     put_serial_in(0xff);
                     put_serial_in(EXT_START);
                     put_serial_in(state->serial_data[0]);
@@ -1456,44 +1458,66 @@ int main(int argc, char** argv)
                     }
                     offset++;
                 }
+
                 if(!reject)
                 {
-// matched a desk.  Test the buttons
+// matched a desk.  Test the button
                     offset = i * DESK_KEYSIZE;
-                    for(j = 0; j < 8; j++)
+                    uint8_t button = (desk_code[DESK_KEYSIZE] ^ desk_keys[offset]);
+                    offset++;
+                    for(j = 1; j < 4; j++)
                     {
-                        uint8_t button = 1 << j;
-                        reject = 0;
-                        for(k = 0; k < 4; k++)
+                        if((desk_code[DESK_KEYSIZE + j] ^ desk_keys[offset]) != button)
                         {
-                            if(desk_code[j] ^ desk_keys[offset] != button)
-                            {
-                                reject = 1;
-                                break;
-                            }
-                            offset++;
-                        }
-                        
-                        if(!reject)
-                        {
-// matched a desk & button
-// send to USB
-                            put_serial_in(0xff);
-                            put_serial_in(DESK_START);
-                            put_serial_in(i);
-                            put_serial_in(button);
-
-                            print_text("DESK ");
-                            print_number(i);
-                            print_text("BUTTON ");
-                            print_hex2(button);
-                            print_text("\n");
+                            reject = 1;
                             break;
                         }
+                        offset++;
+                    }
+
+                    if(!reject)
+                    {
+// matched a desk & button
+// send to USB
+                        put_serial_in(0xff);
+                        put_serial_in(DESK_START);
+                        put_serial_in(i);
+                        put_serial_in(button);
+
+//                         print_number(i);
+//                         print_hex2(button);
+//                         print_text("\n");
+                        break;
                     }
 
                     break;
                 }
+            }
+        }
+
+
+        if(TXSTAbits.TRMT && data_out_size)
+        {
+            if(data_out_offset >= data_out_size)
+            {
+                receive_mode();
+                data_out_size = 0;
+                data_out_offset = 0;
+
+
+// prepare for next receive
+                IF_EP_DTS(EP2_OUT)
+                {
+                    SET_EP(EP2_OUT, _USIE | _DAT0 | _DTSEN, EP2_SIZE, data_out_packet)
+                }
+                else
+                {
+                    SET_EP(EP2_OUT, _USIE | _DAT1 | _DTSEN, EP2_SIZE, data_out_packet)
+                }
+            }
+            else
+            {
+                TXREG = data_out_packet[data_out_offset++];
             }
         }
 
@@ -1506,47 +1530,18 @@ int main(int argc, char** argv)
 
             uint8_t i;
             transmit_mode();
-            for(i = 0; i < GET_EP_CNT(EP2_OUT); i++)
-            {
-                while(!PIR1bits.TXIF)
-                {
-                    ;
-                }
-                
-                TXREG = data_out_packet[i];
-            }
-// flush serial port
-            while(!PIR1bits.TXIF)
-            {
-            }
-
-            while(!TXSTAbits.TRMT)
-            {
-            }
-            receive_mode();
+            data_out_size = GET_EP_CNT(EP2_OUT);
 
 //             for(i = 0; i < GET_EP_CNT(EP2_OUT); i++)
 //             {
 //                 print_hex2(data_out_packet[i]);
 //             }
 //             print_text("\n");
-
-
-// prepare for next receive
-            IF_EP_DTS(EP2_OUT)
-            {
-                SET_EP(EP2_OUT, _USIE | _DAT0 | _DTSEN, EP2_SIZE, data_out_packet)
-            }
-            else
-            {
-                SET_EP(EP2_OUT, _USIE | _DAT1 | _DTSEN, EP2_SIZE, data_out_packet)
-            }
         }
 
 // pass received characters to USB
         if(serial_in_count > 0)
         {
-//            print_text("serial_in_count\n");
             IF_EP_READY(EP2_IN)
             {
 // disable interrupt
@@ -1554,9 +1549,9 @@ int main(int argc, char** argv)
                 uint8_t i = 0;
                 uint8_t fragment = serial_in_count;
 
-//print_text("IN ");
-//print_number(fragment);
-//print_text("\n");
+// print_text("IN ");
+// print_number(fragment);
+// print_text("\n");
                 if(fragment > EP2_SIZE)
                 {
                     fragment = EP2_SIZE;
@@ -1666,22 +1661,23 @@ void __interrupt(high_priority) isr()
             flags.interrupt_complete = 0;
             TMR1 = TIMER1_PERIOD;
             TMR1IF = 0;
-            desk_byte <<= 1;
-            desk_byte |= DESK_PORT;
+            desk_byte >>= 1;
+            if(DESK_PORT) desk_byte |= 0x80;
             desk_bit++;
             if(desk_bit >= 8)
             {
                 desk_code[desk_offset++] = desk_byte;
+//print_hex2(desk_byte);
 // reset start code timeout
                 desk_timeout = 0;
+// wait for start bit
+                TMR1IE = 0;
+                CCP1IF = 0;
+                CCP1IE = 1;
 
                 if(desk_offset >= DESK_CODESIZE)
                 {
                     flags.have_desk = 1;
-// wait for start bit
-                    TMR1IE = 0;
-                    CCP1IF = 0;
-                    CCP1IE = 1;
                     desk_offset = 0;
                 }
             }
