@@ -30,7 +30,7 @@
 // different weather stations.  The lines should be in order of preference.
 // This program runs each line until a download succeeds.
 
-// nohup ./temp_log wunder.txt > /dev/null&
+// nohup temp_log wunder.txt > /dev/null&
 
 #include <stdio.h>
 #include <stdint.h>
@@ -109,8 +109,6 @@ char string[TEXTLEN];
 
 typedef struct
 {
-    uint8_t start_code;
-    void (*function)(void *ptr);
     int data_size;
     uint8_t serial_data[EXT_DATA_SIZE];
     int data_offset;
@@ -124,10 +122,11 @@ typedef struct
 
 typedef struct
 {
-    void (*function)();
-    uint8_t data[2];
+    uint8_t data[4];
     int data_offset;
     int desk;
+    uint8_t id;
+    uint8_t adc;
     uint8_t button;
 } desk_state_t;
 
@@ -135,8 +134,10 @@ desk_state_t desk_state;
 
 weather_state_t ext_state;
 weather_state_t int_state;
+weather_state_t *current_state;
 pthread_mutex_t temp_lock;
 int serial_fd = -1;
+void (*parser)();
 
 // Returns the FD of the serial port
 static int init_serial(char *path, int baud, int custom_baud)
@@ -236,50 +237,49 @@ static int init_serial(char *path, int baud, int custom_baud)
 }
 
 
-void get_start(void *ptr);
-void get_temp(void *ptr)
+void get_start();
+void get_temp()
 {
-    weather_state_t *state = (weather_state_t*)ptr;
-    state->serial_data[state->data_offset++] = serial_in;
-    if(state->data_offset >= state->data_size)
+    current_state->serial_data[current_state->data_offset++] = serial_in;
+    if(current_state->data_offset >= current_state->data_size)
     {
-        state->function = get_start;
+        parser = get_start;
 
 
 // new temperature reading
-        int temp = state->serial_data[0];
+        int temp = current_state->serial_data[0];
 
         if(temp != 0xff)
-        {            
+        {
             pthread_mutex_lock(&temp_lock);
-            if(!state->temp_valid)
+            if(!current_state->temp_valid)
             {
-                state->min_temp = temp;
-                state->max_temp = temp;
+                current_state->min_temp = temp;
+                current_state->max_temp = temp;
             }
-            if(state->min_temp > temp)
+            if(current_state->min_temp > temp)
             {
-                state->min_temp = temp;
+                current_state->min_temp = temp;
             }
-            if(state->max_temp < temp)
+            if(current_state->max_temp < temp)
             {
-                state->max_temp = temp;
+                current_state->max_temp = temp;
             }
-            state->temp_valid = 1;
+            current_state->temp_valid = 1;
             pthread_mutex_unlock(&temp_lock);
         }
 
 // get voltage
-        if(state->is_ext)
+        if(current_state->is_ext)
         {
-            state->voltage = (float)state->serial_data[1] / 10;
+            current_state->voltage = (float)current_state->serial_data[1] / 10;
         }
 
         printf("get_temp %d new %s temp=%d voltage=%.1f\n", 
             __LINE__, 
-            state->title, 
+            current_state->title, 
             temp,
-            state->voltage);
+            current_state->voltage);
 
 
 // get wunderground temperature
@@ -362,47 +362,34 @@ void get_temp(void *ptr)
 }
 
 
-void get_start2(void *ptr)
-{
-    weather_state_t *state = (weather_state_t*)ptr;
-    if(serial_in == state->start_code)
-    {
-        state->function = get_temp;
-        state->data_offset = 0;
-    }
-    else
-    if(serial_in != 0xff)
-    {
-        state->function = get_start;
-    }
-}
 
-void get_start(void *ptr)
-{
-    weather_state_t *state = (weather_state_t*)ptr;
-
-// get packet key from radio
-    if(serial_in == 0xff)
-    {
-        state->function = get_start2;
-    }
-}
-
-
-
-
-void desk_start();
 void desk_data()
 {
     desk_state.data[desk_state.data_offset++] = serial_in;
-    if(desk_state.data_offset >= 2)
+    if(desk_state.data_offset >= 3)
     {
-        desk_state.function = desk_start;
-        desk_state.desk = desk_state.data[0];
-        desk_state.button = desk_state.data[1];
+        parser = get_start;
+        desk_state.id = desk_state.data[0];
+        desk_state.adc = desk_state.data[1];
+        desk_state.button = desk_state.data[2];
+
+// convert ADC to a desk number
+        if(desk_state.adc >= 200)
+            desk_state.desk = 0;
+        else
+        if(desk_state.adc >= 120)
+            desk_state.desk = 1;
+        else
+        if(desk_state.adc >= 70)
+            desk_state.desk = 2;
+        else
+            desk_state.desk = 3;
+
         
-        printf("desk_data %d desk=%d button=0x%02x\n",
+        printf("desk_data %d id=%d adc=%d desk=%d button=0x%02x\n",
             __LINE__,
+            desk_state.id,
+            desk_state.adc,
             desk_state.desk,
             desk_state.button);
         if(desk_state.desk >= DESKS)
@@ -413,34 +400,53 @@ void desk_data()
         else
         {
 // send button over UDP
-            uint8_t buffer[1];
-            buffer[0] = desk_state.button;
-            int _ = write(desk_fd[desk_state.desk], buffer, 1);
+#define PACKET_SIZE 2
+            uint8_t buffer[PACKET_SIZE];
+            buffer[0] = desk_state.id;
+            buffer[1] = desk_state.button;
+            int _ = write(desk_fd[desk_state.desk], buffer, PACKET_SIZE);
         }
     }
 }
 
-void desk_start2()
+void get_start2()
 {
     if(serial_in == DESK_START)
     {
-        desk_state.function = desk_data;
+        parser = desk_data;
         desk_state.data_offset = 0;
+    }
+    else
+    if(serial_in == EXT_START)
+    {
+        parser = get_temp;
+        current_state = &ext_state;
+        current_state->data_offset = 0;
+    }
+    else
+    if(serial_in == INT_START)
+    {
+        parser = get_temp;
+        current_state = &int_state;
+        current_state->data_offset = 0;
     }
     else
     if(serial_in != 0xff)
     {
-        desk_state.function = desk_start;
+        parser = get_start;
     }
 }
 
-void desk_start()
+void get_start(void *ptr)
 {
+// get packet type from radio
     if(serial_in == 0xff)
     {
-        desk_state.function = desk_start2;
+        parser = get_start2;
     }
 }
+
+
 
 
 void* log_writer(void *ptr)
@@ -548,10 +554,6 @@ int main(int argc, char *argv[])
     
     bzero(&ext_state, sizeof(ext_state));
     bzero(&int_state, sizeof(int_state));
-    ext_state.function = get_start;
-    int_state.function = get_start;
-    ext_state.start_code = EXT_START;
-    int_state.start_code = INT_START;
     ext_state.title = "EXT";
     int_state.title = "INT";
     ext_state.is_ext = 1;
@@ -563,7 +565,8 @@ int main(int argc, char *argv[])
     int_state.max_temp = -0xff;
 
     bzero(&desk_state, sizeof(desk_state));
-    desk_state.function = desk_start;
+
+    parser = get_start;
 
 	pthread_mutexattr_t attr;
 	pthread_mutexattr_init(&attr);
@@ -630,9 +633,10 @@ int main(int argc, char *argv[])
 		    }
             else
             {
-                ext_state.function(&ext_state);
-                int_state.function(&int_state);
-                desk_state.function();
+
+//printf("%02x ", serial_in);
+//fflush(stdout);
+                parser();
             }
         }
     }

@@ -89,12 +89,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pic18f14k50.h>
+#include "desk_tx.h"
 
 #define CLOCKSPEED 48000000
 
 #define HZ 1000
 #define TIMER0_PERIOD (-CLOCKSPEED / 4 / 32 / HZ + 1)
-#define DESK_BAUD 2000
+#define DESK_BAUD 4000
 #define DESK_PORT PORTCbits.RC5
 #define TIMER1_PERIOD (-CLOCKSPEED / 4 / DESK_BAUD + 1)
 
@@ -181,7 +182,9 @@ void init_cc1101();
 
 serial_state_t ext_state;
 serial_state_t int_state;
-void (*desk_state)();
+void desk_start1();
+void desk_start2();
+void (*desk_state)() = desk_start1;
 flags_t flags;
 uint16_t tick;
 uint8_t serial_in;
@@ -190,20 +193,13 @@ uint8_t desk_byte;
 uint8_t desk_timeout;
 // ticks between start bits before resetting the code
 #define DESK_TIMEOUT 5
-#define DESK_CODESIZE 10
+#define DESK_CODESIZE 12
 uint8_t desk_code[DESK_CODESIZE];
 uint8_t desk_offset = 0;
+uint8_t id;
+uint8_t adc;
+uint8_t button;
 
-// keys for different desks
-// 6 bytes per key, 4 keys
-#define DESKS 4
-#define DESK_KEYSIZE 6
-static const uint8_t desk_keys[] = {
-    0xf3, 0x4a, 0x0c, 0x74, 0xa6, 0x4a, 
-    0x87, 0x26, 0x23, 0x1b, 0x08, 0xe6, 
-    0xdd, 0xac, 0x44, 0xcc, 0xed, 0x07, 
-    0xab, 0x35, 0x66, 0x7e, 0xbb, 0x9a, 
-};
 
 
 // UART ------------------------------------------------------------------------
@@ -1231,6 +1227,55 @@ void handle_usb_transaction()
 // MANE ------------------------------------------------------------------------
 
 
+
+
+
+
+
+
+void desk_data()
+{
+    desk_code[desk_offset++] = desk_byte;
+    if(desk_offset >= DESK_CODESIZE)
+    {
+        flags.have_desk = 1;
+        desk_state = desk_start1;
+    }
+}
+
+void desk_start3()
+{
+    if(desk_byte == 0xd4)
+    {
+        desk_state = desk_data;
+        desk_offset = 0;
+    }
+    else
+    if(desk_byte == 0xff)
+        desk_state = desk_start2;
+    else
+        desk_state = desk_start1;
+}
+
+void desk_start2()
+{
+    if(desk_byte == 0x2d)
+        desk_state = desk_start3;
+    else
+    if(desk_byte != 0xff)
+        desk_state = desk_start1;
+}
+
+
+void desk_start1()
+{
+    if(desk_byte == 0xff)
+        desk_state = desk_start2;
+}
+
+
+
+
 void put_serial_in(uint8_t c)
 {
     if(serial_in_count < UART_IN_SIZE)
@@ -1444,54 +1489,28 @@ int main(int argc, char** argv)
         if(flags.have_desk)
         {
             flags.have_desk = 0;
-            uint8_t i, j, k;
-            for(i = 0; i < DESKS; i++)
+            id = (desk_code[0] ^ salt[0]);
+            adc = (desk_code[4] ^ salt[4]);
+            button = (desk_code[8] ^ salt[8]);
+            if(id == (desk_code[1] ^ salt[1]) &&
+                id == (desk_code[2] ^ salt[2]) &&
+                id == (desk_code[3] ^ salt[3]) &&
+                adc == (desk_code[5] ^ salt[5]) &&
+                adc == (desk_code[6] ^ salt[6]) &&
+                adc == (desk_code[7] ^ salt[7]) &&
+                button == (desk_code[9] ^ salt[9]) &&
+                button == (desk_code[10] ^ salt[10]) &&
+                button == (desk_code[11] ^ salt[11]))
             {
-                uint8_t offset = i * DESK_KEYSIZE;
-                uint8_t reject = 0;
-                for(j = 0; j < DESK_KEYSIZE; j++)
-                {
-                    if(desk_code[j] != desk_keys[offset]) 
-                    {
-                        reject = 1;
-                        break;
-                    }
-                    offset++;
-                }
-
-                if(!reject)
-                {
-// matched a desk.  Test the button
-                    offset = i * DESK_KEYSIZE;
-                    uint8_t button = (desk_code[DESK_KEYSIZE] ^ desk_keys[offset]);
-                    offset++;
-                    for(j = 1; j < 4; j++)
-                    {
-                        if((desk_code[DESK_KEYSIZE + j] ^ desk_keys[offset]) != button)
-                        {
-                            reject = 1;
-                            break;
-                        }
-                        offset++;
-                    }
-
-                    if(!reject)
-                    {
-// matched a desk & button
+//                print_number(adc);
+//                print_hex2(button);
+//                print_text("\n");
 // send to USB
-                        put_serial_in(0xff);
-                        put_serial_in(DESK_START);
-                        put_serial_in(i);
-                        put_serial_in(button);
-
-//                         print_number(i);
-//                         print_hex2(button);
-//                         print_text("\n");
-                        break;
-                    }
-
-                    break;
-                }
+                put_serial_in(0xff);
+                put_serial_in(DESK_START);
+                put_serial_in(id);
+                put_serial_in(adc);
+                put_serial_in(button);
             }
         }
 
@@ -1649,8 +1668,9 @@ void __interrupt(high_priority) isr()
 // start bit
             desk_bit = 0;
             desk_byte = 0;
-            if(desk_timeout >= DESK_TIMEOUT) desk_offset = 0;
-            TMR1 = TIMER1_PERIOD + TIMER1_PERIOD / 2;
+            if(desk_timeout >= DESK_TIMEOUT) desk_state = desk_start1;
+//            TMR1 = TIMER1_PERIOD + TIMER1_PERIOD / 2;
+            TMR1 = TIMER1_PERIOD;
             TMR1IF = 0;
             TMR1IE = 1;
         }
@@ -1666,7 +1686,6 @@ void __interrupt(high_priority) isr()
             desk_bit++;
             if(desk_bit >= 8)
             {
-                desk_code[desk_offset++] = desk_byte;
 //print_hex2(desk_byte);
 // reset start code timeout
                 desk_timeout = 0;
@@ -1674,12 +1693,7 @@ void __interrupt(high_priority) isr()
                 TMR1IE = 0;
                 CCP1IF = 0;
                 CCP1IE = 1;
-
-                if(desk_offset >= DESK_CODESIZE)
-                {
-                    flags.have_desk = 1;
-                    desk_offset = 0;
-                }
+                desk_state();
             }
         }
     }
