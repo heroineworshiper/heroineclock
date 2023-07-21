@@ -23,7 +23,7 @@
 // LED panel & desks.
 
 // scp it to the pi & compile it with gcc
-// gcc -O2 -o temp_log temp_log.c -lpthread -lrt
+// gcc -O2 -o /usr/bin/temp_log temp_log.c -lpthread -lrt
 
 // run it with a file that contains the wunderground commands
 // The file contains separate lines with commands to download 
@@ -46,6 +46,7 @@
 #include <pthread.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <semaphore.h>
 
 uint8_t desk_addresses[] = 
 {
@@ -282,83 +283,9 @@ void get_temp()
             current_state->voltage);
 
 
-// get wunderground temperature
-        clock_gettime(CLOCK_MONOTONIC, &current_time);
-        if(current_time.tv_sec / WUNDER_INTERVAL != 
-            last_wunder_time.tv_sec / WUNDER_INTERVAL)
-        {
-            last_wunder_time = current_time;
-
-// Try every wunderground station until one works
-            int got_it = 0;
-            int i, j;
-            for(j = 0; j < total_commands && !got_it; j++)
-            {
-                char *wunder_command = wunder_commands[j];
-                FILE *fd = popen(wunder_command, "r");
-                if(fd)
-                {
-                    int len = 0;
-                    while(!feof(fd))
-                    {
-                        int result = fread(wunder_json + len,
-                            1, 
-                            TEXTLEN - len - 1,
-                            fd);
-                        if(result <= 0)
-                        {
-                            break;
-                        }
-                        len += result;
-                    }
-                    fclose(fd);
-                    wunder_json[len] = 0;
-//                        printf("get_temp %d:\n%s\n\n",
-//                            __LINE__,
-//                            wunder_json);
-// find the temperature value
-                    char *ptr = strstr(wunder_json, "\"temp\":");
-                    if(ptr)
-                    {
-                        ptr += 7;
-// truncate string
-                        char *ptr2 = strchr(ptr, ',');
-                        if(ptr2)
-                        {
-                            *ptr2 = 0;
-                        }
-                        float value = atof(ptr);
-                        int rounded = (int)(value + 0.5);
-                        printf("get_temp %d: %s temp=%f rounded=%d\n", 
-                            __LINE__,
-                            ptr, 
-                            value,
-                            rounded);
-// send the packet
-                        for(i = 0; i < KEY_SIZE; i++)
-                        {
-                            wunder_packet[i] = PANEL_KEY[i];
-                        }
-
-                        for(i = 0; i < REPEATS; i++)
-                        {
-                            wunder_packet[KEY_SIZE + i] = rounded ^ salt[i];
-                        }
-// retransmit
-                        for(i = 0; i < RESENDS; i++)
-                        {
-                            int result = write(serial_fd, wunder_packet, sizeof(wunder_packet));
-//                                 printf("get_temp %d: result=%d\n",
-//                                     __LINE__,
-//                                     result);
-                        }
-
-                        got_it = 1;
-                    }
-                }
-            }
-        }
-    }    
+// wake up thread to get the wunderground temperature
+        sem_post(&wunder_lock);
+    }
 }
 
 
@@ -447,6 +374,94 @@ void get_start(void *ptr)
 }
 
 
+void* wunder_reader(void *ptr)
+{
+    while(1)
+    {
+        sem_wait(&wunder_lock);
+        
+
+        clock_gettime(CLOCK_MONOTONIC, &current_time);
+        if(current_time.tv_sec / WUNDER_INTERVAL != 
+            last_wunder_time.tv_sec / WUNDER_INTERVAL)
+        {
+            last_wunder_time = current_time;
+
+// Try every wunderground station until one works
+            int got_it = 0;
+            int i, j;
+            for(j = 0; j < total_commands && !got_it; j++)
+            {
+                char *wunder_command = wunder_commands[j];
+                FILE *fd = popen(wunder_command, "r");
+                if(fd)
+                {
+                    int len = 0;
+                    while(!feof(fd))
+                    {
+                        int result = fread(wunder_json + len,
+                            1, 
+                            TEXTLEN - len - 1,
+                            fd);
+                        if(result <= 0)
+                        {
+                            break;
+                        }
+                        len += result;
+                    }
+                    fclose(fd);
+                    wunder_json[len] = 0;
+//                        printf("get_temp %d:\n%s\n\n",
+//                            __LINE__,
+//                            wunder_json);
+// find the temperature value
+                    char *ptr = strstr(wunder_json, "\"temp\":");
+                    if(ptr)
+                    {
+                        ptr += 7;
+// truncate string
+                        char *ptr2 = strchr(ptr, ',');
+                        if(ptr2)
+                        {
+                            *ptr2 = 0;
+                        }
+                        float value = atof(ptr);
+                        int rounded = (int)(value + 0.5);
+                        printf("get_temp %d: %s temp=%f rounded=%d\n", 
+                            __LINE__,
+                            ptr, 
+                            value,
+                            rounded);
+// send the packet
+                        for(i = 0; i < KEY_SIZE; i++)
+                        {
+                            wunder_packet[i] = PANEL_KEY[i];
+                        }
+
+                        for(i = 0; i < REPEATS; i++)
+                        {
+                            wunder_packet[KEY_SIZE + i] = rounded ^ salt[i];
+                        }
+// retransmit
+                        for(i = 0; i < RESENDS; i++)
+                        {
+                            int result = write(serial_fd, wunder_packet, sizeof(wunder_packet));
+//                                 printf("get_temp %d: result=%d\n",
+//                                     __LINE__,
+//                                     result);
+                        }
+
+
+
+
+                        got_it = 1;
+                    }
+                }
+            }
+        }
+        
+    }
+}
 
 
 void* log_writer(void *ptr)
@@ -585,6 +600,8 @@ int main(int argc, char *argv[])
   	pthread_t tid;
 	pthread_attr_init(&tid_attr);
     pthread_create(&tid, &tid_attr, log_writer, 0);
+    sem_init(&wunder_lock, 0, 0);
+    pthread_create(&tid, &tid_attr, wunder_reader, 0);
 
 
 // open sockets to all the desks
