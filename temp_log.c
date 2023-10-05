@@ -1,5 +1,5 @@
 /*
- * BASE STATION FOR TEMP SENSORS & DESK CONTROL
+ * BASE STATION FOR TEMP SENSORS, DESKS & filament drier
  * Copyright (C) 2020-2023 Adam Williams <broadcast at earthling dot net>
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -24,6 +24,7 @@
 
 // scp it to the pi & compile it with gcc
 // gcc -O2 -o /usr/bin/temp_log temp_log.c -lpthread -lrt
+// gcc -O2 -o temp_log temp_log.c -lpthread -lrt
 
 // run it with a file that contains the wunderground commands
 // The file contains separate lines with commands to download 
@@ -61,6 +62,8 @@ int desk_fd[DESKS];
 
 // number of seconds between logs
 #define LOG_INTERVAL (60 * 5)
+// minimum number of seconds between drier logs
+#define DRIER_INTERVAL (15)
 
 // key for packets going to panel
 const uint8_t PANEL_KEY[] = 
@@ -80,6 +83,7 @@ const uint8_t salt[] =
 
 
 #define LOG_PATH "/var/climate.log"
+#define DRIER_PATH "/var/drier.log"
 #define TEXTLEN 1024
 #define REPEATS 4
 #define RESENDS 4
@@ -92,13 +96,15 @@ const uint8_t salt[] =
 #define INT_START 0x01
 #define EXT_START 0x02
 #define DESK_START 0x03
+#define DRIER_START 0x04
 
 
 unsigned char serial_in;
 FILE *log_fd = 0;
+FILE *drier_fd = 0;
 struct timespec start_time = { 0 };
-struct timespec current_time = { 0 };
 struct timespec last_wunder_time = { 0 };
+struct timespec last_drier_time = { 0 };
 #define MAX_COMMANDS 255
 char *wunder_commands[MAX_COMMANDS] = { 0 };
 int total_commands = 0;
@@ -107,6 +113,7 @@ uint8_t wunder_packet[KEY_SIZE + REPEATS];
 char string[TEXTLEN];
 // number of seconds between wunder updates
 #define WUNDER_INTERVAL 25
+sem_t wunder_lock;
 
 typedef struct
 {
@@ -132,6 +139,12 @@ typedef struct
 } desk_state_t;
 
 desk_state_t desk_state;
+
+uint8_t drier_data[6];
+float drier_t;
+float drier_h;
+float drier_dp;
+int drier_offset = 0;
 
 weather_state_t ext_state;
 weather_state_t int_state;
@@ -237,6 +250,30 @@ static int init_serial(char *path, int baud, int custom_baud)
 	return fd;
 }
 
+float read_float(uint8_t *data)
+{
+    int8_t a = data[0];
+    int8_t b = data[1];
+    return (float)a + (float)b / 256;
+}
+
+void get_date_text(char *string)
+{
+    FILE *utc_fd = popen("date -u", "r");
+    int _ = fread(string, 1, TEXTLEN, utc_fd);
+    fclose(utc_fd);
+
+// strip trailing newline from date
+    char *ptr = string + strlen(string);
+    while(ptr > string)
+    {
+        ptr--;
+        if(*ptr == '\n' || *ptr == '\r')
+        {
+            *ptr = 0;
+        }
+    }
+}
 
 void get_start();
 void get_temp()
@@ -276,7 +313,7 @@ void get_temp()
             current_state->voltage = (float)current_state->serial_data[1] / 10;
         }
 
-        printf("get_temp %d new %s temp=%d voltage=%.1f\n", 
+        printf("get_temp %d: new %s temp=%d voltage=%.1f\n", 
             __LINE__, 
             current_state->title, 
             temp,
@@ -288,6 +325,49 @@ void get_temp()
     }
 }
 
+void get_drier_data()
+{
+    drier_data[drier_offset++] = serial_in;
+//printf("%02x ", serial_in);
+    if(drier_offset >= 6)
+    {
+//printf("\n");
+        parser = get_start;
+        drier_t = read_float(drier_data);
+        drier_h = read_float(drier_data + 2);
+        drier_dp = read_float(drier_data + 4);
+        printf("get_drier_data %d: TEMP: %.2f HUMID: %.2f DEW: %.2f\n",
+            __LINE__,
+            drier_t,
+            drier_h,
+            drier_dp);
+
+        struct timespec current_time = { 0 };
+        clock_gettime(CLOCK_MONOTONIC, &current_time);
+        if(current_time.tv_sec / DRIER_INTERVAL != 
+            last_drier_time.tv_sec / DRIER_INTERVAL)
+        {
+            last_drier_time = current_time;
+
+            char string[TEXTLEN];
+            get_date_text(string);
+            drier_fd = fopen(DRIER_PATH, "a");
+            if(!drier_fd)
+            {
+                printf("get_drier_data %d: failed to open drier file\n", __LINE__);
+                exit(1);
+            }
+            fprintf(drier_fd, 
+                "%s\t%.2f\t%.2f\t%.2f\n",
+                string,
+                drier_t,
+                drier_h,
+                drier_dp);
+            fclose(drier_fd);
+            drier_fd = 0;
+        }
+    }
+}
 
 
 void desk_data()
@@ -300,7 +380,7 @@ void desk_data()
         desk_state.adc = desk_state.data[1];
         desk_state.button = desk_state.data[2];
 
-// convert ADC to a desk number
+    // convert ADC to a desk number
         if(desk_state.adc >= 200)
             desk_state.desk = 0;
         else
@@ -312,8 +392,8 @@ void desk_data()
         else
             desk_state.desk = 3;
 
-        
-        printf("desk_data %d id=%d adc=%d desk=%d button=0x%02x\n",
+
+        printf("desk_data %d: id=%d adc=%d desk=%d button=0x%02x\n",
             __LINE__,
             desk_state.id,
             desk_state.adc,
@@ -321,23 +401,57 @@ void desk_data()
             desk_state.button);
         if(desk_state.desk >= DESKS)
         {
-            printf("desk_data %d invalid desk\n",
+            printf("desk_data %d: invalid desk\n",
                 __LINE__);
         }
         else
         {
-// send button over UDP
-#define PACKET_SIZE 2
+    // send button over UDP
+    #define PACKET_SIZE 2
             uint8_t buffer[PACKET_SIZE];
             buffer[0] = desk_state.id;
             buffer[1] = desk_state.button;
-            int _ = write(desk_fd[desk_state.desk], buffer, PACKET_SIZE);
+
+    // open the socket
+            if(desk_fd[desk_state.desk] < 0)
+            {
+                struct sockaddr_in peer_addr;
+                socklen_t peer_addr_len = sizeof(struct sockaddr_in);
+                uint8_t *address = &desk_addresses[desk_state.desk * 4];
+                peer_addr.sin_addr.s_addr = (address[0]) |
+                    (address[1] << 8) |
+                    (address[2] << 16) |
+                    (address[3] << 24);
+                desk_fd[desk_state.desk] = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+                peer_addr.sin_port = htons((unsigned short)DESK_PORT);
+                peer_addr.sin_family = AF_INET;
+                int result = connect(desk_fd[desk_state.desk], 
+                    (struct sockaddr*)&peer_addr, 
+		            peer_addr_len);
+                if(result != 0)
+                {
+                    printf("main %d: connect %s\n", __LINE__, strerror(errno));
+                    close(desk_fd[desk_state.desk]);
+                    desk_fd[desk_state.desk] = -1;
+                }
+            }
+
+            if(desk_fd[desk_state.desk] >= 0)
+            {
+                int _ = write(desk_fd[desk_state.desk], buffer, PACKET_SIZE);
+            }
         }
     }
 }
 
 void get_start2()
 {
+    if(serial_in == DRIER_START)
+    {
+        parser = get_drier_data;
+        drier_offset = 0;
+    }
+    else
     if(serial_in == DESK_START)
     {
         parser = desk_data;
@@ -379,15 +493,16 @@ void* wunder_reader(void *ptr)
     while(1)
     {
         sem_wait(&wunder_lock);
-        
 
+
+        struct timespec current_time = { 0 };
         clock_gettime(CLOCK_MONOTONIC, &current_time);
         if(current_time.tv_sec / WUNDER_INTERVAL != 
             last_wunder_time.tv_sec / WUNDER_INTERVAL)
         {
             last_wunder_time = current_time;
 
-// Try every wunderground station until one works
+    // Try every wunderground station until one works
             int got_it = 0;
             int i, j;
             for(j = 0; j < total_commands && !got_it; j++)
@@ -411,15 +526,15 @@ void* wunder_reader(void *ptr)
                     }
                     fclose(fd);
                     wunder_json[len] = 0;
-//                        printf("get_temp %d:\n%s\n\n",
-//                            __LINE__,
-//                            wunder_json);
-// find the temperature value
+    //                        printf("get_temp %d:\n%s\n\n",
+    //                            __LINE__,
+    //                            wunder_json);
+    // find the temperature value
                     char *ptr = strstr(wunder_json, "\"temp\":");
                     if(ptr)
                     {
                         ptr += 7;
-// truncate string
+    // truncate string
                         char *ptr2 = strchr(ptr, ',');
                         if(ptr2)
                         {
@@ -432,7 +547,7 @@ void* wunder_reader(void *ptr)
                             ptr, 
                             value,
                             rounded);
-// send the packet
+    // send the packet
                         for(i = 0; i < KEY_SIZE; i++)
                         {
                             wunder_packet[i] = PANEL_KEY[i];
@@ -442,13 +557,13 @@ void* wunder_reader(void *ptr)
                         {
                             wunder_packet[KEY_SIZE + i] = rounded ^ salt[i];
                         }
-// retransmit
+    // retransmit
                         for(i = 0; i < RESENDS; i++)
                         {
                             int result = write(serial_fd, wunder_packet, sizeof(wunder_packet));
-//                                 printf("get_temp %d: result=%d\n",
-//                                     __LINE__,
-//                                     result);
+    //                                 printf("get_temp %d: result=%d\n",
+    //                                     __LINE__,
+    //                                     result);
                         }
 
 
@@ -459,7 +574,6 @@ void* wunder_reader(void *ptr)
                 }
             }
         }
-        
     }
 }
 
@@ -469,27 +583,22 @@ void* log_writer(void *ptr)
     while(1)
     {
         sleep(1);
+        struct timespec current_time = { 0 };
         clock_gettime(CLOCK_MONOTONIC, &current_time);
         if(current_time.tv_sec / LOG_INTERVAL != start_time.tv_sec / LOG_INTERVAL)
         {
             start_time = current_time;
-            FILE *utc_fd = popen("date -u", "r");
             char string[TEXTLEN];
-            int _ = fread(string, 1, TEXTLEN, utc_fd);
-            fclose(utc_fd);
-            
-// strip trailing newline from date
-            char *ptr = string + strlen(string);
-            while(ptr > string)
-            {
-                ptr--;
-                if(*ptr == '\n' || *ptr == '\r')
-                {
-                    *ptr = 0;
-                }
-            }
+            get_date_text(string);
             pthread_mutex_lock(&temp_lock);
             printf("log_writer %d: new line\n", __LINE__);
+    
+            log_fd = fopen(LOG_PATH, "a");
+            if(!log_fd)
+            {
+                printf("log_writer %d: failed to open log file\n", __LINE__);
+                exit(1);
+            }
             fprintf(log_fd, 
                 "%s\t%d\t%d\t%d\t%d\t%d\t%d\t%.1f\n",
                 string,
@@ -500,8 +609,9 @@ void* log_writer(void *ptr)
                 ext_state.min_temp,
                 ext_state.max_temp,
                 ext_state.voltage);
-            fflush(log_fd);
-            
+            fclose(log_fd);
+            log_fd = 0;
+
             int_state.temp_valid = 0;
             ext_state.temp_valid = 0;
             pthread_mutex_unlock(&temp_lock);
@@ -566,7 +676,8 @@ int main(int argc, char *argv[])
     
     
     printf("main %d recording temperatures in %s\n", __LINE__, LOG_PATH);
-    
+    printf("main %d recording drier in %s\n", __LINE__, DRIER_PATH);
+
     bzero(&ext_state, sizeof(ext_state));
     bzero(&int_state, sizeof(int_state));
     ext_state.title = "EXT";
@@ -586,14 +697,10 @@ int main(int argc, char *argv[])
 	pthread_mutexattr_t attr;
 	pthread_mutexattr_init(&attr);
 	pthread_mutex_init(&temp_lock, &attr);
-    
-    log_fd = fopen(LOG_PATH, "a");
-    if(!log_fd)
-    {
-        printf("main %d: failed to open log file\n", __LINE__);
-        exit(1);
-    }
+
     clock_gettime(CLOCK_MONOTONIC, &start_time);
+    clock_gettime(CLOCK_MONOTONIC, &last_wunder_time);
+    clock_gettime(CLOCK_MONOTONIC, &last_drier_time);
 
     
 	pthread_attr_t tid_attr;
@@ -604,33 +711,19 @@ int main(int argc, char *argv[])
     pthread_create(&tid, &tid_attr, wunder_reader, 0);
 
 
-// open sockets to all the desks
     for(i = 0; i < DESKS; i++)
-    {
-        struct sockaddr_in peer_addr;
-        socklen_t peer_addr_len = sizeof(struct sockaddr_in);
-        uint8_t *address = &desk_addresses[i * 4];
-        peer_addr.sin_addr.s_addr = (address[0]) |
-            (address[1] << 8) |
-            (address[2] << 16) |
-            (address[3] << 24);
-        desk_fd[i] = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-        peer_addr.sin_port = htons((unsigned short)DESK_PORT);
-        peer_addr.sin_family = AF_INET;
-        int result = connect(desk_fd[i], 
-            (struct sockaddr*)&peer_addr, 
-		    peer_addr_len);
-        if(result != 0)
-            printf("main %d: connect %s\n", __LINE__, strerror(errno));
-    }
+        desk_fd[i] = -1;
+
 
     while(1)
     {
         if(serial_fd < 0)
         {
-            serial_fd = init_serial("/dev/ttyACM0", B38400, 0);
-	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyACM1", B38400, 0);
-	        if(serial_fd < 0) serial_fd = init_serial("/dev/ttyACM2", B38400, 0);
+            for(i = 0; i < 99 && serial_fd < 0; i++)
+            {
+                sprintf(string, "/dev/ttyACM%d", i);
+                serial_fd = init_serial(string, B38400, 0);
+            }
             if(serial_fd < 0)
             {
                 printf("main %d failed to open serial port\n", __LINE__);

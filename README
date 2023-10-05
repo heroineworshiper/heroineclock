@@ -51,6 +51,8 @@ transceiver2.pcb:
     receives a desk transmitter on 433Mhz
 
 transceiver.X: firmware for the base station
+    receives 433Mhz desk, 915Mhz weather stations
+    transmits 915Mhz weather data
 
 temp_sensor.pcb: incomplete layout of the solar powered temperature
 sensor & the receiver radio modules

@@ -1274,6 +1274,9 @@ Layer(5 "signal1")
 	Line[706.00mil 843.00mil 806.50mil 843.00mil 25.00mil 20.00mil "clearline"]
 	Line[806.50mil 843.00mil 835.00mil 814.50mil 25.00mil 20.00mil "clearline"]
 	Line[835.00mil 814.50mil 926.50mil 814.50mil 25.00mil 20.00mil "clearline"]
+	Line[984.50mil 846.00mil 947.50mil 883.00mil 25.00mil 20.00mil "clearline"]
+	Line[947.50mil 883.00mil 724.50mil 883.00mil 25.00mil 20.00mil "clearline"]
+	Line[724.50mil 883.00mil 1014.00mil 883.00mil 25.00mil 20.00mil "clearline"]
 )
 Layer(6 "signal2")
 (
