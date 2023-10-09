@@ -33,6 +33,8 @@
 
 // nohup temp_log wunder.txt > /dev/null&
 
+// print UDP debug statements with netcat -u -l 1234
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -48,6 +50,17 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <semaphore.h>
+#include <stdarg.h>
+
+
+
+// send debug text to UDP
+uint8_t debug_address[] = 
+{
+    10,0,10,25
+};
+#define DEBUG_PORT 1234
+int debug_fd = -1;
 
 uint8_t desk_addresses[] = 
 {
@@ -88,9 +101,11 @@ const uint8_t salt[] =
 #define REPEATS 4
 #define RESENDS 4
 // temp only
-#define INT_DATA_SIZE REPEATS
+//#define INT_DATA_SIZE REPEATS
+#define INT_DATA_SIZE 1
 // temp & voltage
-#define EXT_DATA_SIZE (REPEATS * 2)
+//#define EXT_DATA_SIZE (REPEATS * 2)
+#define EXT_DATA_SIZE 2
 
 // start codes for USB input
 #define INT_START 0x01
@@ -250,6 +265,42 @@ static int init_serial(char *path, int baud, int custom_baud)
 	return fd;
 }
 
+void print_debug(char *text, ...)
+{
+    if(debug_fd < 0)
+    {
+        struct sockaddr_in peer_addr;
+        socklen_t peer_addr_len = sizeof(struct sockaddr_in);
+        peer_addr.sin_addr.s_addr = (debug_address[0]) |
+            (debug_address[1] << 8) |
+            (debug_address[2] << 16) |
+            (debug_address[3] << 24);
+        debug_fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+        peer_addr.sin_port = htons((unsigned short)DEBUG_PORT);
+        peer_addr.sin_family = AF_INET;
+        int result = connect(debug_fd, 
+            (struct sockaddr*)&peer_addr, 
+		    peer_addr_len);
+        if(result != 0)
+        {
+            printf("print_debug %d: connect %s\n", __LINE__, strerror(errno));
+            close(debug_fd);
+            debug_fd = -1;
+        }
+    }
+    
+    if(debug_fd >= 0)
+    {
+        va_list(args);
+        va_start(args, text);
+        char string[TEXTLEN];
+        vsprintf(string, text, args);
+        va_end (args);
+        
+        int _ = write(debug_fd, string, strlen(string) + 1);
+    }
+}
+
 float read_float(uint8_t *data)
 {
     int8_t a = data[0];
@@ -279,9 +330,11 @@ void get_start();
 void get_temp()
 {
     current_state->serial_data[current_state->data_offset++] = serial_in;
+//print_debug("GET_TEMP %d %d\n", current_state->data_offset, current_state->data_size);
+
     if(current_state->data_offset >= current_state->data_size)
     {
-        parser = get_start;
+        parser = 0;
 
 
 // new temperature reading
@@ -318,6 +371,11 @@ void get_temp()
             current_state->title, 
             temp,
             current_state->voltage);
+        print_debug("get_temp %d: new %s temp=%d voltage=%.1f\n", 
+            __LINE__, 
+            current_state->title, 
+            temp,
+            current_state->voltage);
 
 
 // wake up thread to get the wunderground temperature
@@ -332,7 +390,7 @@ void get_drier_data()
     if(drier_offset >= 6)
     {
 //printf("\n");
-        parser = get_start;
+        parser = 0;
         drier_t = read_float(drier_data);
         drier_h = read_float(drier_data + 2);
         drier_dp = read_float(drier_data + 4);
@@ -375,7 +433,7 @@ void desk_data()
     desk_state.data[desk_state.data_offset++] = serial_in;
     if(desk_state.data_offset >= 3)
     {
-        parser = get_start;
+        parser = 0;
         desk_state.id = desk_state.data[0];
         desk_state.adc = desk_state.data[1];
         desk_state.button = desk_state.data[2];
@@ -406,13 +464,17 @@ void desk_data()
         }
         else
         {
-    // send button over UDP
-    #define PACKET_SIZE 2
+// send button over UDP
+#define PACKET_SIZE 2
             uint8_t buffer[PACKET_SIZE];
             buffer[0] = desk_state.id;
             buffer[1] = desk_state.button;
 
-    // open the socket
+            print_debug("GOT DESK %d 0x%02x 0x%02x\n", 
+                desk_state.desk, 
+                desk_state.id, 
+                desk_state.button);
+// open the socket
             if(desk_fd[desk_state.desk] < 0)
             {
                 struct sockaddr_in peer_addr;
@@ -439,6 +501,7 @@ void desk_data()
             if(desk_fd[desk_state.desk] >= 0)
             {
                 int _ = write(desk_fd[desk_state.desk], buffer, PACKET_SIZE);
+//                print_debug("SENT DESK\n");
             }
         }
     }
@@ -446,6 +509,7 @@ void desk_data()
 
 void get_start2()
 {
+//    print_debug("GOT START2\n");
     if(serial_in == DRIER_START)
     {
         parser = get_drier_data;
@@ -472,20 +536,18 @@ void get_start2()
         current_state->data_offset = 0;
     }
     else
-    if(serial_in != 0xff)
-    {
-        parser = get_start;
-    }
+        parser = 0;
 }
 
-void get_start(void *ptr)
-{
-// get packet type from radio
-    if(serial_in == 0xff)
-    {
-        parser = get_start2;
-    }
-}
+// void get_start(void *ptr)
+// {
+// // get packet type from radio
+//     print_debug("GOT START\n");
+//     if(serial_in == 0xff)
+//     {
+//         parser = get_start2;
+//     }
+// }
 
 
 void* wunder_reader(void *ptr)
@@ -692,7 +754,7 @@ int main(int argc, char *argv[])
 
     bzero(&desk_state, sizeof(desk_state));
 
-    parser = get_start;
+    parser = 0;
 
 	pthread_mutexattr_t attr;
 	pthread_mutexattr_init(&attr);
@@ -714,7 +776,9 @@ int main(int argc, char *argv[])
     for(i = 0; i < DESKS; i++)
         desk_fd[i] = -1;
 
-
+#define START_CODE 0xff
+#define ESC_CODE 0xfe
+    int got_esc = 0;
     while(1)
     {
         if(serial_fd < 0)
@@ -743,10 +807,34 @@ int main(int argc, char *argv[])
 		    }
             else
             {
-
-//printf("%02x ", serial_in);
-//fflush(stdout);
-                parser();
+//printf("serial_in=%02x got_esc=%d\n", serial_in, got_esc);
+// decode byte stuffing
+                if(!got_esc)
+                {
+                    if(serial_in == START_CODE)
+                    {
+//                        print_debug("GOT START\n");
+                        parser = get_start2;
+                    }
+                    else
+                    if(serial_in == ESC_CODE)
+                    {
+                        got_esc = 1;
+                    }
+                    else
+                    {
+                        print_debug("%02x ", serial_in);
+                        if(parser) parser();
+                    }
+                }
+                else
+                {
+// pass through START or ESC code
+                    got_esc = 0;
+                    serial_in ^= 0xff;
+                    print_debug("%02x ", serial_in);
+                    if(parser) parser();
+                }
             }
         }
     }
