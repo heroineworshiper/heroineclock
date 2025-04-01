@@ -21,6 +21,8 @@ thermotable.c: obsolete way of calibrating heroineclock 1's thermometer
 
 Source code for heroineclock 2 circa 2017 & the later thermometers.
 --------------------------------------------------------------------------------
+This one uses a RAV205 remote control.
+
 clock.X: heroineclock 2's source code
 
 clock.pcb: layout of the clock controller

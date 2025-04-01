@@ -1,6 +1,6 @@
 /*
  * HEROINECLOCK 2
- * Copyright (C) 2020 Adam Williams <broadcast at earthling dot net>
+ * Copyright (C) 2020-2025 Adam Williams <broadcast at earthling dot net>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -470,10 +470,10 @@ const uint8_t led_masks4[][4] =
 
 
 
-// mane timer period - 1 to account for interrupt behavior
-#define TIMER_PERIOD (CLOCKSPEED / 4 / 8 / 250 - 1)
 // mane timer interrupts at this rate
 #define HZ 250
+// mane timer period - 1 to account for interrupt behavior
+#define TIMER_PERIOD (CLOCKSPEED / 4 / 8 / HZ - 1)
 
 #define ABS(x) ((x) < 0 ? (-(x)) : (x))
 
@@ -505,12 +505,6 @@ uint8_t not_set = 1;
 #define MODE_SECONDS 4 // seconds
 uint8_t mode = MODE_TIME;
 
-// key repeat
-uint8_t repeating = 0;
-
-#define REPEAT_COUNT1 HZ / 2
-#define REPEAT_COUNT2 HZ / 4
-uint8_t repeat_counter = 0;
 
 uint8_t alarm_hours = 12;
 uint8_t alarm_minutes = 0;
@@ -546,121 +540,89 @@ uint8_t led_mask3 = 0;
 
 typedef struct
 {
-    const int16_t *data;
-	const uint8_t size;
+    const uint8_t *data;
     const uint8_t value;
 } ir_code_t;
 
 
-// remote control codes
-const int16_t power_data[] = 
-{ 
-	1395, 706, 107, 66, 107, 243, 107, 66, 107, 243, 107, 243, 107, 243, 107, 243, 107, 66, 107, 243, 107, 66, 107, 246, 104, 69, 104, 69, 104, 69, 104, 70, 104, 246, 104, 246, 103, 246, 103, 246, 103, 246, 103, 247, 103, 69, 103, 70, 103, 70, 103, 70, 103, 69, 103, 70, 103, 70, 103, 70, 103, 247, 103, 247, 103, 247, 103, 6199, 1391, 327, 103
-};
-
-const int16_t volume_up_data[] = 
-{  
-	1402, 701, 113, 60, 114, 236, 112, 61, 111, 239, 112, 237, 110, 239, 112, 238, 111, 61, 111, 238, 108, 65, 107, 242, 109, 64, 107, 66, 108, 65, 108, 65, 107, 242, 105, 68, 105, 245, 108, 65, 107, 242, 107, 242, 107, 66, 106, 67, 107, 66, 107, 243, 107, 66, 107, 243, 108, 64, 106, 67, 107, 242, 107, 243, 107, 243, 103, 6197, 1391, 327, 105
-};
-
-const int16_t volume_dn_data[] = 
-{  
-	1406, 694, 118, 58, 113, 236, 115, 57, 110, 240, 112, 238, 112, 237, 109, 241, 109, 64, 108, 242, 110, 63, 111, 239, 108, 65, 108, 65, 108, 65, 108, 65, 108, 242, 111, 239, 107, 243, 108, 65, 107, 242, 108, 241, 107, 66, 107, 66, 107, 66, 107, 66, 107, 66, 107, 243, 107, 66, 107, 66, 107, 243, 104, 246, 104, 246, 107, 6193, 1394, 323, 104
-};
-
-// const int16_t next_track_data[] = 
-// {  
-// 	1404, 698, 117, 57, 115, 235, 113, 59, 114, 237, 113, 239, 112, 235, 113, 240, 112, 60, 109, 241, 111, 62, 110, 240, 109, 64, 108, 65, 108, 65, 109, 64, 108, 242, 108, 65, 109, 240, 107, 66, 107, 66, 107, 242, 105, 67, 107, 243, 106, 68, 105, 244, 107, 65, 105, 245, 107, 242, 103, 70, 103, 247, 104, 69, 105, 245, 107, 6193, 1392, 326, 106
-// };
-// 
-// const int16_t prev_track_data[] = 
-// {  
-// 	1404, 698, 115, 58, 112, 237, 118, 55, 115, 235, 112, 241, 111, 236, 115, 235, 112, 64, 108, 242, 111, 62, 109, 241, 111, 62, 112, 61, 109, 64, 111, 62, 112, 238, 108, 242, 108, 242, 105, 68, 105, 69, 106, 243, 107, 65, 105, 245, 107, 66, 107, 66, 107, 66, 106, 243, 107, 243, 105, 68, 104, 246, 105, 68, 104, 246, 106, 6194, 1391, 327, 103
-// };
-
-const int16_t number1_data[] =     
-{  
-	1404, 699, 112, 61, 112, 238, 113, 59, 113, 237, 109, 241, 108, 242, 114, 235, 110, 63, 111, 238, 112, 62, 109, 241, 109, 64, 108, 65, 108, 65, 107, 66, 107, 242, 107, 243, 110, 63, 111, 238, 107, 66, 107, 243, 107, 66, 105, 68, 107, 66, 107, 66, 107, 243, 107, 66, 104, 246, 105, 69, 107, 242, 107, 242, 105, 245, 104, 6197, 1391, 326, 106
-};
-
-const int16_t number2_data[] =      
-{  
-	1402, 698, 119, 53, 116, 237, 112, 58, 115, 238, 112, 234, 111, 242, 109, 240, 112, 61, 112, 238, 108, 65, 111, 238, 109, 64, 108, 65, 108, 65, 107, 65, 107, 242, 107, 66, 105, 244, 105, 245, 108, 65, 108, 242, 107, 66, 107, 66, 107, 66, 107, 243, 107, 66, 106, 67, 106, 244, 106, 67, 104, 246, 107, 243, 107, 242, 104, 6197, 1390, 328, 107
-};
-
-
-// 3 & 4 are the same code
-const int16_t number3_data[] =      
-{  
-	1404, 697, 115, 58, 114, 236, 116, 57, 113, 236, 111, 239, 112, 240, 111, 236, 112, 64, 108, 242, 108, 65, 108, 242, 108, 64, 106, 67, 105, 68, 104, 68, 104, 245, 107, 66, 104, 69, 106, 66, 104, 246, 108, 242, 105, 68, 106, 67, 107, 66, 107, 243, 104, 246, 104, 246, 105, 68, 106, 67, 104, 246, 104, 246, 103, 247, 103, 6197, 1390, 327, 103
-};
-
-const int16_t number5_data[] =      
-{  
-	1400, 700, 111, 62, 111, 242, 107, 65, 106, 244, 107, 243, 105, 245, 106, 244, 105, 68, 105, 245, 104, 69, 104, 246, 104, 68, 105, 69, 104, 69, 104, 69, 104, 246, 104, 69, 104, 69, 103, 247, 104, 69, 104, 245, 104, 69, 104, 246, 104, 69, 104, 246, 103, 246, 104, 70, 103, 246, 104, 70, 104, 246, 104, 69, 104, 246, 104, 6200, 1392, 327, 103,
-};
+// remote control codes.  Discard 1st symbol received since we
+// only capture the rising edge.
+const uint8_t power_data[] = 
+{ 0,0,1,0,1,0,0,0,0,1,0,1,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0 };
+const uint8_t volume_up_data[] = 
+{ 0,0,1,0,1,0,0,0,0,1,0,1,0,1,1,1,1,0,1,0,1,0,0,1,1,1,0,1,0,1,1,0,0,0 };
+const uint8_t volume_dn_data[] = 
+{ 0,0,1,0,1,0,0,0,0,1,0,1,0,1,1,1,1,0,0,0,1,0,0,1,1,1,1,1,0,1,1,0,0,0 };
+const uint8_t number1_data[] = 
+{ 0,0,1,0,1,0,0,0,0,1,0,1,0,1,1,1,1,0,0,1,0,1,0,1,1,1,1,0,1,0,1,0,0,0 };
+const uint8_t number2_data[] = 
+{ 0,0,1,0,1,0,0,0,0,1,0,1,0,1,1,1,1,0,1,0,0,1,0,1,1,1,0,1,1,0,1,0,0,0 };
+const uint8_t number3_data[] = 
+{ 0,0,1,0,1,0,0,0,0,1,0,1,0,1,1,1,1,0,1,1,1,0,0,1,1,1,0,0,0,1,1,0,0,0 };
+const uint8_t number4_data[] = 
+{ 0,0,1,0,1,0,0,0,0,1,0,1,0,1,1,1,1,0,0,0,0,1,0,1,1,1,1,1,1,0,1,0,0,0 };
+const uint8_t number5_data[] = 
+{ 0,0,1,0,1,0,0,0,0,1,0,1,0,1,1,1,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0 };
+const uint8_t number6_data[] = 
+{ 0,0,1,0,1,0,0,0,0,1,0,1,0,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0 };
 
 
 // these buttons alternate between 2 codes
-const int16_t tv_up_data[] =
-{
-    180, 95, 177, 98, 310, 104, 169, 106, 167, 108, 166, 109, 164, 111, 163, 249, 301, 114, 159, 116, 158, 120, 155, 13991, 165, 110, 163, 112, 300, 115, 160, 118, 156, 120, 154, 121, 154, 121, 154, 258, 294, 121, 154, 121, 154, 121, 153,
-};
+const uint8_t tv_up_data[] = 
+{ 0,0,1,0,0,0,0,0,0,0,0,0 };
+const uint8_t tv_up_data2[] = 
+{ 0,1,0,0,0,0,0,0,0,0,0,0 };
+const uint8_t tv_down_data[] = 
+{ 0,0,1,0,0,0,0,0,0,0,0,1 };
+const uint8_t tv_down_data2[] = 
+{ 0,1,0,0,0,0,0,0,0,0,0,1 };
 
-const int16_t tv_up_data2[] =
-{
-    187, 88, 315, 99, 174, 103, 168, 105, 167, 108, 168, 107, 165, 109, 166, 248, 300, 115, 159, 117, 158, 117, 157, 13988, 166, 109, 303, 111, 162, 116, 159, 118, 159, 115, 158, 117, 157, 118, 155, 257, 294, 121, 154, 121, 154, 121, 155,
-};
 
-const int16_t tv_down_data[] = 
-{
-    183, 92, 176, 101, 309, 105, 166, 108, 166, 109, 167, 108, 164, 111, 163, 250, 298, 116, 159, 119, 155, 254, 157, 13855, 163, 111, 163, 112, 300, 115, 158, 117, 158, 118, 157, 121, 154, 122, 153, 258, 294, 121, 154, 120, 155, 260, 152,
-};
-
-const int16_t tv_down_data2[] = 
-{
-    182, 93, 315, 100, 171, 106, 166, 107, 166, 109, 167, 108, 165, 111, 163, 249, 297, 117, 159, 118, 155, 254, 158, 13856, 166, 109, 303, 112, 161, 114, 159, 116, 159, 120, 154, 121, 154, 121, 154, 258, 293, 122, 153, 121, 154, 258, 154,
-};
+#define CODE_SIZE sizeof(power_data)
+#define CODE_SIZE2 sizeof(tv_up_data)
 
 
 
 // translate the remote control buttons to clock buttons
 const ir_code_t ir_codes[] = { 
-    { power_data,      sizeof(power_data) / 2,      ENABLE_ALARM },
-	{ volume_up_data,  sizeof(volume_up_data) / 2,  HOUR_UP },
-	{ volume_dn_data,  sizeof(volume_dn_data) / 2,  HOUR_DN },
-//	{ next_track_data, sizeof(next_track_data) / 2, MINUTE_UP },
-//	{ prev_track_data, sizeof(prev_track_data) / 2, MINUTE_DN },
-	{ tv_up_data,      sizeof(tv_up_data) / 2,      MINUTE_UP },
-	{ tv_down_data,    sizeof(tv_down_data) / 2,    MINUTE_DN },
-	{ tv_up_data2,      sizeof(tv_up_data2) / 2,      MINUTE_UP },
-	{ tv_down_data2,    sizeof(tv_down_data2) / 2,    MINUTE_DN },
-	{ number1_data,    sizeof(number1_data) / 2,    SET_ALARM },
-	{ number2_data,    sizeof(number2_data) / 2,    SET_TIME },
-	{ number3_data,    sizeof(number3_data) / 2,    SET_TEST },
-    { number5_data,    sizeof(number5_data) / 2,    SECONDS }
+    { power_data,      ENABLE_ALARM },
+	{ number1_data,    SET_ALARM },
+	{ number2_data,    SET_TIME },
+	{ number3_data,    SET_TEST },
+    { number5_data,    SECONDS },
+	{ volume_up_data,  HOUR_UP },
+	{ volume_dn_data,  HOUR_DN },
 };
 
-#define IR_MARGIN 16
-#define IR_TIMEOUT 16000
-#define TOTAL_CODES (sizeof(ir_codes) / sizeof(ir_code_t))
+const ir_code_t ir_codes2[] = { 
+	{ tv_up_data,      MINUTE_UP },
+	{ tv_down_data,    MINUTE_DN },
+	{ tv_up_data2,     MINUTE_UP },
+	{ tv_down_data2,   MINUTE_DN },
+};
 
-// which codes have matched all bytes received so far
-// 0 if matched all bytes  1 if failed
-uint8_t ir_code_failed[TOTAL_CODES];
-uint8_t ir_size = 0;
+// ticks
+// 120ms observed.
+#define IR_TIMEOUT (120 * HZ / 1000)
+#define TOTAL_CODES (sizeof(ir_codes) / sizeof(ir_code_t))
+#define TOTAL_CODES2 (sizeof(ir_codes2) / sizeof(ir_code_t))
+// 1 & 0 bit
+#define IR_THRESHOLD 135
+
+uint8_t code_buffer[CODE_SIZE];
+uint8_t code_offset = 0;
+volatile uint8_t got_ir_int = 0;
+volatile uint8_t ir_time = 0;
+volatile uint8_t ir_timeout = 0;
 // IR is transmitting repeats
 uint8_t have_ir = 0;
 // last IR code received
 uint8_t ir_code = 0;
+// delay before 1st repeat
+uint8_t repeat_delay = 0;
+#define REPEAT_DELAY (HZ / 2)
+#define REPEAT_DELAY2 (HZ / 4)
 
-// IR interrupt fired
-volatile uint8_t got_ir_int = 0;
-// time of IR interrupt in us / 4
-int16_t ir_time = 0;
-// time in interrupt handler
-volatile uint16_t ir_time2 = 0;
-uint8_t first_edge = 1;
 
 
 #ifdef ENABLE_DEBUG
@@ -1292,294 +1254,292 @@ uint8_t do_minute_down()
 
 void handle_repeat()
 {
-	if(!have_ir)
+	switch(ir_code)
 	{
-		repeating = 0;
-		repeat_counter = 0;
+		case HOUR_UP:
+			do_hour_up();
+			break;
+
+		case HOUR_DN:
+			do_hour_down();
+			break;
+
+
+ 		case MINUTE_UP:
+			do_minute_up();
+ 			break;
+
+ 		case MINUTE_DN:
+			do_minute_down();
+ 			break;
 	}
-	else
+}
+
+void handle_ir_code()
+{
+
+	switch(ir_code)
 	{
-		repeat_counter--;
-		if(repeat_counter == 0)
-		{
-			repeat_counter = REPEAT_COUNT2;
-			switch(ir_code)
+		case ENABLE_ALARM:
+			alarm = !alarm;
+// update the icon
+			if(mode == MODE_TIME || 
+				mode == MODE_SET_TIME)
 			{
-				case HOUR_UP:
-					do_hour_up();
-					break;
-
-				case HOUR_DN:
-					do_hour_down();
-					break;
-
-
- 				case MINUTE_UP:
-					do_minute_up();
- 					break;
-
- 				case MINUTE_DN:
-					do_minute_down();
- 					break;
+				draw_time();
 			}
-		}
+			else
+			if(mode == MODE_SET_ALARM)
+			{
+				draw_alarm();
+			}
+            else
+            if(mode == MODE_SECONDS)
+            {
+                draw_seconds();
+            }
+
+// user interrupted alarm
+			if(alarm_sounding)
+			{
+//								stop_song();
+				play_song(alarm_off_tone);
+				alarm_sounding = 0;
+				alarm_time = 0;
+			}
+			else
+			{
+				if(alarm)
+				{
+					play_song(alarm_on_tone);
+				}
+				else
+				{
+					play_song(alarm_off_tone);
+				}
+			}
+			break;
+
+
+		case SET_ALARM:
+			if(mode == MODE_SET_ALARM)
+			{
+				mode = MODE_TIME;
+				play_song(set_alarm_tone2);
+				draw_time();
+			}
+			else
+			{
+				mode = MODE_SET_ALARM;
+				play_song(set_alarm_tone1);
+				draw_alarm();
+			}
+			break;
+
+
+		case SET_TIME:
+			if(mode == MODE_SET_TIME)
+			{
+				mode = MODE_TIME;
+				play_song(set_time_tone2);
+				draw_time();
+			}
+			else
+			{
+				mode = MODE_SET_TIME;
+				play_song(set_time_tone1);
+				draw_time();
+			}
+			break;
+
+        case SECONDS:
+            if(mode == MODE_SECONDS)
+            {
+                mode = MODE_TIME;
+                play_song(seconds_tone2);
+				draw_time();
+            }
+            else
+            {
+                mode = MODE_SECONDS;
+                play_song(seconds_tone1);
+                draw_seconds();
+            }
+            break;
+
+
+ 		case SET_TEST:
+			play_song(test_tone);
+			if(mode == MODE_TEST)
+			{
+				mode = MODE_TIME;
+				draw_time();
+			}
+			else
+			{
+				mode = MODE_TEST;
+				draw_test();
+			}
+ 			break;
+
+
+		case HOUR_UP:
+        {
+			uint8_t result = do_hour_up();
+			if(result) play_song(up_tone);
+			break;
+        }
+
+		case HOUR_DN:
+        {
+			uint8_t result = do_hour_down();
+			if(result) play_song(dn_tone);
+			break;
+        }
+
+
+ 		case MINUTE_UP:
+			if(mode == MODE_TEST)
+			{
+				play_song(alarm_song);
+			}
+			else
+			{
+				uint8_t result = do_minute_up();
+				if(result) play_song(up_tone);
+ 			}
+			break;
+
+ 		case MINUTE_DN:
+			if(mode == MODE_TEST)
+			{
+				play_song(alarm_song);
+			}
+			else
+			{
+				uint8_t result = do_minute_down();
+				if(result) play_song(dn_tone);
+			}
+ 			break;
+	}
+
+// stop alarm for all keys
+	if(alarm_sounding)
+	{
+		alarm_sounding = 0;
+		alarm_time = 0;
 	}
 }
 
 void handle_ir()
 {
-// uncomment this to capture the IR codes
+    if(ir_timeout == 0)
+    {
+        code_offset = 0;
+        if(have_ir)
+        {
+            have_ir = 0;
+        }
+    }
+
+    if(have_ir && 
+        repeat_delay == 0 && 
+        (ir_code == HOUR_UP ||
+        ir_code == HOUR_DN ||
+        ir_code == MINUTE_UP ||
+        ir_code == MINUTE_DN))
+    {
+/* print_text("IR repeat\n"); */
+        repeat_delay = REPEAT_DELAY2;
+        handle_repeat();
+    }
+
+    if(got_ir_int)
+    {
+// uncomment this to capture the raw IR codes
 // DEBUG
 //print_number_nospace(ir_time);
 //print_text(", ");
+        got_ir_int = 0;
+        ir_timeout = IR_TIMEOUT;
+        if(ir_time > IR_THRESHOLD)
+            ir_time = 1;
+        else
+            ir_time = 0;
+// uncomment this to get array data
+// DEBUG
+print_number_nospace(ir_time);
+print_text(",");
 
+        if(!have_ir)
+        {
+            code_buffer[code_offset++] = ir_time;
+            const ir_code_t *code;
+	        uint8_t got_it = 0;
+	        uint8_t i, j;
 
-// biggest error encountered in code
-	uint16_t ir_error = 0;
-
+// end of code
+            if(code_offset == CODE_SIZE2)
+            {
 // search for the code
-	uint8_t i, j;
-// test all bytes so far against every code
-	uint8_t got_it = 0;
-	for(j = 0; j < TOTAL_CODES; j++)
-//	for(j = 0; j < 1; j++)
-	{
-// code has matched all previous bytes
-		if(!ir_code_failed[j])
-		{
-			const ir_code_t *code = &ir_codes[j];
-			const int16_t *data = code->data;
-			const uint8_t code_size = code->size;
-			uint8_t failed = 0;
-			ir_error = 0;
-
-// test latest byte
-			int16_t error = ABS(data[ir_size] - ir_time);
-			if(error > ir_error)
-			{
-				ir_error = error;
-			}
-
-// reject code if latest byte doesn't match
-			if(error > IR_MARGIN)
-			{
-// 	 			print_byte('\n');
-// 
-
-// 				print_number_nospace(data[ir_size]);
-// 				print_text(" != ");
-// 				print_number_nospace(ir_time);
-// 				print_text(" ");
-//   			print_text("failed at ir_size=");
-// 				print_number(ir_size);
-// 				print_byte('\n');
-
-// don't search this code anymore
-				ir_code_failed[j] = 1;
-			}
-			else
-// all bytes so far matched the current code
-			{
-				ir_size++;
-
-// complete code was received
-				if(ir_size >= code_size)
-				{
-// reset the code search
-					ir_size = 0;
-					for(i = 0; i < TOTAL_CODES; i++)
-					{
-						ir_code_failed[i] = 0;
-					}
-
-					have_ir = 1;
-					ir_code = code->value;
-					print_text("IR code: ");
-					print_number(code->value);
-					print_text("error=");
-					print_number(ir_error);
-					print_byte('\n');
-
-
-					switch(code->value)
-					{
-						case ENABLE_ALARM:
-							alarm = !alarm;
-// update the icon
-							if(mode == MODE_TIME || 
-								mode == MODE_SET_TIME)
-							{
-								draw_time();
-							}
-							else
-							if(mode == MODE_SET_ALARM)
-							{
-								draw_alarm();
-							}
-                            else
-                            if(mode == MODE_SECONDS)
-                            {
-                                draw_seconds();
-                            }
-
-// user interrupted alarm
-							if(alarm_sounding)
-							{
-//								stop_song();
-								play_song(alarm_off_tone);
-								alarm_sounding = 0;
-								alarm_time = 0;
-							}
-							else
-							{
-								if(alarm)
-								{
-									play_song(alarm_on_tone);
-								}
-								else
-								{
-									play_song(alarm_off_tone);
-								}
-							}
-							break;
-							
-							
-						case SET_ALARM:
-							if(mode == MODE_SET_ALARM)
-							{
-								mode = MODE_TIME;
-								play_song(set_alarm_tone2);
-								draw_time();
-							}
-							else
-							{
-								mode = MODE_SET_ALARM;
-								play_song(set_alarm_tone1);
-								draw_alarm();
-							}
-							break;
-							
-							
-						case SET_TIME:
-							if(mode == MODE_SET_TIME)
-							{
-								mode = MODE_TIME;
-								play_song(set_time_tone2);
-								draw_time();
-							}
-							else
-							{
-								mode = MODE_SET_TIME;
-								play_song(set_time_tone1);
-								draw_time();
-							}
-							break;
-
-                        case SECONDS:
-                            if(mode == MODE_SECONDS)
-                            {
-                                mode = MODE_TIME;
-                                play_song(seconds_tone2);
-								draw_time();
-                            }
-                            else
-                            {
-                                mode = MODE_SECONDS;
-                                play_song(seconds_tone1);
-                                draw_seconds();
-                            }
+	            for(i = 0; i < TOTAL_CODES2 && !got_it; i++)
+                {
+                    code = &ir_codes2[i];
+                    const uint8_t *data = code->data;
+                    got_it = 1;
+                    for(j = 1; j < CODE_SIZE2; j++)
+                    {
+                        if(data[j] != code_buffer[j])
+                        {
+                            got_it = 0;
                             break;
-
-
- 						case SET_TEST:
-							play_song(test_tone);
-							if(mode == MODE_TEST)
-							{
-								mode = MODE_TIME;
-								draw_time();
-							}
-							else
-							{
-								mode = MODE_TEST;
-								draw_test();
-							}
- 							break;
-
-
-						case HOUR_UP:
-                        {
-							uint8_t result = do_hour_up();
-							repeat_counter = REPEAT_COUNT1;
-							repeating = 1;
-							if(result) play_song(up_tone);
-							break;
                         }
+                    }
+                }
+            }
 
-						case HOUR_DN:
+
+// end of code
+            if(code_offset >= CODE_SIZE)
+            {
+// search for the code
+	            for(i = 0; i < TOTAL_CODES && !got_it; i++)
+	            {
+                    code = &ir_codes[i];
+                    const uint8_t *data = code->data;
+                    got_it = 1;
+                    for(j = 1; j < CODE_SIZE; j++)
+                    {
+                        if(data[j] != code_buffer[j])
                         {
-							uint8_t result = do_hour_down();
-							repeat_counter = REPEAT_COUNT1;
-							repeating = 1;
-							if(result) play_song(dn_tone);
-							break;
+                            got_it = 0;
+                            break;
                         }
-							
-							
- 						case MINUTE_UP:
-							if(mode == MODE_TEST)
-							{
-								play_song(alarm_song);
-							}
-							else
-							{
-								uint8_t result = do_minute_up();
-								repeat_counter = REPEAT_COUNT1;
-								repeating = 1;
-								if(result) play_song(up_tone);
- 							}
-							break;
-							
- 						case MINUTE_DN:
-							if(mode == MODE_TEST)
-							{
-								play_song(alarm_song);
-							}
-							else
-							{
-								uint8_t result = do_minute_down();
-								repeat_counter = REPEAT_COUNT1;
-								repeating = 1;
-								if(result) play_song(dn_tone);
-							}
- 							break;
-					}
+                    }
+                }
+            }
 
-// stop alarm for all keys
-					if(alarm_sounding)
-					{
-						alarm_sounding = 0;
-						alarm_time = 0;
-					}
-				}
+            if(got_it)
+            {
+// print_text("i=");
+// print_number(i);
+// print_text("\n");
+				have_ir = 1;
+                repeat_delay = REPEAT_DELAY;
+				ir_code = code->value;
 
-// exit the code search
-				got_it = 1;
-				break;
-			}
-		}
-	}
-
-// no partial code was found, so discard
-	if(!got_it)
-	{
-//print_text("no matches\n");
-		uint8_t i;
-		ir_size = 0;
-		for(i = 0; i < TOTAL_CODES; i++)
-		{
-			ir_code_failed[i] = 0;
-		}
-	}
+				print_text("Code=");
+				print_number_nospace(ir_code);
+				print_byte('\n');
+                handle_ir_code();
+            }
+            else
+            if(code_offset >= CODE_SIZE)
+            {
+                code_offset = 0;
+            }
+        }
+    }
 }
 
 
@@ -1846,8 +1806,8 @@ void interrupt isr()
 		{
 			INTCON3bits.INT3IF = 0;
 			got_ir_int = 1;
-			ir_time2 = TMR0L;
-			ir_time2 |= ((uint16_t)TMR0H) << 8;
+			ir_time = TMR0L;
+			ir_time |= ((uint16_t)TMR0H) << 8;
 			TMR0H = 0;
 			TMR0L = 0;
 			interrupt_done = 0;
@@ -1875,11 +1835,9 @@ void main()
     PIE1bits.RCIE = 0;
 
 // IR interrupt
-	INTCON2bits.INTEDG3 = 0; // interrupt on falling edge
+	INTCON2bits.INTEDG3 = 1; // interrupt on rising edge
 	INTCON3bits.INT3IE = 1;
 	INTCON3bits.INT3IF = 0;
-	ir_size = 0;
-    first_edge = 1;
 
 
 // IR timer
@@ -1980,46 +1938,46 @@ void main()
 // 		}
 
 
-		uint16_t test_time = TMR0L;
-		test_time |= ((uint16_t)TMR0H) << 8;
-// IR timed out
-		if(test_time > IR_TIMEOUT &&
-			!first_edge)
-		{
-            print_text("IR timed out\n");
+// 		uint16_t test_time = TMR0L;
+// 		test_time |= ((uint16_t)TMR0H) << 8;
+// // IR timed out
+// 		if(test_time > IR_TIMEOUT &&
+// 			!first_edge)
+// 		{
+//             print_text("IR timed out\n");
+// 
+// 
+//     		INTCONbits.GIE = 0;
+// 			INTCON2bits.INTEDG3 = 0; // interrupt on falling edge
+// 			TMR0H = 0;
+// 			TMR0L = 0;
+//     		INTCONbits.GIE = 1;
+// 
+// 			uint8_t i;
+// 			ir_size = 0;
+// 			for(i = 0; i < TOTAL_CODES; i++)
+// 			{
+// 				ir_code_failed[i] = 0;
+// 			}
+//             first_edge = 1;
+// 			have_ir = 0;
+// 		}
 
-
-    		INTCONbits.GIE = 0;
-			INTCON2bits.INTEDG3 = 0; // interrupt on falling edge
-			TMR0H = 0;
-			TMR0L = 0;
-    		INTCONbits.GIE = 1;
-
-			uint8_t i;
-			ir_size = 0;
-			for(i = 0; i < TOTAL_CODES; i++)
-			{
-				ir_code_failed[i] = 0;
-			}
-            first_edge = 1;
-			have_ir = 0;
-		}
-
-		if(got_ir_int)
-		{
-        	got_ir_int = 0;
-// reverse edge
-			INTCON2bits.INTEDG3 = !INTCON2bits.INTEDG3;
-			ir_time = ir_time2;
-    		if(first_edge)
-    		{
-        		first_edge = 0;
-    		}
-    		else
-    		{
- 				handle_ir();
-    		}
-		}
+// 		if(got_ir_int)
+// 		{
+//         	got_ir_int = 0;
+// // reverse edge
+// 			INTCON2bits.INTEDG3 = !INTCON2bits.INTEDG3;
+// 			ir_time = ir_time2;
+//     		if(first_edge)
+//     		{
+//         		first_edge = 0;
+//     		}
+//     		else
+//     		{
+//  				handle_ir();
+//     		}
+// 		}
 
 
 
@@ -2042,11 +2000,6 @@ void main()
 
 // mane time loop
 			handle_time();
-			if(repeating)
-			{
-				handle_repeat();
-			}
-			
 			
 			if(alarm && 
 				!alarm_sounding &&
@@ -2057,11 +2010,14 @@ void main()
 			{
 				start_alarm();
 			}
-			
+
+
+            if(ir_timeout > 0) ir_timeout--;
+            if(repeat_delay > 0) repeat_delay--;
         }
 
 
-
+        handle_ir();
         
 #ifdef ENABLE_DEBUG
         // send a UART char
